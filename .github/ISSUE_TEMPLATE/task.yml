@@ -1,0 +1,21 @@
+name: タスク
+description: 新しいタスクを作成します
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this task template!
+  - type: input
+    id: about
+    attributes:
+      label: タスクの概要
+      description: タスクの概要を簡単な文章で説明します。
+  - type: textarea
+    id: tasks
+    attributes:
+      label: タスク一覧
+      description: 箇条書きまたは文章で、タスクの一覧を記述します。
+      value: |
+        - [ ]
+    validations:
+      required: true
