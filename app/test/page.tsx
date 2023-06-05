@@ -1,9 +1,16 @@
-import { appRouter } from "@/server/trpc/router";
+import { trpcCaller } from "@/server/trpc/router";
 
-// APIとの動作確認用なので、APIとの繋ぎ込み時に削除して問題ありません
+// APIとの動作確認用なので、APIとの繋ぎ込み時に削除します
 export default async function TestPage() {
-  const caller = appRouter.createCaller({ user: undefined });
-  const result = await caller.health();
+  const [result, userCount] = await Promise.all([
+    trpcCaller.health(),
+    trpcCaller.userCount(),
+  ]);
 
-  return <div>{result.status.toUpperCase()}</div>;
+  return (
+    <div>
+      <div>API status: {result.status}</div>
+      <div>Number of users: {userCount}</div>
+    </div>
+  );
 }

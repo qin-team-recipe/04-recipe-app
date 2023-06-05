@@ -6,6 +6,8 @@
 ## 環境構築
 
 ```bash
+cp .env.example .env
+
 # パッケージのインストール
 yarn install
 
@@ -14,19 +16,14 @@ docker compose up
 ```
 
 ```bash
+# データベースのマイグレーションを実行する
+yarn prisma migrate dev
+
 # アプリケーションを起動する
 yarn run dev
 ```
 
 [http://localhost:3000](http://localhost:3000)でアプリケーションを確認できます。
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-yarn dev
-```
 
 ## Learn More
 

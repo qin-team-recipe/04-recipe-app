@@ -1,4 +1,5 @@
 import { initTRPC } from "@trpc/server";
+import { prisma } from "../database/prisma";
 
 type AdminUser = { type: "admin" };
 type GeneralUser = { type: "general"; id: string };
@@ -8,7 +9,7 @@ export function createContext() {
   // TODO: authentication
   const user: User | undefined = undefined;
 
-  return { user };
+  return { user, prisma };
 }
 
 type Context = ReturnType<typeof createContext>;
