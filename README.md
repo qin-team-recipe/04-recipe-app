@@ -1,4 +1,24 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+「一流レシピ」のアプリケーションのリポジトリです。
+
+- [Figma](https://www.figma.com/file/JSVMGHBeYzAsmujXjPDwAE/%E4%B8%80%E6%B5%81%E3%83%AC%E3%82%B7%E3%83%94?type=design&node-id=0-1&t=hEktBgwhQUvdsL3W-0)
+- [Notion](https://www.notion.so/natsumih/Qin-Recipe-App-36e3e4c062cf4a4dbf05234affbfba42)
+
+## 環境構築
+
+```bash
+# パッケージのインストール
+yarn install
+
+# データベースを起動する
+docker compose up
+```
+
+```bash
+# アプリケーションを起動する
+yarn run dev
+```
+
+[http://localhost:3000](http://localhost:3000)でアプリケーションを確認できます。
 
 ## Getting Started
 
@@ -7,12 +27,6 @@ First, run the development server:
 ```bash
 yarn dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
 ## Learn More
 
