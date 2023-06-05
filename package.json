@@ -6,7 +6,11 @@
     "dev": "DB=dev next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "run-p lint:*",
+    "lint:tsc": "tsc --noEmit",
+    "lint:eslint": "next lint",
+    "lint:prettier": "prettier --check '**/*.{js,ts,tsx,json}'",
+    "fix:prettier": "prettier --check '**/*.{js,ts,tsx,json}'"
   },
   "dependencies": {
     "@prisma/client": "^4.15.0",
@@ -29,6 +33,8 @@
     "node": ">=18.0.0"
   },
   "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.8.8",
     "prisma": "^4.15.0"
   }
 }
