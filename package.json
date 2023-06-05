@@ -6,11 +6,11 @@
     "dev": "DB=dev next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "run-p lint:*",
+    "lint": "run-p 'lint:*'",
     "lint:tsc": "tsc --noEmit",
     "lint:eslint": "next lint",
-    "lint:prettier": "prettier --check '**/*.{js,ts,tsx,json}'",
-    "fix:prettier": "prettier --check '**/*.{js,ts,tsx,json}'"
+    "lint:prettier": "prettier --check '**/*.{js,ts,tsx,json}' --ignore-path .gitignore",
+    "fix:prettier": "prettier --write '**/*.{js,ts,tsx,json}' --ignore-path .gitignore"
   },
   "dependencies": {
     "@prisma/client": "^4.15.0",

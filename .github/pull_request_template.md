@@ -1,3 +1,3 @@
 closes
 
-## Pull Requestの内容
+## PRの内容
