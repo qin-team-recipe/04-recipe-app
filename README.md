@@ -17,7 +17,7 @@ docker compose up
 
 ```bash
 # データベースのマイグレーションを実行する
-yarn prisma migrate dev
+DB=dev yarn prisma migrate dev
 
 # アプリケーションを起動する
 yarn run dev
