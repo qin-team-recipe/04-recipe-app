@@ -19,6 +19,9 @@ jobs:
   deploy-preview:
     runs-on: ubuntu-22.04
     if: ${{ github.ref_name != 'main' }}
+    environment:
+      name: preview
+      url: ${{ steps.deploy.outputs.url }}
     services:
       # NOTE: Next.jsのビルド時にDBに接続するので用意しています。PlanetScaleの準備ができたら削除します。
       db:
@@ -44,7 +47,7 @@ jobs:
       - name: Build Project Artifacts
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+        run: echo "url=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})" >> $GITHUB_OUTPUT
   deploy-production:
     runs-on: ubuntu-latest
     if: ${{ github.ref_name == 'main' }}
