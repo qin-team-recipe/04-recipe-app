@@ -3,12 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "DB=dev next dev",
+    "build": "prisma generate && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "run-p 'lint:*'",
+    "lint:tsc": "tsc --noEmit",
+    "lint:eslint": "next lint",
+    "lint:prettier": "prettier --check '**/*.{js,ts,tsx,json}' --ignore-path .gitignore",
+    "fix:prettier": "prettier --write '**/*.{js,ts,tsx,json}' --ignore-path .gitignore"
   },
   "dependencies": {
+    "@prisma/client": "^4.15.0",
+    "@trpc/server": "^10.29.1",
     "@types/node": "20.2.5",
     "@types/react": "18.2.8",
     "@types/react-dom": "18.2.4",
@@ -25,5 +31,10 @@
   "packageManager": "yarn@3.6.0",
   "engines": {
     "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.8.8",
+    "prisma": "^4.15.0"
   }
 }
