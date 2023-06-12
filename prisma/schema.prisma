@@ -48,14 +48,22 @@ model ChefLink {
 
 /// レシピ（ベーステーブル）
 model Recipe {
-  id          String      @id @default(cuid())
+  id          String             @id @default(cuid())
   /// レシピ名
   name        String
   /// レシピの説明
-  description String      @db.VarChar(255)
+  description String             @db.VarChar(255)
+  /// 何人分か
+  yields      Int                @db.UnsignedInt
   chefRecipe  ChefRecipe?
   myRecipe    MyRecipe?
   favorites   Favorite[]
+  /// レシピの画像
+  images      RecipeImage[]
+  /// レシピの材料
+  ingredients RecipeIngredient[]
+  /// レシピのリンク
+  links       RecipeLink[]
 }
 
 /// シェフのレシピ
@@ -75,9 +83,41 @@ model MyRecipe {
 }
 
 /// レシピの画像
-/// レシピの作り方
+model RecipeImage {
+  id       Int    @id @default(autoincrement())
+  /// Cloudinaryの画像ID
+  imageId  String
+  recipeId String
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
+}
+
+/// レシピの工程
+model RecipeProcess {
+  id          Int    @id @default(autoincrement())
+  /// 工程の順番
+  order       Int    @db.UnsignedInt
+  /// 工程の内容
+  title       String
+  /// 工程の補足
+  description String
+}
+
 /// レシピの材料
+model RecipeIngredient {
+  id          Int    @id @default(autoincrement())
+  recipeId    String
+  recipe      Recipe @relation(fields: [recipeId], references: [id])
+  title       String
+  description String
+}
+
 /// レシピのリンク
+model RecipeLink {
+  id       Int    @id @default(autoincrement())
+  recipeId String
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
+  url      String
+}
 
 /// フォロー（ユーザーがシェフをフォローする）
 model Following {
