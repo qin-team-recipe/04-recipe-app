@@ -1,4 +1,3 @@
-
 import SearchInput2 from "@/app/components/Parts/SearchInput2";
 import SearchNav from "@/app/components/Parts/SearchNav";
 import AllRecipes from "@/app/components/Recipes/AllRecipes";
@@ -16,6 +15,5 @@ export default function Recipes() {
       <SearchNav page="recipes" />
       <AllRecipes />
     </>
-
   );
 }

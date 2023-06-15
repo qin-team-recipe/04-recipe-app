@@ -1,15 +1,10 @@
 import Link from "next/link";
 
-
 export default function SearchInput2() {
-
-
   return (
     <form className="py-[8px] px-[15px] ">
       <div className="flex gap-x-[16px] items-center">
-        <Link href="/"
-          className="stroke-[#6F6E77] hover:stroke-primary"
-        >
+        <Link href="/" className="stroke-[#6F6E77] hover:stroke-primary">
           <svg
             width="20"
             height="20"

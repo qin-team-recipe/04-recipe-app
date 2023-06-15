@@ -11,6 +11,5 @@ export default function Home() {
       <TopRecipes />
       <Chefs />
     </>
-
   );
 }

@@ -201,7 +201,6 @@ export default function AllChefs() {
             </div>
           </Link>
         </li>
-
       </ul>
     </section>
   );

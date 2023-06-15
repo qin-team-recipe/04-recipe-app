@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function SideBar() {
   return (
     <div className="hidden md:inline md:w-[240px] p-[20px] bg-white text-title text-[24px] top-0 self-start sticky">
-      <nav >
+      <nav>
         <ul>
           <li className="mb-[16px]">
             <Link

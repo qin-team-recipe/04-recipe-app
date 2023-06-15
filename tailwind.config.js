@@ -12,13 +12,12 @@ module.exports = {
       primary: "#E54D2E",
       border: "#E4E2E4",
       white: "#fff",
-      backgroundGray:"#F9F8F9",
+      backgroundGray: "#F9F8F9",
     },
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
     },
   },

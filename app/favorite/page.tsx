@@ -9,7 +9,6 @@ export const metadata = {
 export default function Favorite() {
   return (
     <>
-
       {/* ヘッダー */}
       <div className="px-[15px] border-b-[1px] border-border text-center text-title font-bold text-[20px] py-[12px]">
         <h1>お気に入り</h1>
@@ -21,67 +20,37 @@ export default function Favorite() {
         <ul className="flex gap-x-[16px] mt-[12px] w-screen  overflow-x-scroll md:w-full pl-[16px]">
           <li className="w-[68px] relative overflow-hidden flex-none">
             <Link href="/recipe/1/steps">
-              <Image
-                src="/images/favChef.png"
-                alt="シェフの写真"
-                width={68}
-                height={68}
-              />
+              <Image src="/images/favChef.png" alt="シェフの写真" width={68} height={68} />
               <p className="text-[12px] mt-[4px] text-center">山田シェフ</p>
             </Link>
           </li>
           <li className="w-[68px] relative overflow-hidden flex-none">
             <Link href="/recipe/1/steps">
-              <Image
-                src="/images/favChef.png"
-                alt="シェフの写真"
-                width={68}
-                height={68}
-              />
+              <Image src="/images/favChef.png" alt="シェフの写真" width={68} height={68} />
               <p className="text-[12px] mt-[4px] text-center">山田シェフ</p>
             </Link>
           </li>
           <li className="w-[68px] relative overflow-hidden flex-none">
             <Link href="/recipe/1/steps">
-              <Image
-                src="/images/favChef.png"
-                alt="シェフの写真"
-                width={68}
-                height={68}
-              />
+              <Image src="/images/favChef.png" alt="シェフの写真" width={68} height={68} />
               <p className="text-[12px] mt-[4px] text-center">山田シェフ</p>
             </Link>
           </li>
           <li className="w-[68px] relative overflow-hidden flex-none">
             <Link href="/recipe/1/steps">
-              <Image
-                src="/images/favChef.png"
-                alt="シェフの写真"
-                width={68}
-                height={68}
-              />
+              <Image src="/images/favChef.png" alt="シェフの写真" width={68} height={68} />
               <p className="text-[12px] mt-[4px] text-center">山田シェフ</p>
             </Link>
           </li>
           <li className="w-[68px] relative overflow-hidden flex-none">
             <Link href="/recipe/1/steps">
-              <Image
-                src="/images/favChef.png"
-                alt="シェフの写真"
-                width={68}
-                height={68}
-              />
+              <Image src="/images/favChef.png" alt="シェフの写真" width={68} height={68} />
               <p className="text-[12px] mt-[4px] text-center">山田シェフ</p>
             </Link>
           </li>
           <li className="w-[68px] relative overflow-hidden flex-none">
             <Link href="/recipe/1/steps">
-              <Image
-                src="/images/favChef.png"
-                alt="シェフの写真"
-                width={68}
-                height={68}
-              />
+              <Image src="/images/favChef.png" alt="シェフの写真" width={68} height={68} />
               <p className="text-[12px] mt-[4px] text-center">山田シェフ</p>
             </Link>
           </li>
@@ -108,21 +77,14 @@ export default function Favorite() {
               />
               <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
                 <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-                  <Image
-                    src="/images/top/recipes/vector.png"
-                    width={14}
-                    height={14}
-                    alt="vector icon"
-                  />
+                  <Image src="/images/top/recipes/vector.png" width={14} height={14} alt="vector icon" />
                 </span>
                 1,234
               </div>
               <p className="text-title font-bold mt-[8px] text-[12px]">
                 トマトとルッコラのマルゲリータピザに合うホワイト...
               </p>
-              <p className="text-[10px] mt-[4px]">
-                ウルトラハイパー超すごいしまぶ...
-              </p>
+              <p className="text-[10px] mt-[4px]">ウルトラハイパー超すごいしまぶ...</p>
             </Link>
           </li>
           <li className="w-[calc(50%_-_6px)] h-auto relative">
@@ -136,21 +98,14 @@ export default function Favorite() {
               />
               <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
                 <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-                  <Image
-                    src="/images/top/recipes/vector.png"
-                    width={14}
-                    height={14}
-                    alt="vector icon"
-                  />
+                  <Image src="/images/top/recipes/vector.png" width={14} height={14} alt="vector icon" />
                 </span>
                 1,234
               </div>
               <p className="text-title font-bold mt-[8px] text-[12px]">
                 トマトとルッコラのマルゲリータピザに合うホワイト...
               </p>
-              <p className="text-[10px] mt-[4px]">
-                ウルトラハイパー超すごいしまぶ...
-              </p>
+              <p className="text-[10px] mt-[4px]">ウルトラハイパー超すごいしまぶ...</p>
             </Link>
           </li>
           <li className="w-[calc(50%_-_6px)] h-auto relative">
@@ -164,21 +119,14 @@ export default function Favorite() {
               />
               <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
                 <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-                  <Image
-                    src="/images/top/recipes/vector.png"
-                    width={14}
-                    height={14}
-                    alt="vector icon"
-                  />
+                  <Image src="/images/top/recipes/vector.png" width={14} height={14} alt="vector icon" />
                 </span>
                 1,234
               </div>
               <p className="text-title font-bold mt-[8px] text-[12px]">
                 トマトとルッコラのマルゲリータピザに合うホワイト...
               </p>
-              <p className="text-[10px] mt-[4px]">
-                ウルトラハイパー超すごいしまぶ...
-              </p>
+              <p className="text-[10px] mt-[4px]">ウルトラハイパー超すごいしまぶ...</p>
             </Link>
           </li>
           <li className="w-[calc(50%_-_6px)] h-auto relative">
@@ -192,21 +140,14 @@ export default function Favorite() {
               />
               <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
                 <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-                  <Image
-                    src="/images/top/recipes/vector.png"
-                    width={14}
-                    height={14}
-                    alt="vector icon"
-                  />
+                  <Image src="/images/top/recipes/vector.png" width={14} height={14} alt="vector icon" />
                 </span>
                 1,234
               </div>
               <p className="text-title font-bold mt-[8px] text-[12px]">
                 トマトとルッコラのマルゲリータピザに合うホワイト...
               </p>
-              <p className="text-[10px] mt-[4px]">
-                ウルトラハイパー超すごいしまぶ...
-              </p>
+              <p className="text-[10px] mt-[4px]">ウルトラハイパー超すごいしまぶ...</p>
             </Link>
           </li>
           <li className="w-[calc(50%_-_6px)] h-auto relative">
@@ -220,21 +161,14 @@ export default function Favorite() {
               />
               <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
                 <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-                  <Image
-                    src="/images/top/recipes/vector.png"
-                    width={14}
-                    height={14}
-                    alt="vector icon"
-                  />
+                  <Image src="/images/top/recipes/vector.png" width={14} height={14} alt="vector icon" />
                 </span>
                 1,234
               </div>
               <p className="text-title font-bold mt-[8px] text-[12px]">
                 トマトとルッコラのマルゲリータピザに合うホワイト...
               </p>
-              <p className="text-[10px] mt-[4px]">
-                ウルトラハイパー超すごいしまぶ...
-              </p>
+              <p className="text-[10px] mt-[4px]">ウルトラハイパー超すごいしまぶ...</p>
             </Link>
           </li>
           <li className="w-[calc(50%_-_6px)] h-auto relative">
@@ -248,21 +182,14 @@ export default function Favorite() {
               />
               <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
                 <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-                  <Image
-                    src="/images/top/recipes/vector.png"
-                    width={14}
-                    height={14}
-                    alt="vector icon"
-                  />
+                  <Image src="/images/top/recipes/vector.png" width={14} height={14} alt="vector icon" />
                 </span>
                 1,234
               </div>
               <p className="text-title font-bold mt-[8px] text-[12px]">
                 トマトとルッコラのマルゲリータピザに合うホワイト...
               </p>
-              <p className="text-[10px] mt-[4px]">
-                ウルトラハイパー超すごいしまぶ...
-              </p>
+              <p className="text-[10px] mt-[4px]">ウルトラハイパー超すごいしまぶ...</p>
             </Link>
           </li>
           <li className="w-[calc(50%_-_6px)] h-auto relative">
@@ -276,21 +203,14 @@ export default function Favorite() {
               />
               <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
                 <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-                  <Image
-                    src="/images/top/recipes/vector.png"
-                    width={14}
-                    height={14}
-                    alt="vector icon"
-                  />
+                  <Image src="/images/top/recipes/vector.png" width={14} height={14} alt="vector icon" />
                 </span>
                 1,234
               </div>
               <p className="text-title font-bold mt-[8px] text-[12px]">
                 トマトとルッコラのマルゲリータピザに合うホワイト...
               </p>
-              <p className="text-[10px] mt-[4px]">
-                ウルトラハイパー超すごいしまぶ...
-              </p>
+              <p className="text-[10px] mt-[4px]">ウルトラハイパー超すごいしまぶ...</p>
             </Link>
           </li>
           <li className="w-[calc(50%_-_6px)] h-auto relative">
@@ -304,21 +224,14 @@ export default function Favorite() {
               />
               <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
                 <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-                  <Image
-                    src="/images/top/recipes/vector.png"
-                    width={14}
-                    height={14}
-                    alt="vector icon"
-                  />
+                  <Image src="/images/top/recipes/vector.png" width={14} height={14} alt="vector icon" />
                 </span>
                 1,234
               </div>
               <p className="text-title font-bold mt-[8px] text-[12px]">
                 トマトとルッコラのマルゲリータピザに合うホワイト...
               </p>
-              <p className="text-[10px] mt-[4px]">
-                ウルトラハイパー超すごいしまぶ...
-              </p>
+              <p className="text-[10px] mt-[4px]">ウルトラハイパー超すごいしまぶ...</p>
             </Link>
           </li>
         </ul>

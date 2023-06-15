@@ -11,54 +11,26 @@ export default function TopChefs() {
       <ul className="flex gap-x-[16px] overflow-x-scroll w-screen md:w-full pl-[15px]">
         <li className="w-[148px] h-[220px] relative mt-[16px] rounded-[16px] flex-none overflow-hidden">
           <Link href="/chef/1/recipes">
-            <Image
-              src="/images/top/chefs/chef1.png"
-              alt="シェフの写真"
-              width={148}
-              height={220}
-            />
-            <p className="absolute bottom-[11px] left-[11px] text-[20px] text-white font-bold ">
-              シェフの名前
-            </p>
+            <Image src="/images/top/chefs/chef1.png" alt="シェフの写真" width={148} height={220} />
+            <p className="absolute bottom-[11px] left-[11px] text-[20px] text-white font-bold ">シェフの名前</p>
           </Link>
         </li>
         <li className="w-[148px] h-[220px] relative mt-[16px] rounded-[16px] flex-none overflow-hidden">
           <Link href="/chef/1/recipes">
-            <Image
-              src="/images/top/chefs/chef1.png"
-              alt="シェフの写真"
-              width={148}
-              height={220}
-            />
-            <p className="absolute bottom-[11px] left-[11px] text-[20px] text-white font-bold ">
-              シェフの名前
-            </p>
+            <Image src="/images/top/chefs/chef1.png" alt="シェフの写真" width={148} height={220} />
+            <p className="absolute bottom-[11px] left-[11px] text-[20px] text-white font-bold ">シェフの名前</p>
           </Link>
         </li>
         <li className="w-[148px] h-[220px] relative mt-[16px] rounded-[16px] flex-none overflow-hidden">
           <Link href="/chef/1/recipes">
-            <Image
-              src="/images/top/chefs/chef1.png"
-              alt="シェフの写真"
-              width={148}
-              height={220}
-            />
-            <p className="absolute bottom-[11px] left-[11px] text-[20px] text-white font-bold ">
-              シェフの名前
-            </p>
+            <Image src="/images/top/chefs/chef1.png" alt="シェフの写真" width={148} height={220} />
+            <p className="absolute bottom-[11px] left-[11px] text-[20px] text-white font-bold ">シェフの名前</p>
           </Link>
         </li>
         <li className="w-[148px] h-[220px] relative mt-[16px] rounded-[16px] flex-none overflow-hidden">
           <Link href="/chef/1/recipes">
-            <Image
-              src="/images/top/chefs/chef1.png"
-              alt="シェフの写真"
-              width={148}
-              height={220}
-            />
-            <p className="absolute bottom-[11px] left-[11px] text-[20px] text-white font-bold ">
-              シェフの名前
-            </p>
+            <Image src="/images/top/chefs/chef1.png" alt="シェフの写真" width={148} height={220} />
+            <p className="absolute bottom-[11px] left-[11px] text-[20px] text-white font-bold ">シェフの名前</p>
           </Link>
         </li>
       </ul>
