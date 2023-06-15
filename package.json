@@ -13,7 +13,7 @@
     "fix:prettier": "prettier --write '**/*.{js,ts,tsx,json}' --ignore-path .gitignore"
   },
   "prisma": {
-    "seed": "DB=dev tsx server/database/seeder/index.ts"
+    "seed": "tsx server/database/seeder/index.ts"
   },
   "dependencies": {
     "@prisma/client": "^4.15.0",

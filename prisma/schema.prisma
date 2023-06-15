@@ -43,7 +43,8 @@ model ChefLink {
   url           String
   /// サイト名（Webページのtitleタグを入れる想定）
   siteName      String
-  followerCount Int    @db.UnsignedInt
+  /// フォロワー数（Twitter、Instagram）
+  followerCount Int?   @db.UnsignedInt
 }
 
 /// レシピ（ベーステーブル）

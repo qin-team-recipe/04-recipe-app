@@ -5,6 +5,9 @@
 
 */
 -- AlterTable
+ALTER TABLE `ChefLink` MODIFY `followerCount` INTEGER UNSIGNED NULL;
+
+-- AlterTable
 ALTER TABLE `Recipe` ADD COLUMN `yields` INTEGER UNSIGNED NOT NULL;
 
 -- CreateTable
