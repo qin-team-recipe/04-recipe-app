@@ -1,5 +1,7 @@
 import { prisma } from "../database/prisma";
-import { publicProcedure, router } from "./init-trpc";
+import { mergeRouters, publicProcedure, router } from "./init-trpc";
+import { chefRecipeRouter } from "../_chef-recipe/router";
+import { authRouter } from "../_auth/router";
 
 const healthCheck = publicProcedure.query(() => ({ status: "Running" }));
 
@@ -7,10 +9,12 @@ const getUserCount = publicProcedure.query(async ({ ctx }) => {
   return ctx.prisma.user.count();
 });
 
-export const appRouter = router({
+const testRouter = router({
   health: healthCheck,
   userCount: getUserCount,
 });
+
+export const appRouter = mergeRouters(testRouter, chefRecipeRouter, authRouter);
 
 export const trpcCaller = appRouter.createCaller({ user: undefined, prisma });
 
