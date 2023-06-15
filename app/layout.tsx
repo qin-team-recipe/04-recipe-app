@@ -1,4 +1,5 @@
 import Footer from "./components/NavBar/Footer";
+import SideBar from "./components/NavBar/SideBar";
 import "./globals.css";
 import { Inter } from "next/font/google";
 
@@ -15,11 +16,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ja">
-      <body className={inter.className}>
-        {children}
-        <Footer />
+    <html lang="ja" className={inter.className}>
+      <body className="min-h-screen md:flex md:justify-center lg:mr-[241px] md:mr-0">
+        <SideBar />
+        <main className="pb-[58px] md:pb-[8px] md:max-w-[480px] md:w-[480px]  md:border-x-border md:border-x-[1px]  bg-backgroundGray  min-h-screen h-auto ">
+          {children}
+          <Footer />
+        </main>
       </body>
-    </html>
+    </html >
   );
 }

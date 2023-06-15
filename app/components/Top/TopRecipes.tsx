@@ -3,17 +3,17 @@ import Link from "next/link";
 
 export default function TopRecipes() {
   return (
-    <section className="pt-[20px] px-[15px] pb-[48px] overflow-hidden overflow-x-scroll">
-      <div className="flex center justify-between">
+    <section className="pt-[20px] pb-[48px] overflow-hidden">
+      <div className="flex center justify-between px-[15px]">
         <h2 className="text-[20px] font-bold text-title">話題のレシピ</h2>
-        <Link href="/recipes" className="font-bold text-[16px]">
+        <Link href="/search/recipe" className="font-bold text-[16px]">
           もっと見る
         </Link>
       </div>
 
-      <ul className="flex gap-x-[16px] w-screen  overflow-x-auto">
-        <li className="w-[160px] relative mt-[16px] overflow-hidden flex-none">
-          <Link href="/recipes/1/steps">
+      <ul className="flex gap-x-[16px] w-screen  overflow-x-scroll md:w-full pl-[15px]">
+        <li className="w-[160px] relative mt-[16px] flex-none">
+          <Link href="/recipe/1/steps">
             <Image
               //   className={styles.chefImage}
               src="/images/top/recipes/recipe1.png"
@@ -40,8 +40,8 @@ export default function TopRecipes() {
             </p>
           </Link>
         </li>
-        <li className="w-[160px] relative mt-[16px] overflow-hidden flex-none">
-          <Link href="/recipes/1/steps">
+        <li className="w-[160px] relative mt-[16px] flex-none">
+          <Link href="/recipe/1/steps">
             <Image
               //   className={styles.chefImage}
               src="/images/top/recipes/recipe1.png"
@@ -68,8 +68,8 @@ export default function TopRecipes() {
             </p>
           </Link>
         </li>
-        <li className="w-[160px] relative mt-[16px] overflow-hidden flex-none">
-          <Link href="/recipes/1/steps">
+        <li className="w-[160px] relative mt-[16px] flex-none">
+          <Link href="/recipe/1/steps">
             <Image
               //   className={styles.chefImage}
               src="/images/top/recipes/recipe1.png"
@@ -96,6 +96,7 @@ export default function TopRecipes() {
             </p>
           </Link>
         </li>
+
       </ul>
     </section>
   );
