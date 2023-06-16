@@ -10,7 +10,134 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// テスト用
+/// ユーザー
 model User {
-  id String @id @default(cuid())
+  id         String      @id @default(cuid()) @db.VarChar(30)
+  /// ログイン用のClerkのID
+  clerkId    String      @unique
+  name       String      @db.VarChar(32)
+  myRecipes  MyRecipe[]
+  followings Following[]
+  favorites  Favorite[]
+}
+
+/// シェフ
+model Chef {
+  id           String       @id @default(cuid()) @db.VarChar(30)
+  /// 表示名
+  displayName  String       @db.VarChar(32)
+  /// シェフの説明
+  bio          String
+  /// プロフィール画像
+  profileImage String
+  recipes      ChefRecipe[]
+  followers    Following[]
+  links        ChefLink[]
+}
+
+/// シェフのリンク（Twitter、Instagram、Webサイトなど）
+model ChefLink {
+  id            Int    @id @default(autoincrement())
+  chefId        String
+  chef          Chef   @relation(fields: [chefId], references: [id])
+  url           String
+  /// サイト名（Webページのtitleタグを入れる想定）
+  siteName      String
+  /// フォロワー数（Twitter、Instagram）
+  followerCount Int?   @db.UnsignedInt
+}
+
+/// レシピ（ベーステーブル）
+model Recipe {
+  id          String             @id @default(cuid())
+  /// レシピ名
+  name        String
+  /// レシピの説明
+  description String             @db.VarChar(255)
+  /// 何人分か
+  yields      Int                @db.UnsignedInt
+  chefRecipe  ChefRecipe?
+  myRecipe    MyRecipe?
+  favorites   Favorite[]
+  /// レシピの画像
+  images      RecipeImage[]
+  /// レシピの材料
+  ingredients RecipeIngredient[]
+  /// レシピのリンク
+  links       RecipeLink[]
+}
+
+/// シェフのレシピ
+model ChefRecipe {
+  recipeId String @id
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
+  chefId   String
+  chef     Chef   @relation(fields: [chefId], references: [id])
+}
+
+/// マイレシピ
+model MyRecipe {
+  recipeId String @id
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
+  userId   String
+  user     User   @relation(fields: [userId], references: [id])
+}
+
+/// レシピの画像
+model RecipeImage {
+  id       Int    @id @default(autoincrement())
+  /// Cloudinaryの画像ID
+  imageId  String
+  recipeId String
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
+}
+
+/// レシピの工程
+model RecipeProcess {
+  id          Int    @id @default(autoincrement())
+  /// 工程の順番
+  order       Int    @db.UnsignedInt
+  /// 工程の内容
+  title       String
+  /// 工程の補足
+  description String
+}
+
+/// レシピの材料
+model RecipeIngredient {
+  id          Int    @id @default(autoincrement())
+  recipeId    String
+  recipe      Recipe @relation(fields: [recipeId], references: [id])
+  title       String
+  description String
+}
+
+/// レシピのリンク
+model RecipeLink {
+  id       Int    @id @default(autoincrement())
+  recipeId String
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
+  url      String
+}
+
+/// フォロー（ユーザーがシェフをフォローする）
+model Following {
+  id     Int    @id @default(autoincrement())
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+  chefId String
+  chef   Chef   @relation(fields: [chefId], references: [id])
+
+  @@unique(fields: [userId, chefId])
+}
+
+/// お気に入り（ユーザーがレシピをお気に入りする）
+model Favorite {
+  id       Int    @id @default(autoincrement())
+  userId   String
+  user     User   @relation(fields: [userId], references: [id])
+  recipeId String
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
+
+  @@unique(fields: [userId, recipeId])
 }

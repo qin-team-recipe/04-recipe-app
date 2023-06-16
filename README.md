@@ -25,6 +25,18 @@ yarn run dev
 
 [http://localhost:3000](http://localhost:3000)でアプリケーションを確認できます。
 
+## TIPS
+
+### シーダーを実行する
+
+```bash
+# すべてのシーダーを実行する
+yarn prisma db seed
+
+# 特定のシーダーを実行する（関数名 = キャメルケースで指定する）
+yarn prisma db seed chefSeeder
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
