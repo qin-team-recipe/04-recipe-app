@@ -6,13 +6,13 @@ export default function Chefs() {
     <section className="pt-[20px] px-[15px] pb-[48px]">
       <div className="flex center justify-between">
         <h2 className="text-[20px] font-bold text-title">シェフ</h2>
-        <Link href="/chefs" className="font-bold text-[16px]">
+        <Link href="/search/chef" className="font-bold text-[16px]">
           もっと見る
         </Link>
       </div>
       <ul className="mt-[16px]">
         <li className="mt-[25px]">
-          <Link href="/chefs/1/recipes" className="flex gap-x-[16px]">
+          <Link href="/chef/1/recipes" className="flex gap-x-[16px]">
             <Image
               className="w-[88px] flex-none h-[116px] rounded-[16px] overflow-hidden"
               src="/images/top/chefs/chef1.png"
@@ -40,7 +40,7 @@ export default function Chefs() {
           </Link>
         </li>
         <li className="mt-[25px]">
-          <Link href="/chefs/1/recipes" className="flex gap-x-[16px]">
+          <Link href="/chef/1/recipes" className="flex gap-x-[16px]">
             <Image
               className="w-[88px] flex-none h-[116px] rounded-[16px] overflow-hidden"
               src="/images/top/chefs/chef1.png"
@@ -68,7 +68,7 @@ export default function Chefs() {
           </Link>
         </li>
         <li className="mt-[25px]">
-          <Link href="/chefs/1/recipes" className="flex gap-x-[16px]">
+          <Link href="/chef/1/recipes" className="flex gap-x-[16px]">
             <Image
               className="w-[88px] flex-none h-[116px] rounded-[16px] overflow-hidden"
               src="/images/top/chefs/chef1.png"
