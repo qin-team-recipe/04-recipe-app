@@ -37,6 +37,40 @@ yarn prisma db seed
 yarn prisma db seed chefSeeder
 ```
 
+### APIを実行する
+
+tRPCはHTTPベースのRPCなので、curlやPostmanから実行することができます。
+
+```json
+$ curl localhost:3000/api/trpc/chefs | jq .
+{
+  "result": {
+    "data": [
+      {
+        "id": "clix21kl40007u0bc0jz6jkvy",
+        "displayName": "Alexandra Dupont",
+        "bio": "フランス料理のスタイルを尊重しながら、現代的なアプローチを取るフレンチシェフ。シンプルで洗練された料理に、斬新なアイデアを取り入れた独自のメニューを提供します。フレーバーパリングのマスターとして知られ、素材の持つ個性を引き立てます。",
+        "profileImageUrl": "image_1_1_s8bktj",
+        "recipeCount": 0
+      },
+      {
+        "id": "clix21kl40005u0bcb02h50xo",
+        "displayName": "Andrea Rossi",
+        "bio": "イタリア料理の名門出身で、伝統と創造性を融合させる技術を持つシェフ。家庭的で温かみのある料理から、高級レストランでの本格的なイタリアンまで幅広いジャンルに精通しています。素材の鮮度と風味を最大限に引き出し、愛情を込めた料理を提供します。",
+        "profileImageUrl": "image_1_1_s8bktj",
+        "recipeCount": 0
+      }
+    ]
+  }
+}
+```
+
+`/api/trpc/chefs`の`chefs`の部分は、プロシージャの名前です。
+
+パラメータを送信する場合は、mutationの場合はリクエストボディに設定します。queryの場合は`myQuery?input=${encodeURIComponent(JSON.stringify(input))`のように、エンコードしてクエリパラメータに設定します。
+
+RPCの詳細は[HTTP RPC Specification | tRPC](https://trpc.io/docs/v9/rpc)を参照してください。
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
