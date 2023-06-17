@@ -21,20 +21,19 @@ export const getChef = publicProcedure.input(ChefIdInput).query(async ({ ctx, in
         },
       },
     }),
-    ctx.prisma.chefRecipe.findMany({
-      where: { chefId: input.chefId },
+    ctx.prisma.recipe.findMany({
+      where: {
+        chefRecipe: { chefId: input.chefId },
+      },
       select: {
-        recipe: {
-          select: {
-            id: true,
-            name: true,
-            description: true,
-            _count: {
-              select: { favorites: true },
-            },
-          },
+        id: true,
+        name: true,
+        description: true,
+        _count: {
+          select: { favorites: true },
         },
       },
+      orderBy: { id: "desc" },
     }),
   ]);
   if (chef === null) throw notFoundError;
@@ -46,7 +45,7 @@ export const getChef = publicProcedure.input(ChefIdInput).query(async ({ ctx, in
     followerCount: _count.followers,
     // TODO: ログイン中の場合は、フォローしているかどうかを計算する
     isFollowing: false,
-    recipes: recipes.map(({ recipe: { _count, ...recipe } }) => ({
+    recipes: recipes.map(({ _count, ...recipe }) => ({
       ...recipe,
       favoriteCount: _count.favorites,
     })),
