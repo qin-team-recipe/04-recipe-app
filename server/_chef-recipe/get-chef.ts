@@ -1,6 +1,7 @@
 import { publicProcedure } from "../trpc/init-trpc";
 import { notFoundError } from "../trpc/trpc-error";
 import { ChefIdInput } from "./api-schema";
+import { getRecipeImageUrlFromImages } from "./recipe-util";
 
 /**
  * シェフの情報を取得する
@@ -29,6 +30,10 @@ export const getChef = publicProcedure.input(ChefIdInput).query(async ({ ctx, in
         id: true,
         name: true,
         description: true,
+        images: {
+          select: { imageId: true },
+          take: 1,
+        },
         _count: {
           select: { favorites: true },
         },
@@ -45,8 +50,9 @@ export const getChef = publicProcedure.input(ChefIdInput).query(async ({ ctx, in
     followerCount: _count.followers,
     // TODO: ログイン中の場合は、フォローしているかどうかを計算する
     isFollowing: false,
-    recipes: recipes.map(({ _count, ...recipe }) => ({
+    recipes: recipes.map(({ _count, images, ...recipe }) => ({
       ...recipe,
+      imageUrl: getRecipeImageUrlFromImages(images),
       favoriteCount: _count.favorites,
     })),
   };
