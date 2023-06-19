@@ -71,6 +71,29 @@ $ curl localhost:3000/api/trpc/chefs | jq .
 
 RPCの詳細は[HTTP RPC Specification | tRPC](https://trpc.io/docs/v9/rpc)を参照してください。
 
+### PlanetScaleに対してマイグレーションを実行する
+
+まず、PlanetScaleのコンソールからmainブランチの接続URLを取得して、.envの`DATABASE_URL`に設定します。
+
+```text
+DATABASE_URL=<取得したURL>
+```
+
+設定したら、次のコマンドでマイグレーションを実行します。
+
+```bash
+yarn prisma migrate deploy
+```
+
+マイグレーションを実行したら、ローカルでの開発中に間違って接続しないように`DATABASE_URL`はコメントアウトします。
+
+ドキュメントでは、PlanetScaleに開発用のブランチを作成して、デプロイリクエストでスキーマの変更を反映する方法が推奨されています。
+
+しかし、次の理由から開発中はmainブランチに対して直接`prisma migrate deploy`を実行することにしました。
+
+- ブランチを作成してからデプロイするまでの手間がかかるため
+- ローカル開発ではDockerのMySQLコンテナを使用したかったため
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

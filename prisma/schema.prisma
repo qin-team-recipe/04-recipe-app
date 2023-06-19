@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 /// ユーザー
@@ -45,6 +46,8 @@ model ChefLink {
   siteName      String
   /// フォロワー数（Twitter、Instagram）
   followerCount Int?   @db.UnsignedInt
+
+  @@index([chefId])
 }
 
 /// レシピ（ベーステーブル）
@@ -69,18 +72,24 @@ model Recipe {
 
 /// シェフのレシピ
 model ChefRecipe {
-  recipeId String @id
+  recipeId String @id @db.VarChar(30)
   recipe   Recipe @relation(fields: [recipeId], references: [id])
   chefId   String
   chef     Chef   @relation(fields: [chefId], references: [id])
+
+  @@index([recipeId]) // 主キーにインデックスが付与されるので不要ですが、PrismaのWarningが出るため追加しました
+  @@index([chefId])
 }
 
 /// マイレシピ
 model MyRecipe {
-  recipeId String @id
+  recipeId String @id @db.VarChar(30)
   recipe   Recipe @relation(fields: [recipeId], references: [id])
   userId   String
   user     User   @relation(fields: [userId], references: [id])
+
+  @@index([recipeId]) // 主キーにインデックスが付与されるので不要ですが、PrismaのWarningが出るため追加しました
+  @@index([userId])
 }
 
 /// レシピの画像
@@ -90,6 +99,8 @@ model RecipeImage {
   imageId  String
   recipeId String
   recipe   Recipe @relation(fields: [recipeId], references: [id])
+
+  @@index([recipeId])
 }
 
 /// レシピの工程
@@ -110,6 +121,8 @@ model RecipeIngredient {
   recipe      Recipe @relation(fields: [recipeId], references: [id])
   title       String
   description String
+
+  @@index([recipeId])
 }
 
 /// レシピのリンク
@@ -118,6 +131,8 @@ model RecipeLink {
   recipeId String
   recipe   Recipe @relation(fields: [recipeId], references: [id])
   url      String
+
+  @@index([recipeId])
 }
 
 /// フォロー（ユーザーがシェフをフォローする）
@@ -129,6 +144,7 @@ model Following {
   chef   Chef   @relation(fields: [chefId], references: [id])
 
   @@unique(fields: [userId, chefId])
+  @@index([chefId])
 }
 
 /// お気に入り（ユーザーがレシピをお気に入りする）
@@ -140,4 +156,5 @@ model Favorite {
   recipe   Recipe @relation(fields: [recipeId], references: [id])
 
   @@unique(fields: [userId, recipeId])
+  @@index([recipeId])
 }

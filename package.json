@@ -6,7 +6,7 @@
     "dev": "DB=dev next dev",
     "build": "prisma generate && next build",
     "start": "next start",
-    "lint": "run-p 'lint:*'",
+    "lint": "next lint && run-p lint:tsc lint:prettier",
     "lint:tsc": "tsc --noEmit",
     "lint:eslint": "next lint",
     "lint:prettier": "prettier --check '**/*.{js,ts,tsx,json}' --ignore-path .gitignore",
