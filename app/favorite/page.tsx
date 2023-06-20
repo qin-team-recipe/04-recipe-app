@@ -77,7 +77,7 @@ export default function Favorite() {
               />
               <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
                 <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-                  <Image src="/images/top/recipes/vector.png" width={14} height={14} alt="vector icon" />
+                  <Image src="/images/top/recipes/favIcon.png" width={14} height={14} alt="vector icon" />
                 </span>
                 1,234
               </div>
@@ -98,7 +98,7 @@ export default function Favorite() {
               />
               <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
                 <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-                  <Image src="/images/top/recipes/vector.png" width={14} height={14} alt="vector icon" />
+                  <Image src="/images/top/recipes/favIcon.png" width={14} height={14} alt="vector icon" />
                 </span>
                 1,234
               </div>
@@ -119,7 +119,7 @@ export default function Favorite() {
               />
               <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
                 <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-                  <Image src="/images/top/recipes/vector.png" width={14} height={14} alt="vector icon" />
+                  <Image src="/images/top/recipes/favIcon.png" width={14} height={14} alt="vector icon" />
                 </span>
                 1,234
               </div>
@@ -140,7 +140,7 @@ export default function Favorite() {
               />
               <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
                 <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-                  <Image src="/images/top/recipes/vector.png" width={14} height={14} alt="vector icon" />
+                  <Image src="/images/top/recipes/favIcon.png" width={14} height={14} alt="vector icon" />
                 </span>
                 1,234
               </div>
@@ -161,7 +161,7 @@ export default function Favorite() {
               />
               <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
                 <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-                  <Image src="/images/top/recipes/vector.png" width={14} height={14} alt="vector icon" />
+                  <Image src="/images/top/recipes/favIcon.png" width={14} height={14} alt="vector icon" />
                 </span>
                 1,234
               </div>
@@ -182,7 +182,7 @@ export default function Favorite() {
               />
               <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
                 <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-                  <Image src="/images/top/recipes/vector.png" width={14} height={14} alt="vector icon" />
+                  <Image src="/images/top/recipes/favIcon.png" width={14} height={14} alt="vector icon" />
                 </span>
                 1,234
               </div>
@@ -203,7 +203,7 @@ export default function Favorite() {
               />
               <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
                 <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-                  <Image src="/images/top/recipes/vector.png" width={14} height={14} alt="vector icon" />
+                  <Image src="/images/top/recipes/favIcon.png" width={14} height={14} alt="vector icon" />
                 </span>
                 1,234
               </div>
@@ -224,7 +224,7 @@ export default function Favorite() {
               />
               <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
                 <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-                  <Image src="/images/top/recipes/vector.png" width={14} height={14} alt="vector icon" />
+                  <Image src="/images/top/recipes/favIcon.png" width={14} height={14} alt="vector icon" />
                 </span>
                 1,234
               </div>
