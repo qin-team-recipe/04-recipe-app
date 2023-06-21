@@ -6,19 +6,19 @@ export async function chefLinkSeeder() {
   await prisma.chefLink.createMany({
     data: [
       // Twitter
-      { chefId: chef.id, url: "https://twitter.com/shimabu_it", siteName: "しまぶーのIT大学", followerCount: 19800 },
+      { chefId: chef.id, url: "https://twitter.com/shimabu_it", siteName: "Twitter", followerCount: 19800 },
       // Instagram
       {
         chefId: chef.id,
         url: "https://www.instagram.com/shimabu_it",
-        siteName: "しまぶーのIT大学",
+        siteName: "Instagram",
         followerCount: 2128,
       },
       // Youtube
       {
         chefId: chef.id,
         url: "https://www.youtube.com/@shimabu_it",
-        siteName: "しまぶーのIT大学",
+        siteName: "Youtube",
         followerCount: 117000,
       },
       // Webサイト
