@@ -4,7 +4,7 @@ import { recipeSeeder } from "./recipe-seeder";
 
 const databaseSeeder = {
   chefSeeder,
-  recipeSeeder
+  recipeSeeder,
 };
 
 type SeederName = keyof typeof databaseSeeder;
