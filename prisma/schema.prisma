@@ -66,6 +66,8 @@ model Recipe {
   images      RecipeImage[]
   /// レシピの材料
   ingredients RecipeIngredient[]
+  /// レシピの作り方
+  processes   RecipeProcess[]
   /// レシピのリンク
   links       RecipeLink[]
 }
@@ -105,13 +107,17 @@ model RecipeImage {
 
 /// レシピの工程
 model RecipeProcess {
-  id          Int    @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
+  recipeId    String  @db.VarChar(30)
+  recipe      Recipe? @relation(fields: [recipeId], references: [id])
   /// 工程の順番
-  order       Int    @db.UnsignedInt
+  order       Int     @db.UnsignedInt
   /// 工程の内容
   title       String
   /// 工程の補足
   description String
+
+  @@index([recipeId])
 }
 
 /// レシピの材料

@@ -31,10 +31,10 @@ yarn run dev
 
 ```bash
 # すべてのシーダーを実行する
-yarn prisma db seed
+DB=dev yarn prisma db seed
 
 # 特定のシーダーを実行する（関数名 = キャメルケースで指定する）
-yarn prisma db seed chefSeeder
+DB=dev yarn prisma db seed chefSeeder
 ```
 
 ### APIを実行する
