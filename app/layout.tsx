@@ -13,9 +13,9 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ja" className={inter.className}>
-      <body className="min-h-screen md:flex md:justify-center lg:mr-[241px] md:mr-0">
+      <body className="min-h-screen md:flex md:justify-center md:mr-0">
         <SideBar />
-        <main className="pb-[58px] md:pb-[8px] md:max-w-[480px] md:w-[480px]  md:border-x-border md:border-x-[1px]  bg-backgroundGray  min-h-screen h-auto ">
+        <main className="pb-[58px] md:pb-[8px] md:max-w-[480px] md:w-[480px] lg:mr-[241px] md:border-x-border md:border-x-[1px]  bg-backgroundGray  min-h-screen h-auto ">
           {children}
           <Footer />
         </main>
