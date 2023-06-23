@@ -6,7 +6,7 @@
     "dev": "DB=dev next dev",
     "build": "prisma generate && next build",
     "start": "next start",
-    "lint": "run-p 'lint:*'",
+    "lint": "next lint && run-p lint:tsc lint:prettier",
     "lint:tsc": "tsc --noEmit",
     "lint:eslint": "next lint",
     "lint:prettier": "prettier --check '**/*.{js,ts,tsx,json}' --ignore-path .gitignore",
@@ -30,7 +30,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwindcss": "3.3.2",
-    "typescript": "5.1.3"
+    "typescript": "5.1.3",
+    "zod": "^3.21.4"
   },
   "packageManager": "yarn@3.6.0",
   "engines": {
