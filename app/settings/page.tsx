@@ -1,6 +1,8 @@
 import { trpcClient } from "../utils/trpc";
 import { LogoutButton } from "./LogoutButton";
 
+export const dynamic = "force-dynamic";
+
 export default async function Settings() {
   const user = await trpcClient.currentUser.query();
 

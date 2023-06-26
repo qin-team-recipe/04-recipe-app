@@ -5,6 +5,7 @@ env:
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
   DATABASE_URL: ${{ secrets.DATABASE_URL }}
   CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+  NEXTAUTH_URL: https://04-qin-recipe-app.vercel.app
 jobs:
   lint:
     runs-on: ubuntu-22.04
