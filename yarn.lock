@@ -1037,6 +1037,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@trpc/client@npm:10.29.1":
+  version: 10.29.1
+  resolution: "@trpc/client@npm:10.29.1"
+  peerDependencies:
+    "@trpc/server": 10.29.1
+  checksum: b617edb56e9ec7fa0665703761c666244e58b8a9da5a2fffcdef880cdde7ec8c92c20d1362ac1c836904518d94db247ec286cc17e01fc4eea41b7cafbf3479fe
+  languageName: node
+  linkType: hard
+
 "@trpc/server@npm:^10.29.1":
   version: 10.29.1
   resolution: "@trpc/server@npm:10.29.1"
@@ -4583,6 +4592,7 @@ __metadata:
   dependencies:
     "@prisma/client": ^4.15.0
     "@radix-ui/react-dropdown-menu": ^2.0.5
+    "@trpc/client": 10.29.1
     "@trpc/server": ^10.29.1
     "@types/node": 20.2.5
     "@types/react": 18.2.8
