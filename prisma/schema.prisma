@@ -13,13 +13,35 @@ datasource db {
 
 /// ユーザー
 model User {
-  id         String      @id @default(cuid()) @db.VarChar(30)
-  /// ログイン用のClerkのID
-  clerkId    String      @unique
-  name       String      @db.VarChar(32)
-  myRecipes  MyRecipe[]
-  followings Following[]
-  favorites  Favorite[]
+  id            String      @id @default(cuid()) @db.VarChar(30)
+  name          String      @db.VarChar(32)
+  email         String      @unique
+  emailVerified DateTime?
+  image         String?
+  myRecipes     MyRecipe[]
+  followings    Following[]
+  favorites     Favorite[]
+  accounts      Account[]
+}
+
+/// OAuthのアカウント（Google、Appleなど）
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  @@unique(fields: [provider, providerAccountId])
+  @@index(fields: [userId])
 }
 
 /// シェフ

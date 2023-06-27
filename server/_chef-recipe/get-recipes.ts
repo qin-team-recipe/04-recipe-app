@@ -1,4 +1,3 @@
-import Favorite from "@/app/favorite/page";
 import { publicProcedure } from "../trpc/init-trpc";
 
 export const getRecipes = publicProcedure.query(async ({ ctx }) => {
