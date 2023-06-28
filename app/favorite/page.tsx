@@ -19,37 +19,43 @@ export default function Favorite() {
         <h2 className="text-title font-bold text-[20px] px-[16px]">シェフ</h2>
         <ul className="flex gap-x-[16px] mt-[12px] w-screen  overflow-x-scroll md:w-full pl-[16px]">
           <li className="w-[68px] relative overflow-hidden flex-none">
-            <Link href="/recipe/1/steps">
+            <Link href="/chef/1/recipes">
               <Image src="/images/favChef.png" alt="シェフの写真" width={68} height={68} />
               <p className="text-[12px] mt-[4px] text-center">山田シェフ</p>
             </Link>
           </li>
           <li className="w-[68px] relative overflow-hidden flex-none">
-            <Link href="/recipe/1/steps">
+            <Link href="/chef/1/recipes">
               <Image src="/images/favChef.png" alt="シェフの写真" width={68} height={68} />
               <p className="text-[12px] mt-[4px] text-center">山田シェフ</p>
             </Link>
           </li>
           <li className="w-[68px] relative overflow-hidden flex-none">
-            <Link href="/recipe/1/steps">
+            <Link href="/chef/1/recipes">
               <Image src="/images/favChef.png" alt="シェフの写真" width={68} height={68} />
               <p className="text-[12px] mt-[4px] text-center">山田シェフ</p>
             </Link>
           </li>
           <li className="w-[68px] relative overflow-hidden flex-none">
-            <Link href="/recipe/1/steps">
+            <Link href="/chef/1/recipes">
               <Image src="/images/favChef.png" alt="シェフの写真" width={68} height={68} />
               <p className="text-[12px] mt-[4px] text-center">山田シェフ</p>
             </Link>
           </li>
           <li className="w-[68px] relative overflow-hidden flex-none">
-            <Link href="/recipe/1/steps">
+            <Link href="/chef/1/recipes">
               <Image src="/images/favChef.png" alt="シェフの写真" width={68} height={68} />
               <p className="text-[12px] mt-[4px] text-center">山田シェフ</p>
             </Link>
           </li>
           <li className="w-[68px] relative overflow-hidden flex-none">
-            <Link href="/recipe/1/steps">
+            <Link href="/chef/1/recipes">
+              <Image src="/images/favChef.png" alt="シェフの写真" width={68} height={68} />
+              <p className="text-[12px] mt-[4px] text-center">山田シェフ</p>
+            </Link>
+          </li>
+          <li className="w-[68px] relative overflow-hidden flex-none">
+            <Link href="/chef/1/recipes">
               <Image src="/images/favChef.png" alt="シェフの写真" width={68} height={68} />
               <p className="text-[12px] mt-[4px] text-center">山田シェフ</p>
             </Link>

@@ -20,7 +20,7 @@ export default async function Chefs() {
               <Image
                 className="w-[88px] flex-none h-[116px] rounded-[16px] overflow-hidden"
                 src={chef.profileImageUrl}
-                alt="シェフの写真"
+                alt={chef.displayName}
                 width={88}
                 height={116}
               />
