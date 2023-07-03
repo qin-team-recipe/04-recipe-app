@@ -8,26 +8,28 @@ import { RecipeIdInput } from "./api-schema";
 export const getRecipe = publicProcedure.input(RecipeIdInput).query(async ({ ctx, input }) => {
   const recipe = await ctx.prisma.recipe.findUnique({
     where: { id: input.recipeId },
-      select: {
-        id: true,
-        name: true,
-        description: true,
-        yields:true,
-        chefRecipe:{
-          select:{
-           chef:true
-        }},
-        myRecipe:{
-          select:{
-           user:true
-        }},
-        _count: { select: { favorites: true } },
-        images: true,
-        ingredients:true,
-        processes:true,
-        links:true,
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      yields: true,
+      chefRecipe: {
+        select: {
+          chef: true,
+        },
       },
-    })
+      myRecipe: {
+        select: {
+          user: true,
+        },
+      },
+      _count: { select: { favorites: true } },
+      images: true,
+      ingredients: true,
+      processes: true,
+      links: true,
+    },
+  });
   if (recipe === null) throw notFoundError;
   return recipe;
 });

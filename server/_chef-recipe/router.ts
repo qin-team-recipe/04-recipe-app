@@ -8,5 +8,5 @@ export const chefRecipeRouter = router({
   chefs: getChefs,
   chef: getChef,
   recipes: getRecipes,
-  recipe: getRecipe
+  recipe: getRecipe,
 });
