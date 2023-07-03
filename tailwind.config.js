@@ -13,6 +13,7 @@ module.exports = {
       border: "#E4E2E4",
       white: "#fff",
       backgroundGray: "#F9F8F9",
+      black: "#000",
     },
     extend: {
       backgroundImage: {

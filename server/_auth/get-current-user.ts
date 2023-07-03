@@ -1,9 +1,5 @@
-import { GeneralUser, publicProcedure } from "../trpc/init-trpc";
+import { protectedProcedure } from "../trpc/init-trpc";
 
-export const getCurrentUser = publicProcedure.query(() => {
-  const user: GeneralUser = {
-    id: "user",
-    type: "general",
-  };
-  return user;
+export const getCurrentUser = protectedProcedure.query(({ ctx }) => {
+  return ctx.user;
 });
