@@ -13,7 +13,7 @@ export default async function ChefLinks({ params }: { params: { id: string } }) 
   const chef = await trpcCaller.chef({ chefId });
   return (
     <>
-      <ChefHero page="links" chef={chef}/>
+      <ChefHero page="links" chef={chef} />
 
       {/* リンク */}
       <section className="pb-[48px]">

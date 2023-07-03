@@ -1,4 +1,5 @@
 import ChefHero from "@/app/components/Chef/ChefHero";
+import { trpcClient } from "@/app/utils/trpc";
 import { trpcCaller } from "@/server/trpc/router";
 import Image from "next/image";
 import Link from "next/link";

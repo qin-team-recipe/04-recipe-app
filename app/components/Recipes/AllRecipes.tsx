@@ -11,11 +11,10 @@ export default function AllRecipes({
     name: string;
     description: string;
     _count: {
-      favorites: number;    
+      favorites: number;
     };
   }[];
 }) {
-
   return (
     <section className="pt-[20px] px-[15px] pb-[48px]">
       <h2 className=" text-title font-bold text-[20px]">

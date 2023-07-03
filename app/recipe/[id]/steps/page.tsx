@@ -10,7 +10,6 @@ export default async function RecipeSteps({ params }: { params: { id: string } }
   // const recipeId = params.id;
   // const recipe = await trpcCaller.recipe({ recipeId });
 
-
   return (
     <>
       <RecipeHero page="steps" />
