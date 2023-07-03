@@ -13,7 +13,7 @@ export default async function Chefs({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const chefs = await trpcCaller.chefs();
+  const chefs = await trpcCaller.chefs({});
 
   return (
     <>
