@@ -7,3 +7,7 @@ export const ChefIdInput = z.object({
 export const SearchInput = z.object({
   search: z.string().optional(),
 });
+
+export const RecipeIdInput = z.object({
+  recipeId: z.string(),
+});
