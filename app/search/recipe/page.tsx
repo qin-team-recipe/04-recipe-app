@@ -14,7 +14,6 @@ export default async function Recipes({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const recipes = await trpcCaller.recipes();
-  console.log(recipes);
 
   return (
     <>

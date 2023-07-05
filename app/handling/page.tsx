@@ -10,7 +10,7 @@ export default async function ChefRecipes() {
   const data = await res.json();
 
   //   サーバーログに出力される
-  console.log(data);
+  // console.log(data);
 
   if (!res.ok) {
     throw new Error(` ${res.status}:${data.error_message}`);
