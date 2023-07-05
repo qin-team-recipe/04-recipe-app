@@ -23,7 +23,7 @@ export default function AllRecipes({
       <ul className="flex justify-between gap-y-[16px] gap-x-[12px] mt-[10px] flex-wrap">
         {recipes.map((recipe) => (
           <li className="w-[calc(50%_-_6px)] h-auto relative" key={recipe.id}>
-            <Link href={`/recipe/{recipe.id}/steps`}>
+            <Link href={`/recipe/${recipe.id}/steps`}>
               <Image
                 src="/images/top/recipes/recipe1.png"
                 alt="シェフの写真"

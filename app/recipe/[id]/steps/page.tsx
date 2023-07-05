@@ -7,71 +7,25 @@ export const metadata = {
 };
 
 export default async function RecipeSteps({ params }: { params: { id: string } }) {
-  // const recipeId = params.id;
-  // const recipe = await trpcCaller.recipe({ recipeId });
+  const recipeId = params.id;
+  const recipe = await trpcCaller.recipe({ recipeId });
 
   return (
     <>
-      <RecipeHero page="steps" />
+      <RecipeHero page="steps" recipe={recipe} />
 
       {/* 作り方 */}
       <section className="pb-[48px]">
         <ul>
-          <li className="py-[8px] pr-[16px] pl-[42px] border-b-[1px] border-border relative">
-            <span className="absolute top-[8px] left-[16px] w-[18px] h-[18px] text-white text-[12px] rounded-full bg-primary text-center leading-[18px] ">
-              1
-            </span>
-            <p className="text-title text-[14px]">
-              用意するメインの材料は、マカロニ、牛乳、鶏もも肉、玉ねぎ、椎茸で、バター、小麦粉、塩、こしょうも使用します。
-            </p>
-            <p className="mt-[4px] text-[10px]">
-              ※椎茸はなしでも作れますし、しめじやマッシュルームなどでも。きのこ系が入っていた方が食感と香りがよいので、ぜひ入れて作ってみてください。鶏肉等の代用については下記補足に
-            </p>
-          </li>
-          <li className="py-[8px] pr-[16px] pl-[42px] border-b-[1px] border-border relative">
-            <span className="absolute top-[8px] left-[16px] w-[18px] h-[18px] text-white text-[12px] rounded-full bg-primary text-center leading-[18px] ">
-              1
-            </span>
-            <p className="text-title text-[14px]">
-              用意するメインの材料は、マカロニ、牛乳、鶏もも肉、玉ねぎ、椎茸で、バター、小麦粉、塩、こしょうも使用します。
-            </p>
-            <p className="mt-[4px] text-[10px]">
-              ※椎茸はなしでも作れますし、しめじやマッシュルームなどでも。きのこ系が入っていた方が食感と香りがよいので、ぜひ入れて作ってみてください。鶏肉等の代用については下記補足に
-            </p>
-          </li>
-          <li className="py-[8px] pr-[16px] pl-[42px] border-b-[1px] border-border relative">
-            <span className="absolute top-[8px] left-[16px] w-[18px] h-[18px] text-white text-[12px] rounded-full bg-primary text-center leading-[18px] ">
-              1
-            </span>
-            <p className="text-title text-[14px]">
-              用意するメインの材料は、マカロニ、牛乳、鶏もも肉、玉ねぎ、椎茸で、バター、小麦粉、塩、こしょうも使用します。
-            </p>
-            <p className="mt-[4px] text-[10px]">
-              ※椎茸はなしでも作れますし、しめじやマッシュルームなどでも。きのこ系が入っていた方が食感と香りがよいので、ぜひ入れて作ってみてください。鶏肉等の代用については下記補足に
-            </p>
-          </li>
-          <li className="py-[8px] pr-[16px] pl-[42px] border-b-[1px] border-border relative">
-            <span className="absolute top-[8px] left-[16px] w-[18px] h-[18px] text-white text-[12px] rounded-full bg-primary text-center leading-[18px] ">
-              1
-            </span>
-            <p className="text-title text-[14px]">
-              用意するメインの材料は、マカロニ、牛乳、鶏もも肉、玉ねぎ、椎茸で、バター、小麦粉、塩、こしょうも使用します。
-            </p>
-            <p className="mt-[4px] text-[10px]">
-              ※椎茸はなしでも作れますし、しめじやマッシュルームなどでも。きのこ系が入っていた方が食感と香りがよいので、ぜひ入れて作ってみてください。鶏肉等の代用については下記補足に
-            </p>
-          </li>
-          <li className="py-[8px] pr-[16px] pl-[42px] border-b-[1px] border-border relative">
-            <span className="absolute top-[8px] left-[16px] w-[18px] h-[18px] text-white text-[12px] rounded-full bg-primary text-center leading-[18px] ">
-              1
-            </span>
-            <p className="text-title text-[14px]">
-              用意するメインの材料は、マカロニ、牛乳、鶏もも肉、玉ねぎ、椎茸で、バター、小麦粉、塩、こしょうも使用します。
-            </p>
-            <p className="mt-[4px] text-[10px]">
-              ※椎茸はなしでも作れますし、しめじやマッシュルームなどでも。きのこ系が入っていた方が食感と香りがよいので、ぜひ入れて作ってみてください。鶏肉等の代用については下記補足に
-            </p>
-          </li>
+          {recipe.processes.map((process) => (
+            <li className="py-[8px] pr-[16px] pl-[42px] border-b-[1px] border-border relative" key={process.id}>
+              <span className="absolute top-[8px] left-[16px] w-[18px] h-[18px] text-white text-[12px] rounded-full bg-primary text-center leading-[18px] ">
+                {process.order}
+              </span>
+              <p className="text-title text-[14px]">{process.title}</p>
+              <p className="mt-[4px] text-[10px]">{process.description}</p>
+            </li>
+          ))}
         </ul>
         <button className="mt-[8.5px] pl-[18px] float-right pr-[16px] text-[12px] text-[#0066DB] relative">
           <span className="absolute left-0 top-1/2 -translate-y-1/2">

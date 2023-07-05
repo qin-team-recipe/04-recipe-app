@@ -6,9 +6,17 @@ import { FC } from "react";
 
 type Props = {
   page: string;
+  recipe: {
+    id: string;
+    name: string;
+    description: string;
+    _count: {
+      favorites: number;
+    };
+  };
 };
 
-const RecipeHero: FC<Props> = ({ page }) => {
+const RecipeHero: FC<Props> = ({ page, recipe }) => {
   return (
     <>
       {/* Hero */}
@@ -43,16 +51,12 @@ const RecipeHero: FC<Props> = ({ page }) => {
 
       {/* Recipe詳細 */}
       <div className="px-[16px] pt-[16px] pb-[18.17px]">
-        <h1 className="font-bold text-title text-[27px]">グラタン</h1>
-        <p className="mt-[16px] text-title text-[16px] leading-snug ">
-          はじめてでも失敗なく作れるような、鶏肉や玉ねぎを具とした基本的なマカロニグラタンのレシピです。
-          <br></br>
-          ソースと具材炒めを別器具で行うレシピも多いですが、グラタンの具を炒めたフライパンの中で、そのままホワイトソースを仕上げる手軽な作り方にしています。ぜひお試しください。
-        </p>
+        <h1 className="font-bold text-title text-[27px]">{recipe.name}</h1>
+        <p className="mt-[16px] text-title text-[16px] leading-snug ">{recipe.description}</p>
         <div className="flex gap-x-[16px] text-title pt-[14.17px] text-[16px] leading-snug">
           <Link href="/chef/1/recipes">しまぶーシェフ</Link>
           <p>
-            <span className="font-bold">456</span> お気に入り
+            <span className="font-bold">{recipe._count.favorites}</span> お気に入り
           </p>
         </div>
         <button
@@ -69,17 +73,17 @@ const RecipeHero: FC<Props> = ({ page }) => {
       <nav className="border-b-[1px] border-border">
         <ul className="flex text-title">
           <li className={`w-1/2 text-center text-[16px]  ${page === "steps" ? "font-bold border-b-2" : ""}`}>
-            <Link href="/recipe/1/steps" className="block py-[10px]">
+            <Link href={`/recipe/${recipe.id}/steps`} className="block py-[10px]">
               作り方
             </Link>
           </li>
           <li className={`w-1/2 text-center text-[16px]  ${page === "ingredients" ? "font-bold border-b-2" : ""}`}>
-            <Link href="/recipe/1/ingredients" className="block py-[10px]">
+            <Link href={`/recipe/${recipe.id}/ingredients`} className="block py-[10px]">
               材料
             </Link>
           </li>
           <li className={`w-1/2 text-center text-[16px]  ${page === "links" ? "font-bold border-b-2" : ""}`}>
-            <Link href="/recipe/1/links" className="block py-[10px]">
+            <Link href={`/recipe/${recipe.id}/links`} className="block py-[10px]">
               リンク
             </Link>
           </li>
