@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default async function Chefs() {
   const chefs = await trpcCaller.chefs({});
-  console.log(chefs);
+  // console.log(chefs);
 
   return (
     <section className="pt-[20px] px-[15px] pb-[48px]">

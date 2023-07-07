@@ -10,7 +10,6 @@ export const metadata = {
 export default async function RecipeIngredients({ params }: { params: { id: string } }) {
   const recipeId = params.id;
   const recipe = await trpcCaller.recipe({ recipeId });
-
   const text = recipe.ingredients
     .map((ingredient) => {
       return `${ingredient.title} ${ingredient.description}`;
