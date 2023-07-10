@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import { publicProcedure } from "../trpc/init-trpc";
 import { getImageUrl } from "../utils/cloudinary";
 import { SearchInput } from "./api-schema";
@@ -6,21 +7,25 @@ import { SearchInput } from "./api-schema";
  * シェフの一覧を取得する
  */
 export const getChefs = publicProcedure.input(SearchInput).query(async ({ ctx, input }) => {
+  const where: Prisma.ChefWhereInput | undefined =
+    input.search === undefined
+      ? undefined
+      : {
+          OR: [
+            {
+              displayName: {
+                contains: input.search,
+              },
+            },
+            {
+              bio: {
+                contains: input.search,
+              },
+            },
+          ],
+        };
   const chefs = await ctx.prisma.chef.findMany({
-    where: {
-      OR: [
-        {
-          displayName: {
-            contains: input.search,
-          },
-        },
-        {
-          bio: {
-            contains: input.search,
-          },
-        },
-      ],
-    },
+    where,
     select: {
       id: true,
       displayName: true,
