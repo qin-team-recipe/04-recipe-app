@@ -1,32 +1,41 @@
 "use client";
 
-import { useFieldArray } from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
 import { AppendInputButton } from "./AppendInputButton";
-import type {
-  UseFormRegister,
-  FormState,
-  Control,
-  FieldValues,
-  FieldArrayWithId,
-  UseFieldArrayAppend,
-} from "react-hook-form";
-import type { TMultilineInputItemsSchema, TProfileFormSchema, TIngredientFormSchema } from "@/app/profile/zodSchema";
+import type { Path, ArrayPath, FieldValues, FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
+import type { TMultiInputFieldType } from "./utils/types";
+import { getLabelAndDescription } from "./utils/helpers";
 
-type Props = {
-  label: string;
-  register: UseFormRegister<TProfileFormSchema>;
-  formState: FormState<TProfileFormSchema>;
-  control: Control<TProfileFormSchema, any>;
-  fields: FieldArrayWithId<TProfileFormSchema, "multiInputItems", "id">[];
-  append: UseFieldArrayAppend<TProfileFormSchema, "multiInputItems">;
+type Props<T extends FieldValues> = {
+  type: TMultiInputFieldType;
+  target: ArrayPath<T>;
+  errors:
+    | Merge<
+        FieldError,
+        (
+          | Merge<
+              FieldError,
+              FieldErrorsImpl<{
+                value: string;
+              }>
+            >
+          | undefined
+        )[]
+      >
+    | undefined;
 };
 
-export function MultiInputField({ label, register, formState, fields, append }: Props) {
-  const { multiInputItems } = formState.errors;
+export function MultiInputField<T extends FieldValues>({ type, target, errors }: Props<T>) {
+  const { register, control } = useFormContext<T>();
+
+  const { fields, append } = useFieldArray<T>({
+    name: target,
+    control,
+  });
 
   return (
     <div>
-      <label className="font-bold text-title mb-1 px-4">{label}</label>
+      <label className="font-bold text-title mb-1 px-4">{getLabelAndDescription(type).label}</label>
       {fields.map((field, index) => (
         <div key={field.id}>
           <input
@@ -34,14 +43,13 @@ export function MultiInputField({ label, register, formState, fields, append }: 
             className={`${
               index === 0 && "border-t-[1px]"
             } $ border-b-[1px] border-border py-[9px] px-4 w-full focus:outline-none text-black`}
-            {...register(`multiInputItems.${index}.value`)}
+            // FIXME: アサーション削除
+            {...register(`multiInputItems.${index}.value` as Path<T>)}
           />
-          {multiInputItems && (
-            <p className="text-primary px-4 font-bold text-sm">{multiInputItems[index]?.value?.message}</p>
-          )}
+          {errors && <p className="text-primary px-4 font-bold text-sm">{errors[index]?.value?.message}</p>}
         </div>
       ))}
-      <AppendInputButton text="リンク" append={append} />
+      <AppendInputButton type={type} append={append} />
     </div>
   );
 }

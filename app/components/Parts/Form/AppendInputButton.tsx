@@ -1,15 +1,16 @@
 "use client";
 
-import { UseFieldArrayAppend } from "react-hook-form";
 import { PlusIcon } from "../../Icons";
-import { TIngredientFormSchema, TProfileFormSchema } from "@/app/profile/zodSchema";
+import { getLabelAndDescription } from "./utils/helpers";
+import type { TMultiInputFieldType } from "./utils/types";
 
 type Props = {
-  text: "リンク" | "材料" | "工程";
-  append: UseFieldArrayAppend<TProfileFormSchema, "multiInputItems">;
+  type: TMultiInputFieldType;
+  // FIXME: any削除
+  append: any;
 };
 
-export function AppendInputButton({ text, append }: Props) {
+export function AppendInputButton({ type, append }: Props) {
   const handleClick = () => {
     append({ value: "" });
   };
@@ -17,7 +18,7 @@ export function AppendInputButton({ text, append }: Props) {
   return (
     <button type="button" className="flex items-center gap-1 mt-2 px-4" onClick={handleClick}>
       <PlusIcon className="stroke-primary" />
-      <p className="text-primary">{`${text}を追加する`}</p>
+      <p className="text-primary">{getLabelAndDescription(type).description}</p>
     </button>
   );
 }
