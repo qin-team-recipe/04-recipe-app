@@ -1,12 +1,11 @@
 "use client";
 
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { profileFormSchema } from "./zodSchema";
 import type { TFieldValue } from "./types";
 import type { TProfileFormSchema } from "./zodSchema";
-import { CommonButton, MultiInputField, TextField } from "@/app/components/Parts";
+import { CommonButton, MultiInputFields, TextField } from "@/app/components/Parts";
 import { ImageInputField } from "@/app/components/Parts/Form/ImageInputField";
 
 type Props = {
@@ -33,7 +32,7 @@ export function ProfileForm({ links }: Props) {
         <TextField label="ニックネーム" fieldName="nickname" />
         <ImageInputField profile />
         <TextField label="自己紹介(任意)" fieldName="biography" multiline />
-        <MultiInputField<TProfileFormSchema>
+        <MultiInputFields<TProfileFormSchema>
           type="link"
           target="multiInputItems"
           errors={formState.errors.multiInputItems}

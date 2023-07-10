@@ -25,7 +25,7 @@ type Props<T extends FieldValues> = {
     | undefined;
 };
 
-export function MultiInputField<T extends FieldValues>({ type, target, errors }: Props<T>) {
+export function MultiInputFields<T extends FieldValues>({ type, target, errors }: Props<T>) {
   const { register, control } = useFormContext<T>();
 
   const { fields, append } = useFieldArray<T>({
