@@ -10,20 +10,18 @@ import { Trash } from "tabler-icons-react";
 type Props<T extends FieldValues> = {
   type: TMultiInputFieldType;
   target: ArrayPath<T>;
-  errors:
-    | Merge<
-        FieldError,
-        (
-          | Merge<
-              FieldError,
-              FieldErrorsImpl<{
-                value: string;
-              }>
-            >
-          | undefined
-        )[]
-      >
-    | undefined;
+  errors?: Merge<
+    FieldError,
+    (
+      | Merge<
+          FieldError,
+          FieldErrorsImpl<{
+            value: string;
+          }>
+        >
+      | undefined
+    )[]
+  >;
 };
 
 export function MultiInputFields<T extends FieldValues>({ type, target, errors }: Props<T>) {
@@ -49,7 +47,7 @@ export function MultiInputFields<T extends FieldValues>({ type, target, errors }
               {...register(`multiInputItems.${index}.value` as Path<T>)}
             />
             <button type="button" className="absolute right-4" onClick={() => remove(Number(field.id))}>
-              <Trash />
+              <Trash className="w-5" />
             </button>
           </div>
           {errors && <p className="text-primary px-4 font-bold text-sm">{errors[index]?.value?.message}</p>}
