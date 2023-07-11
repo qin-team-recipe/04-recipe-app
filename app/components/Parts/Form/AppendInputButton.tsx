@@ -1,6 +1,6 @@
 "use client";
 
-import { PlusIcon } from "../../Icons";
+import { Plus } from "tabler-icons-react";
 import { getLabelAndDescription } from "./utils/helpers";
 import type { TMultiInputFieldType } from "./utils/types";
 
@@ -17,7 +17,7 @@ export function AppendInputButton({ type, append }: Props) {
 
   return (
     <button type="button" className="flex items-center gap-1 mt-2 px-4" onClick={handleClick}>
-      <PlusIcon className="stroke-primary" />
+      <Plus className="w-5 text-primary" />
       <p className="text-primary">{getLabelAndDescription(type).description}</p>
     </button>
   );
