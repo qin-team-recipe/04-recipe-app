@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import type { UseFormRegister, FormState, FieldValues, Path } from "react-hook-form";
+import type { FieldValues, Path } from "react-hook-form";
 
 type Props<T extends FieldValues> = {
   label: string;
