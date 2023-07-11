@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { useFormContext } from "react-hook-form";
 import { Plus, Minus } from "tabler-icons-react";
