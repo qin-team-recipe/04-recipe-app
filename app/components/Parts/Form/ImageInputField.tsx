@@ -43,21 +43,20 @@ export function ImageInputField<T extends FieldValues>({ profile, fieldName }: P
       <h2 className="font-bold text-title mb-3">{profile && "プロフィール"}画像(任意)</h2>
 
       {imageData ? (
-        <div>
-          <button className="relative" onClick={() => setImageData("")}>
+        <div className="relative">
+          <button className="absolute" onClick={() => setImageData("")}>
             <Minus
-              className="w-5 h-5 bg-primary text-white rounded-full p-0.5 absolute -top-2 left-[86px] z-50"
+              className="w-5 h-5 bg-primary text-white rounded-full p-0.5 absolute -top-2 left-[86px] z-50 hover:bg-lightenPrimary"
               onClick={() => setImageData("")}
             />
-            <Image
-              width={100}
-              height={100}
-              className="rounded-xl w-[100px] h-[100px] border border-border hover:cursor-pointer object-cover"
-              src={imageData}
-              alt="image"
-            />
-            <div className="absolute bottom-0 left-0 right-0 top-0 w-[100px] h-[100px] overflow-hidden bg-[hsl(0,0%,98.4%,0.2)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100"></div>
           </button>
+          <Image
+            width={100}
+            height={100}
+            className="rounded-xl w-[100px] h-[100px] border border-border object-cover"
+            src={imageData}
+            alt="image"
+          />
         </div>
       ) : (
         <label htmlFor="file">
