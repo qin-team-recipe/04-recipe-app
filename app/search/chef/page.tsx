@@ -19,7 +19,7 @@ export default async function Chefs({
     <>
       <SearchInput2 page="chef" searchParams={searchParams} />
       <SearchNav page="chef" searchParams={searchParams} />
-      <AllChefs searchParams={searchParams} chefs={chefs} />
+      <AllChefs searchParams={searchParams} />
     </>
   );
 }
