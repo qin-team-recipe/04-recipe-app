@@ -33,7 +33,7 @@ export function ProfileForm({ links }: Props) {
         <ImageInputField<TProfileFormSchema> profile fieldName="profileImage" />
         <TextField<TProfileFormSchema> label="自己紹介(任意)" fieldName="biography" multiline />
         <MultiInputFields<TProfileFormSchema>
-          type="ingredient"
+          type="link"
           target="multiInputItems"
           errors={formState.errors.multiInputItems}
         />
