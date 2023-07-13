@@ -1,12 +1,23 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FC } from "react";
 
 type Props = {
   page: string;
+  chef: {
+    id: string;
+    displayName: string;
+    bio: string;
+    followerCount: number;
+  };
 };
 
-const ChefHero: FC<Props> = ({ page }) => {
+const ChefHero: FC<Props> = ({ page, chef }) => {
+  const router = useRouter();
+
   return (
     <>
       {/* Hero */}
@@ -19,7 +30,10 @@ const ChefHero: FC<Props> = ({ page }) => {
           style={{ width: "100%", height: "auto" }}
         />
 
-        <Link href="/" className="stroke-white hover:stroke-primary absolute top-[20px] left-[20px]">
+        <button
+          onClick={() => router.back()}
+          className="stroke-white hover:stroke-primary absolute top-[20px] left-[20px]"
+        >
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M25.3333 16H6.66666"
@@ -36,7 +50,7 @@ const ChefHero: FC<Props> = ({ page }) => {
               strokeLinejoin="round"
             />
           </svg>
-        </Link>
+        </button>
         <button className="absolute -bottom-[30px] right-[10px]">
           <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="30" cy="30" r="30" fill="#E54D2E" />
@@ -53,13 +67,10 @@ const ChefHero: FC<Props> = ({ page }) => {
 
       {/* Chef詳細 */}
       <div className="px-[16px] pt-[16px] pb-[18.17px]">
-        <h1 className="font-bold text-title text-[27px]">山田シェフ</h1>
-        <p className="mt-[16px] text-title text-[16px] leading-snug ">
-          初の絵本出版！ 『 まねっこシェフ』 ・ふわふわ！スクランブルエッグ ・にぎにぎ！おにぎり
-          主婦の友社より３月３日、２冊同時発売！ 絶賛発売中！
-        </p>
+        <h1 className="font-bold text-title text-[27px]">{chef.displayName}</h1>
+        <p className="mt-[16px] text-title text-[16px] leading-snug ">{chef.bio}</p>
         <p className="pt-[14.17px] text-[16px] leading-snug">
-          <span className="text-title font-bold">456</span> フォロワー
+          <span className="text-title font-bold">{chef.followerCount}</span> フォロワー
         </p>
       </div>
 
@@ -67,12 +78,12 @@ const ChefHero: FC<Props> = ({ page }) => {
       <nav className="border-b-[1px] border-border">
         <ul className="flex text-title">
           <li className={`w-1/2 text-center text-[16px]  ${page === "recipes" ? "font-bold border-b-2" : ""}`}>
-            <Link href="/chef/1/recipes" className="block py-[10px]">
+            <Link href={`/chef/${chef.id}/recipes`} className="block py-[10px]">
               レシピ
             </Link>
           </li>
           <li className={`w-1/2 text-center text-[16px]  ${page === "links" ? "font-bold border-b-2" : ""}`}>
-            <Link href="/chef/1/links" className="block py-[10px]">
+            <Link href={`/chef/${chef.id}/links`} className="block py-[10px]">
               リンク
             </Link>
           </li>

@@ -29,7 +29,7 @@ export default function SearchInput2({
     const newTimeoutId = setTimeout(() => {
       // console.log('入力値の変更が止まりました:', value);
       setLoading(false);
-      console.log(value);
+      // console.log(value);
 
       if (!value) {
         router.push(`/search/${page}`);

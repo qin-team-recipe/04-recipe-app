@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 type Recipe = {
+  id: string;
   name: string;
   description: string;
   imageUrl: string | null;
@@ -12,7 +13,7 @@ type Recipe = {
 function RecipeCard({ recipe }: { recipe: Recipe }) {
   return (
     <li className="w-[calc(50%_-_6px)] h-auto relative">
-      <Link href="/recipe/1/steps">
+      <Link href={`/recipe/${recipe.id}/steps`}>
         <Image
           src={recipe.imageUrl ?? ""}
           alt="レシピの写真"
