@@ -321,6 +321,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hookform/resolvers@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "@hookform/resolvers@npm:3.1.1"
+  peerDependencies:
+    react-hook-form: ^7.0.0
+  checksum: 41da04f0995438364f129484011a84c0d4333ce1b4cb7815593f58ece51bbd88c87db9ea6b1f5d0b7ae3e47bfcdf1a3f8e2328c46800e884074048473b56d5b5
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/config-array@npm:^0.11.10":
   version: 0.11.10
   resolution: "@humanwhocodes/config-array@npm:0.11.10"
@@ -4533,6 +4542,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-hook-form@npm:^7.45.1":
+  version: 7.45.1
+  resolution: "react-hook-form@npm:7.45.1"
+  peerDependencies:
+    react: ^16.8.0 || ^17 || ^18
+  checksum: 3abe1dcf449a3d438b4e5403d93d1502f6dab05afd5c5215f0fc88a32f3d06e7f4b77bee75479359c22a418af6ea0f52711478c73773cb5fd0f43da50669aa17
+  languageName: node
+  linkType: hard
+
 "react-is@npm:^16.13.1":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
@@ -4646,6 +4664,7 @@ __metadata:
   resolution: "recipe-app@workspace:."
   dependencies:
     "@auth/prisma-adapter": ^1.0.0
+    "@hookform/resolvers": ^3.1.1
     "@prisma/client": ^4.15.0
     "@radix-ui/react-dropdown-menu": ^2.0.5
     "@trpc/client": 10.29.1
@@ -4664,6 +4683,8 @@ __metadata:
     prisma: ^4.15.0
     react: 18.2.0
     react-dom: 18.2.0
+    react-hook-form: ^7.45.1
+    tabler-icons-react: ^1.56.0
     tailwindcss: 3.3.2
     tsx: ^3.12.7
     typescript: 5.1.3
@@ -5233,6 +5254,15 @@ __metadata:
     "@pkgr/utils": ^2.3.1
     tslib: ^2.5.0
   checksum: 8a9560e5d8f3d94dc3cf5f7b9c83490ffa30d320093560a37b88f59483040771fd1750e76b9939abfbb1b5a23fd6dfbae77f6b338abffe7cae7329cd9b9bb86b
+  languageName: node
+  linkType: hard
+
+"tabler-icons-react@npm:^1.56.0":
+  version: 1.56.0
+  resolution: "tabler-icons-react@npm:1.56.0"
+  peerDependencies:
+    react: ">= 16.8.0"
+  checksum: 0b058055826fe478afa5c72641bb5207b6332b177d6ed7f505ebaad632cf33a63f0a3bf87af103af2b65bb0fc7b76f056ef03328fea7fa0c7378e30a82c3212b
   languageName: node
   linkType: hard
 
