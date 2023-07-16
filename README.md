@@ -27,7 +27,7 @@ yarn run dev
 
 ## TIPS
 
-### シーダーを実行する
+### シーダーを実行する方法
 
 ```bash
 # すべてのシーダーを実行する
@@ -37,41 +37,16 @@ DB=dev yarn prisma db seed
 DB=dev yarn prisma db seed chefSeeder
 ```
 
-### APIを実行する
+### APIの動作確認をする方法
 
-tRPCはHTTPベースのRPCなので、curlやPostmanから実行することができます。
+tRPCはHTTPベースのRPCなので、curlやPostmanから実行することができます。APIのエンドポイントは、`localhost:3000/api/trpc/{プロシージャ名}`です。
 
-```json
-$ curl localhost:3000/api/trpc/chefs | jq .
-{
-  "result": {
-    "data": [
-      {
-        "id": "clix21kl40007u0bc0jz6jkvy",
-        "displayName": "Alexandra Dupont",
-        "bio": "フランス料理のスタイルを尊重しながら、現代的なアプローチを取るフレンチシェフ。シンプルで洗練された料理に、斬新なアイデアを取り入れた独自のメニューを提供します。フレーバーパリングのマスターとして知られ、素材の持つ個性を引き立てます。",
-        "profileImageUrl": "image_1_1_s8bktj",
-        "recipeCount": 0
-      },
-      {
-        "id": "clix21kl40005u0bcb02h50xo",
-        "displayName": "Andrea Rossi",
-        "bio": "イタリア料理の名門出身で、伝統と創造性を融合させる技術を持つシェフ。家庭的で温かみのある料理から、高級レストランでの本格的なイタリアンまで幅広いジャンルに精通しています。素材の鮮度と風味を最大限に引き出し、愛情を込めた料理を提供します。",
-        "profileImageUrl": "image_1_1_s8bktj",
-        "recipeCount": 0
-      }
-    ]
-  }
-}
-```
+実行方法の詳細は、下記のドキュメントを参照してください。
 
-`/api/trpc/chefs`の`chefs`の部分は、プロシージャの名前です。
+- [HTTP RPC Specification | tRPC](https://trpc.io/docs/v9/rpc)
+- [【小ネタ】tRPCのAPIをPostmanで実行する方法](https://zenn.dev/tekihei2317/articles/e9eb843eb728a9)
 
-パラメータを送信する場合は、mutationの場合はリクエストボディに設定します。queryの場合は`myQuery?input=${encodeURIComponent(JSON.stringify(input))`のように、エンコードしてクエリパラメータに設定します。
-
-RPCの詳細は[HTTP RPC Specification | tRPC](https://trpc.io/docs/v9/rpc)を参照してください。
-
-### PlanetScaleに対してマイグレーションを実行する
+### PlanetScaleに対してマイグレーションを実行する方法
 
 まず、PlanetScaleのコンソールからmainブランチの接続URLを取得して、.envの`DATABASE_URL`に設定します。
 
