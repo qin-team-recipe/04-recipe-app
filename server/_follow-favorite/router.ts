@@ -3,6 +3,7 @@ import { favoriteRecipe } from "./favorite-recipe";
 import { followChef } from "./follow-chef";
 import { getFavoriteRecipes } from "./get-favorite-recipes";
 import { getFollowingChefs } from "./get-following-chefs";
+import { getNewRecipes } from "./get-new-recipes";
 import { unfavoriteRecipe } from "./unfavorite-recipe";
 import { unfollowChef } from "./unfollow-chef";
 
@@ -13,4 +14,5 @@ export const followFavoriteRouter = router({
   unfavoriteRecipe,
   followingChefs: getFollowingChefs,
   favoriteRecipes: getFavoriteRecipes,
+  chefsNewRecipes: getNewRecipes,
 });
