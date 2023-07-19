@@ -9,7 +9,7 @@ function ChefCard({ chef }: { chef: Chef }) {
     <li>
       <Link href="/chef/1/recipes" className="flex gap-x-[16px]">
         <Image
-          className="w-[88px] flex-none h-[116px] rounded-[16px] overflow-hidden"
+          className="w-[88px] flex-none h-[116px] rounded-[16px] overflow-hidden object-cover"
           src={chef.profileImageUrl}
           alt="シェフの写真"
           width={88}
