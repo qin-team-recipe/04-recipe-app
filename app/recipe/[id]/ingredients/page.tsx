@@ -23,7 +23,7 @@ export default async function RecipeIngredients({ params }: { params: { id: stri
       {/* 材料 */}
       <section className="pb-[48px]">
         <div className="flex justify-between pt-[20px] pb-[10.5px] px-[15px] items-center border-b-[1px] border-border font-bold">
-          <p className="text-title text-[20px] ">2人前</p>
+          <p className="text-title text-[20px] ">{recipe.yields}人前</p>
           <button className="relative pl-[20px] stroke-[#908E96] hover:stroke-primary hover:text-primary">
             <svg
               width="18"

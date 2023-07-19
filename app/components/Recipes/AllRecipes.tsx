@@ -16,7 +16,7 @@ function RecipeCard({ recipe }: { recipe: Recipe }) {
       <Link href={`/recipe/${recipe.id}/steps`}>
         <Image
           src={recipe.imageUrl ?? ""}
-          alt="レシピの写真"
+          alt={recipe.name}
           width={173}
           height={173}
           style={{ width: "100%", height: "auto" }}
