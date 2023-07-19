@@ -19,7 +19,7 @@ function RecipeCard({ recipe }: { recipe: Recipe }) {
           alt="レシピの写真"
           width={173}
           height={173}
-          style={{ width: "100%", height: "auto" }}
+          className="w-full aspect-square object-cover rounded-2xl"
         />
         <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
           <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
@@ -28,7 +28,7 @@ function RecipeCard({ recipe }: { recipe: Recipe }) {
           {recipe.favoriteCount}
         </div>
         <p className="text-title font-bold mt-[8px] text-[12px]">{recipe.name}</p>
-        <p className="text-[10px] mt-[4px]">{recipe.description}</p>
+        <p className="text-[10px] mt-[4px] line-clamp-1">{recipe.description}</p>
       </Link>
     </li>
   );
