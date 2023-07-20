@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { FC } from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import "./styles.css";
+import { BrandYoutube, BrandInstagram, DotsCircleHorizontal } from "tabler-icons-react";
+import { FollowButton } from "./FollowButton";
 
 type Props = {
   page: string;
@@ -14,6 +16,8 @@ type Props = {
     displayName: string;
     bio: string;
     followerCount: number;
+    profileImageUrl: string;
+    isFollowing: boolean;
   };
 };
 
@@ -44,56 +48,14 @@ const ChefHero: FC<Props> = ({ page, chef }) => {
           {/* Links */}
           <div className="flex items-center justify-between gap-x-[12px]">
             <Link href="https://youtube.com" target="_blank">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M3 9C3 7.93913 3.42143 6.92172 4.17157 6.17157C4.92172 5.42143 5.93913 5 7 5H17C18.0609 5 19.0783 5.42143 19.8284 6.17157C20.5786 6.92172 21 7.93913 21 9V15C21 16.0609 20.5786 17.0783 19.8284 17.8284C19.0783 18.5786 18.0609 19 17 19H7C5.93913 19 4.92172 18.5786 4.17157 17.8284C3.42143 17.0783 3 16.0609 3 15V9Z"
-                  stroke="#1A1523"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M10 9L15 12L10 15V9Z"
-                  stroke="#1A1523"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <BrandYoutube className="text-black" />
             </Link>
             <Link href="https://youtube.com" target="_blank">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M16.5 7.5V7.51M4 8C4 6.93913 4.42143 5.92172 5.17157 5.17157C5.92172 4.42143 6.93913 4 8 4H16C17.0609 4 18.0783 4.42143 18.8284 5.17157C19.5786 5.92172 20 6.93913 20 8V16C20 17.0609 19.5786 18.0783 18.8284 18.8284C18.0783 19.5786 17.0609 20 16 20H8C6.93913 20 5.92172 19.5786 5.17157 18.8284C4.42143 18.0783 4 17.0609 4 16V8ZM9 12C9 12.7956 9.31607 13.5587 9.87868 14.1213C10.4413 14.6839 11.2044 15 12 15C12.7956 15 13.5587 14.6839 14.1213 14.1213C14.6839 13.5587 15 12.7956 15 12C15 11.2044 14.6839 10.4413 14.1213 9.87868C13.5587 9.31607 12.7956 9 12 9C11.2044 9 10.4413 9.31607 9.87868 9.87868C9.31607 10.4413 9 11.2044 9 12Z"
-                  stroke="#1A1523"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <BrandInstagram className="text-black" />
             </Link>
-            {/* <Link href="https://youtube.com" target="_blank">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M8 12V12.01M12 12V12.01M16 12V12.01M3 12C3 13.1819 3.23279 14.3522 3.68508 15.4442C4.13738 16.5361 4.80031 17.5282 5.63604 18.364C6.47177 19.1997 7.46392 19.8626 8.55585 20.3149C9.64778 20.7672 10.8181 21 12 21C13.1819 21 14.3522 20.7672 15.4442 20.3149C16.5361 19.8626 17.5282 19.1997 18.364 18.364C19.1997 17.5282 19.8626 16.5361 20.3149 15.4442C20.7672 14.3522 21 13.1819 21 12C21 10.8181 20.7672 9.64778 20.3149 8.55585C19.8626 7.46392 19.1997 6.47177 18.364 5.63604C17.5282 4.80031 16.5361 4.13738 15.4442 3.68508C14.3522 3.23279 13.1819 3 12 3C10.8181 3 9.64778 3.23279 8.55585 3.68508C7.46392 4.13738 6.47177 4.80031 5.63604 5.63604C4.80031 6.47177 4.13738 7.46392 3.68508 8.55585C3.23279 9.64778 3 10.8181 3 12Z"
-                  stroke="#1A1523"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </Link> */}
             <DropdownMenu.Root>
               <DropdownMenu.Trigger>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path
-                    d="M8 12V12.01M12 12V12.01M16 12V12.01M3 12C3 13.1819 3.23279 14.3522 3.68508 15.4442C4.13738 16.5361 4.80031 17.5282 5.63604 18.364C6.47177 19.1997 7.46392 19.8626 8.55585 20.3149C9.64778 20.7672 10.8181 21 12 21C13.1819 21 14.3522 20.7672 15.4442 20.3149C16.5361 19.8626 17.5282 19.1997 18.364 18.364C19.1997 17.5282 19.8626 16.5361 20.3149 15.4442C20.7672 14.3522 21 13.1819 21 12C21 10.8181 20.7672 9.64778 20.3149 8.55585C19.8626 7.46392 19.1997 6.47177 18.364 5.63604C17.5282 4.80031 16.5361 4.13738 15.4442 3.68508C14.3522 3.23279 13.1819 3 12 3C10.8181 3 9.64778 3.23279 8.55585 3.68508C7.46392 4.13738 6.47177 4.80031 5.63604 5.63604C4.80031 6.47177 4.13738 7.46392 3.68508 8.55585C3.23279 9.64778 3 10.8181 3 12Z"
-                    stroke="#1A1523"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                <DotsCircleHorizontal className="text-black" />
               </DropdownMenu.Trigger>
 
               <DropdownMenu.Portal>
@@ -228,9 +190,15 @@ const ChefHero: FC<Props> = ({ page, chef }) => {
         <div className="flex justify-between items-center mt-[15px]">
           <div>
             <h1 className="font-bold text-title text-[27px]">{chef.displayName}</h1>
-            <p className="text-title text-[14px]">fooband</p>
+            <p className="text-title text-[14px]">{chef.id}</p>
           </div>
-          <Image src="/images/favChef.png" alt="Picture of the recipe" width={68} height={68} />
+          <Image
+            src={chef.profileImageUrl}
+            alt="Picture of the chef"
+            width={64}
+            height={64}
+            className="w-16 h-16 object-cover rounded-[32px]"
+          />
         </div>
 
         {/* image */}
@@ -245,9 +213,10 @@ const ChefHero: FC<Props> = ({ page, chef }) => {
         </div>
 
         {/* フォローするボタン */}
-        <button className="w-full py-[8px] px-[12px] mt-[16px] text-white bg-primary rounded-[4px] text-[14px] leading-[17px]">
-          フォローする
-        </button>
+        <div className="mt-4">
+          {/* TODO: ログインしていない場合は、ログイン画面にリダイレクトする */}
+          <FollowButton isFollowing={chef.isFollowing} chefId={chef.id} refresh={() => router.refresh()} />
+        </div>
       </div>
 
       {/* ナビゲーション */}
