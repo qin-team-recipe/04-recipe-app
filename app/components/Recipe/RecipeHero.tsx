@@ -5,6 +5,8 @@ import Link from "next/link";
 import { FC } from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import "./styles.css";
+import { FavoriteButton } from "./FavoriteButton";
+import { useRouter } from "next/navigation";
 
 type Props = {
   page: string;
@@ -15,20 +17,27 @@ type Props = {
     _count: {
       favorites: number;
     };
+    primaryImageUrl: string | null;
+    chef: { id: string; displayName: string } | undefined;
+    isFavoriting: boolean;
   };
 };
 
 const RecipeHero: FC<Props> = ({ page, recipe }) => {
+  const router = useRouter();
+
   return (
     <>
       {/* Hero */}
       <div className="relative">
         <Image
-          src="/images/RecipeImage.png"
+          src={recipe.primaryImageUrl ?? "/images/RecipeImage.png"}
           alt="Picture of the recipe"
           width={390}
           height={390}
-          style={{ width: "100%", height: "auto" }}
+          style={{ width: "100%" }}
+          className="max-h-[480px] object-cover"
+          priority={true}
         />
 
         <Link href="/" className="stroke-white hover:stroke-primary absolute top-[20px] left-[20px]">
@@ -241,20 +250,15 @@ const RecipeHero: FC<Props> = ({ page, recipe }) => {
 
         <p className="mt-[16px] text-title text-[16px] leading-snug ">{recipe.description}</p>
         <div className="flex gap-x-[16px] text-title pt-[14.17px] text-[16px] leading-snug">
-          <Link href="/chef/1/recipes">しまぶーシェフ</Link>
+          {recipe.chef && <Link href={`/chef/${recipe.chef.id}/recipes`}>{recipe.chef.displayName}</Link>}
           <p>
             <span className="font-bold">{recipe._count.favorites}</span> お気に入り
           </p>
         </div>
 
-        <button
-          onClick={() => {
-            window.alert("お気に入りに追加！");
-          }}
-          className="w-full py-[8px] px-[12px] mt-[16px] text-white bg-primary rounded-[4px] text-[14px] leading-[17px]"
-        >
-          お気に入りに追加
-        </button>
+        <div className="mt-4">
+          <FavoriteButton isFavoriting={recipe.isFavoriting} recipeId={recipe.id} refresh={() => router.refresh()} />
+        </div>
       </div>
 
       {/* ナビゲーション */}

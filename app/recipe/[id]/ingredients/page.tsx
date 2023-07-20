@@ -18,7 +18,7 @@ export default async function RecipeIngredients({ params }: { params: { id: stri
 
   return (
     <>
-      <RecipeHero page="ingredients" recipe={recipe} />
+      <RecipeHero page="steps" recipe={{ ...recipe, chef: recipe.chefRecipe?.chef }} />
 
       {/* 材料 */}
       <section className="pb-[48px]">

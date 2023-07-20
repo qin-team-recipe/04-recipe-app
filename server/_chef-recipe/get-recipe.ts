@@ -1,6 +1,7 @@
 import { publicProcedure } from "../trpc/init-trpc";
 import { notFoundError } from "../trpc/trpc-error";
 import { RecipeIdInput } from "./api-schema";
+import { getRecipeImageUrlFromImages } from "./recipe-util";
 
 /**
  * レシピの情報を取得する
@@ -31,5 +32,18 @@ export const getRecipe = publicProcedure.input(RecipeIdInput).query(async ({ ctx
     },
   });
   if (recipe === null) throw notFoundError;
-  return recipe;
+
+  // ログインユーザーがお気に入りしているかどうか
+  const isFavoriting =
+    ctx.user === undefined
+      ? false
+      : (await ctx.prisma.favorite.findUnique({
+          where: { userId_recipeId: { userId: ctx.user.userId, recipeId: input.recipeId } },
+        })) !== null;
+
+  return {
+    ...recipe,
+    isFavoriting,
+    primaryImageUrl: getRecipeImageUrlFromImages(recipe.images),
+  };
 });

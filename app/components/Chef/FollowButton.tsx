@@ -9,7 +9,7 @@ type FollowButtonProps = {
   refresh: () => void;
 };
 
-export const FollowButton = ({ isFollowing, chefId, refresh }: FollowButtonProps) => {
+export function FollowButton({ isFollowing, chefId, refresh }: FollowButtonProps) {
   const handleClick = useCallback(async () => {
     if (!isFollowing) {
       await trpcClient.followChef.mutate({ chefId });
@@ -31,4 +31,4 @@ export const FollowButton = ({ isFollowing, chefId, refresh }: FollowButtonProps
       {isFollowing ? "フォロー中" : "フォローする"}
     </button>
   );
-};
+}
