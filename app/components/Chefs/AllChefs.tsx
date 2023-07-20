@@ -7,7 +7,7 @@ type Chef = RouterOutput["chefs"][number];
 function ChefCard({ chef }: { chef: Chef }) {
   return (
     <li>
-      <Link href="/chef/1/recipes" className="flex gap-x-[16px]">
+      <Link href={`/chef/${chef.id}/recipes`} className="flex gap-x-[16px]">
         <Image
           className="w-[88px] flex-none h-[116px] rounded-[16px] overflow-hidden object-cover"
           src={chef.profileImageUrl}

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { LoginScreen } from "../components/Auth/LoginScreen";
 import { getServerSession } from "next-auth";
 import { trpcClient } from "../utils/trpc";
+import { RouterOutput } from "@/server/trpc/router";
 
 export const metadata = {
   title: "Favorite",
@@ -32,52 +33,65 @@ function ChefCard({ chef }: { chef: Chef }) {
   );
 }
 
-const recipeCard = (
-  <li className="w-[calc(50%_-_6px)] h-auto relative">
-    <Link href="/recipe/1/steps">
-      <Image
-        src="/images/top/recipes/recipe1.png"
-        alt="シェフの写真"
-        width={173}
-        height={173}
-        style={{ width: "100%", height: "auto" }}
-      />
-      <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
-        <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-          <Image src="/images/top/recipes/favIcon.png" width={14} height={14} alt="vector icon" />
-        </span>
-        1,234
-      </div>
-      <p className="text-title font-bold mt-[8px] text-[12px]">トマトとルッコラのマルゲリータピザに合うホワイト...</p>
-      <p className="text-[10px] mt-[4px]">ウルトラハイパー超すごいしまぶ...</p>
-    </Link>
-  </li>
-);
+type Recipe = RouterOutput["favoriteRecipes"][number];
 
-const newRecipeCard = (
-  <li className="w-[160px] relative mt-[16px] flex-none">
-    <Link href="/recipe/1/steps">
-      <Image
-        //   className={styles.chefImage}
-        src="/images/top/recipes/recipe1.png"
-        alt="シェフの写真"
-        width={160}
-        height={160}
-      />
-      <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
-        <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-          <Image src="/images/top/recipes/favIcon.png" width={14} height={14} alt="vector icon" />
-        </span>
-        1,234
-      </div>
-      <p className="text-title font-bold mt-[8px] text-[12px]">トマトとルッコラのマルゲリータピザに合うホワイト...</p>
-      <p className="text-[10px] mt-[4px]">ウルトラハイパー超すごいしまぶ...</p>
-    </Link>
-  </li>
-);
+function RecipeCard({ recipe }: { recipe: Recipe }) {
+  return (
+    <li className="w-[calc(50%_-_6px)] h-auto relative">
+      <Link href={`/recipe/${recipe.id}/steps`}>
+        <Image
+          src={recipe.imageUrl ?? "/images/top/recipes/recipe1.png"}
+          alt="レシピの写真"
+          width={173}
+          height={173}
+          style={{ width: "100%" }}
+          className="aspect-square object-cover rounded-[16px]"
+        />
+        <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
+          <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
+            <Image src="/images/top/recipes/favIcon.png" width={14} height={14} alt="vector icon" />
+          </span>
+          {recipe.favoriteCount}
+        </div>
+        <p className="text-title font-bold mt-[8px] text-[12px] line-clamp-2">{recipe.name}</p>
+        <p className="text-[10px] mt-[4px] line-clamp-1">{recipe.description}</p>
+      </Link>
+    </li>
+  );
+}
+
+type NewRecipe = RouterOutput["chefsNewRecipes"][number];
+
+function NewRecipeCard({ recipe }: { recipe: NewRecipe }) {
+  return (
+    <li className="w-[160px] relative mt-[16px] flex-none">
+      <Link href={`/recipe/${recipe.id}/steps`}>
+        <Image
+          src={recipe.imageUrl ?? "/images/top/recipes/recipe1.png"}
+          alt="レシピの写真"
+          width={160}
+          height={160}
+          className="aspect-square object-cover rounded-[16px]"
+        />
+        <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
+          <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
+            <Image src="/images/top/recipes/favIcon.png" width={14} height={14} alt="vector icon" />
+          </span>
+          {recipe.favoriteCount}
+        </div>
+        <p className="text-title font-bold mt-[8px] text-[12px] line-clamp-2">{recipe.name}</p>
+        <p className="text-[10px] mt-[4px] line-clamp-1">{recipe.description}</p>
+      </Link>
+    </li>
+  );
+}
 
 async function FavoriteContents() {
-  const followingChefs = await trpcClient.followingChefs.query();
+  const [followingChefs, newRecipes, favoriteRecipes] = await Promise.all([
+    trpcClient.followingChefs.query(),
+    trpcClient.chefsNewRecipes.query(),
+    trpcClient.favoriteRecipes.query(),
+  ]);
 
   return (
     <>
@@ -100,12 +114,9 @@ async function FavoriteContents() {
           </Link>
         </div>
         <ul className="flex gap-x-[16px] w-screen  overflow-x-scroll md:w-full pl-[15px]">
-          {newRecipeCard}
-          {newRecipeCard}
-          {newRecipeCard}
-          {newRecipeCard}
-          {newRecipeCard}
-          {newRecipeCard}
+          {newRecipes.map((recipe) => (
+            <NewRecipeCard key={recipe.id} recipe={recipe} />
+          ))}
         </ul>
       </section>
 
@@ -113,19 +124,11 @@ async function FavoriteContents() {
       <section className="px-[16px] py-[48px]">
         <div className="flex center justify-between">
           <h2 className="text-[20px] font-bold text-title">お気に入りレシピ</h2>
-          {/* <Link href="/my-recipe/create" className="font-bold text-[16px]">
-                マイレシピを作成
-              </Link> */}
         </div>
         <ul className="flex justify-between gap-y-[16px] gap-x-[12px] flex-wrap mt-[10px]">
-          {recipeCard}
-          {recipeCard}
-          {recipeCard}
-          {recipeCard}
-          {recipeCard}
-          {recipeCard}
-          {recipeCard}
-          {recipeCard}
+          {favoriteRecipes.map((recipe) => (
+            <RecipeCard key={recipe.id} recipe={recipe} />
+          ))}
         </ul>
       </section>
     </>

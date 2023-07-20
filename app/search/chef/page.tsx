@@ -1,7 +1,6 @@
 import AllChefs from "@/app/components/Chefs/AllChefs";
 import SearchInput2 from "@/app/components/Parts/SearchInput2";
 import SearchNav from "@/app/components/Parts/SearchNav";
-import { trpcCaller } from "@/server/trpc/router";
 
 export const metadata = {
   title: "Chefs",
@@ -13,8 +12,6 @@ export default async function Chefs({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const chefs = await trpcCaller.chefs({});
-
   return (
     <>
       <SearchInput2 page="chef" searchParams={searchParams} />
