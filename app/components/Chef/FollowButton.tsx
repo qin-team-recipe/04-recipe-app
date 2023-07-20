@@ -7,10 +7,17 @@ type FollowButtonProps = {
   isFollowing: boolean;
   chefId: string;
   refresh: () => void;
+  isLoggedIn: boolean;
+  onUnauthenticated: () => void;
 };
 
-export function FollowButton({ isFollowing, chefId, refresh }: FollowButtonProps) {
+export function FollowButton({ isFollowing, chefId, refresh, isLoggedIn, onUnauthenticated }: FollowButtonProps) {
   const handleClick = useCallback(async () => {
+    if (!isLoggedIn) {
+      onUnauthenticated();
+      return;
+    }
+
     if (!isFollowing) {
       await trpcClient.followChef.mutate({ chefId });
       refresh();
@@ -18,7 +25,7 @@ export function FollowButton({ isFollowing, chefId, refresh }: FollowButtonProps
       await trpcClient.unfollowChef.mutate({ chefId });
       refresh();
     }
-  }, [isFollowing, chefId, refresh]);
+  }, [isFollowing, chefId, refresh, isLoggedIn, onUnauthenticated]);
 
   return (
     <button

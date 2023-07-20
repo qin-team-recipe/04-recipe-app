@@ -7,6 +7,7 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import "./styles.css";
 import { FavoriteButton } from "./FavoriteButton";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 type Props = {
   page: string;
@@ -25,6 +26,7 @@ type Props = {
 
 const RecipeHero: FC<Props> = ({ page, recipe }) => {
   const router = useRouter();
+  const { data: session } = useSession();
 
   return (
     <>
@@ -257,7 +259,13 @@ const RecipeHero: FC<Props> = ({ page, recipe }) => {
         </div>
 
         <div className="mt-4">
-          <FavoriteButton isFavoriting={recipe.isFavoriting} recipeId={recipe.id} refresh={() => router.refresh()} />
+          <FavoriteButton
+            isFavoriting={recipe.isFavoriting}
+            recipeId={recipe.id}
+            refresh={() => router.refresh()}
+            isLoggedIn={session !== null}
+            onUnauthenticated={() => router.push("/favorite")}
+          />
         </div>
       </div>
 

@@ -8,6 +8,7 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import "./styles.css";
 import { BrandYoutube, BrandInstagram, DotsCircleHorizontal } from "tabler-icons-react";
 import { FollowButton } from "./FollowButton";
+import { useSession } from "next-auth/react";
 
 type Props = {
   page: string;
@@ -23,6 +24,7 @@ type Props = {
 
 const ChefHero: FC<Props> = ({ page, chef }) => {
   const router = useRouter();
+  const { data: session } = useSession();
 
   return (
     <>
@@ -214,8 +216,13 @@ const ChefHero: FC<Props> = ({ page, chef }) => {
 
         {/* フォローするボタン */}
         <div className="mt-4">
-          {/* TODO: ログインしていない場合は、ログイン画面にリダイレクトする */}
-          <FollowButton isFollowing={chef.isFollowing} chefId={chef.id} refresh={() => router.refresh()} />
+          <FollowButton
+            isFollowing={chef.isFollowing}
+            chefId={chef.id}
+            refresh={() => router.refresh()}
+            isLoggedIn={session !== null}
+            onUnauthenticated={() => router.push("/favorite")}
+          />
         </div>
       </div>
 
