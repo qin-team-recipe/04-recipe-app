@@ -28,10 +28,10 @@ export default async function TopRecipes() {
                 <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
                   <Image src="/images/top/recipes/favIcon.png" width={14} height={14} alt="vector icon" />
                 </span>
-                1,234
+                {recipe.favoriteCount}
               </div>
               <p className="text-title font-bold mt-[8px] text-[12px] line-clamp-1">{recipe.name}</p>
-              <p className="text-[10px] mt-[4px] line-clamp-3">{recipe.description}</p>
+              <p className="text-[10px] mt-[4px] line-clamp-3">{recipe.chef?.displayName}</p>
             </Link>
           </li>
         ))}

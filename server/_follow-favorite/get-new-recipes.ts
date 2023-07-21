@@ -20,6 +20,9 @@ export const getNewRecipes = protectedProcedure.query(async ({ ctx }) => {
       description: true,
       images: true,
       _count: { select: { favorites: true } },
+      chefRecipe: {
+        select: { chef: true },
+      },
     },
     where: {
       chefRecipe: {
@@ -31,9 +34,10 @@ export const getNewRecipes = protectedProcedure.query(async ({ ctx }) => {
     take: 20,
   });
 
-  return recipes.map(({ _count, images, ...recipe }) => ({
+  return recipes.map(({ _count, images, chefRecipe, ...recipe }) => ({
     ...recipe,
     imageUrl: getRecipeImageUrlFromImages(images),
     favoriteCount: _count.favorites,
+    author: chefRecipe === null ? null : chefRecipe.chef,
   }));
 });
