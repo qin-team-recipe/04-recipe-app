@@ -161,7 +161,21 @@ export default async function Favorite() {
         </Link>
       </div>
 
-      {session === null ? <LoginScreen /> : <FavoriteContents />}
+      {session === null ? (
+        <div>
+          <Image
+            src="/images/girlBakingCookie.png"
+            width="200"
+            height="200"
+            alt="クッキーを焼く女の子"
+            className="mx-auto"
+            priority={true}
+          />
+          <LoginScreen />
+        </div>
+      ) : (
+        <FavoriteContents />
+      )}
     </>
   );
 }
