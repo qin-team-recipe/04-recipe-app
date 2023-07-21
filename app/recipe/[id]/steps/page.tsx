@@ -1,6 +1,6 @@
 import CopyClipboard from "@/app/components/Parts/CopyClipboard";
 import RecipeHero from "@/app/components/Recipe/RecipeHero";
-import { trpcCaller } from "@/server/trpc/router";
+import { trpcClient } from "@/app/utils/trpc";
 
 export const metadata = {
   title: "Recipes",
@@ -9,7 +9,7 @@ export const metadata = {
 
 export default async function RecipeSteps({ params }: { params: { id: string } }) {
   const recipeId = params.id;
-  const recipe = await trpcCaller.recipe({ recipeId });
+  const recipe = await trpcClient.recipe.query({ recipeId });
 
   const text = recipe.processes
     .map((process) => {
@@ -19,7 +19,7 @@ export default async function RecipeSteps({ params }: { params: { id: string } }
 
   return (
     <>
-      <RecipeHero page="steps" recipe={recipe} />
+      <RecipeHero page="steps" recipe={{ ...recipe, chef: recipe.chefRecipe?.chef }} />
 
       {/* 作り方 */}
       <section className="pb-[48px]">

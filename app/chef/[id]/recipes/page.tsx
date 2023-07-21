@@ -1,5 +1,5 @@
 import ChefHero from "@/app/components/Chef/ChefHero";
-import { trpcCaller } from "@/server/trpc/router";
+import { trpcClient } from "@/app/utils/trpc";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,7 +10,7 @@ export const metadata = {
 
 export default async function ChefRecipes({ params }: { params: { id: string } }) {
   const chefId = params.id;
-  const chef = await trpcCaller.chef({ chefId });
+  const chef = await trpcClient.chef.query({ chefId });
 
   return (
     <>
