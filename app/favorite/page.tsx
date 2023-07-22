@@ -33,6 +33,32 @@ function ChefCard({ chef }: { chef: Chef }) {
   );
 }
 
+type NewRecipe = RouterOutput["chefsNewRecipes"][number];
+
+function NewRecipeCard({ recipe }: { recipe: NewRecipe }) {
+  return (
+    <li className="w-[160px] relative mt-[16px] flex-none">
+      <Link href={`/recipe/${recipe.id}/steps`}>
+        <Image
+          src={recipe.imageUrl ?? "/images/top/recipes/recipe1.png"}
+          alt="レシピの写真"
+          width={160}
+          height={160}
+          className="aspect-square object-cover rounded-[16px]"
+        />
+        <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
+          <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
+            <Image src="/images/top/recipes/favIcon.png" width={14} height={14} alt="vector icon" />
+          </span>
+          {recipe.favoriteCount}
+        </div>
+        <p className="text-title font-bold mt-[8px] text-[12px] line-clamp-2">{recipe.name}</p>
+        <p className="text-[10px] mt-[4px] line-clamp-1">{recipe.author?.displayName}</p>
+      </Link>
+    </li>
+  );
+}
+
 type Recipe = RouterOutput["favoriteRecipes"][number];
 
 function RecipeCard({ recipe }: { recipe: Recipe }) {
@@ -54,33 +80,7 @@ function RecipeCard({ recipe }: { recipe: Recipe }) {
           {recipe.favoriteCount}
         </div>
         <p className="text-title font-bold mt-[8px] text-[12px] line-clamp-2">{recipe.name}</p>
-        <p className="text-[10px] mt-[4px] line-clamp-1">{recipe.description}</p>
-      </Link>
-    </li>
-  );
-}
-
-type NewRecipe = RouterOutput["chefsNewRecipes"][number];
-
-function NewRecipeCard({ recipe }: { recipe: NewRecipe }) {
-  return (
-    <li className="w-[160px] relative mt-[16px] flex-none">
-      <Link href={`/recipe/${recipe.id}/steps`}>
-        <Image
-          src={recipe.imageUrl ?? "/images/top/recipes/recipe1.png"}
-          alt="レシピの写真"
-          width={160}
-          height={160}
-          className="aspect-square object-cover rounded-[16px]"
-        />
-        <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
-          <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-            <Image src="/images/top/recipes/favIcon.png" width={14} height={14} alt="vector icon" />
-          </span>
-          {recipe.favoriteCount}
-        </div>
-        <p className="text-title font-bold mt-[8px] text-[12px] line-clamp-2">{recipe.name}</p>
-        <p className="text-[10px] mt-[4px] line-clamp-1">{recipe.description}</p>
+        <p className="text-[10px] mt-[4px] line-clamp-1">{recipe.author?.displayName}</p>
       </Link>
     </li>
   );
@@ -161,7 +161,21 @@ export default async function Favorite() {
         </Link>
       </div>
 
-      {session === null ? <LoginScreen /> : <FavoriteContents />}
+      {session === null ? (
+        <div>
+          <Image
+            src="/images/girlBakingCookie.png"
+            width="200"
+            height="200"
+            alt="クッキーを焼く女の子"
+            className="mx-auto"
+            priority={true}
+          />
+          <LoginScreen />
+        </div>
+      ) : (
+        <FavoriteContents />
+      )}
     </>
   );
 }
