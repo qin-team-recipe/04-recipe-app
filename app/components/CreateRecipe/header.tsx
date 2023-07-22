@@ -2,11 +2,12 @@
 
 import { useRouter } from "next/navigation";
 import { useFormContext } from "react-hook-form";
+import { CreateRecipeSchema } from "./zodSchema";
 
 export const CreateRecipeHeader = () => {
   const router = useRouter();
 
-  const { getFieldState } = useFormContext();
+  const { getFieldState } = useFormContext<CreateRecipeSchema>();
 
   const headerButtonsHandler = (direction: string) => {
     if (

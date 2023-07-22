@@ -2,16 +2,16 @@
 
 import { AppendInputButton } from "@/app/components/Parts/Form/AppendInputButton";
 import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
-import { ActionsButton } from "../../components/CreateRecipe/parts/actionsButton";
-import { ValidationError } from "../../components/CreateRecipe/parts/validationError";
+import { ActionsButton } from "./Parts/ActionsButton";
+import { ValidationError } from "./Parts/ValidationError";
+import { CreateRecipeSchema } from "./zodSchema";
 
 export default function IngredientInput() {
   const {
     register,
     setValue,
-    getValues,
     formState: { errors },
-  } = useFormContext();
+  } = useFormContext<CreateRecipeSchema>();
 
   const fieldName = "ingredients";
 
@@ -102,7 +102,7 @@ export default function IngredientInput() {
       {errors.servings && <ValidationError errorMessage={(errors.servings as any).message} />}
 
       {errors.ingredients &&
-        (errors.ingredients as any).map((ingredient: any, index: number) =>
+        errors.ingredients.map?.((ingredient, index) =>
           ingredient?.value?.message ? (
             <ValidationError errorMessage={`材料${index + 1}：${ingredient?.value?.message}`} key={index} />
           ) : (

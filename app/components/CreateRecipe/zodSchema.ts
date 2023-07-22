@@ -40,3 +40,5 @@ export const recipeSchema = z.object({
   image: z.custom<FileList>().transform((file) => file[0]),
   steps: customIngredientsSchema("steps"),
 });
+
+export type CreateRecipeSchema = z.infer<typeof recipeSchema>;

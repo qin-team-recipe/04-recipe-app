@@ -1,14 +1,15 @@
 "use client";
 import { AppendInputButton } from "@/app/components/Parts/Form/AppendInputButton";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { ActionsButton } from "../../components/CreateRecipe/parts/actionsButton";
-import { ValidationError } from "../../components/CreateRecipe/parts/validationError";
+import { ActionsButton } from "./Parts/ActionsButton";
+import { ValidationError } from "./Parts/ValidationError";
+import { CreateRecipeSchema } from "./zodSchema";
 
 export default function LinkInput() {
   const {
     register,
     formState: { errors },
-  } = useFormContext();
+  } = useFormContext<CreateRecipeSchema>();
 
   const fieldName = "links";
 

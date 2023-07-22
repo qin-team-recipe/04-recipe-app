@@ -1,14 +1,15 @@
 "use client";
 import { AppendInputButton } from "@/app/components/Parts/Form/AppendInputButton";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { ActionsButton } from "./parts/actionsButton";
-import { ValidationError } from "./parts/validationError";
+import { ActionsButton } from "./Parts/ActionsButton";
+import { ValidationError } from "./Parts/ValidationError";
+import { CreateRecipeSchema } from "./zodSchema";
 
 export default function StepsInput() {
   const {
     register,
     formState: { errors },
-  } = useFormContext();
+  } = useFormContext<CreateRecipeSchema>();
 
   const fieldName = "steps";
 
@@ -43,10 +44,6 @@ export default function StepsInput() {
       </ul>
 
       <AppendInputButton type="process" append={append} />
-      {/* {errors.steps &&
-        (errors.steps as any).map((step: any, index: number) => (
-          <ValidationError errorMessage={`作り方${index + 1}: ${step?.value?.message}`} key={index} />
-        ))} */}
 
       {errors.steps &&
         (errors.steps as any).map((step: any, index: number) =>

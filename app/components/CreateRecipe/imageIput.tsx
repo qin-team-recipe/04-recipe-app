@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useFormContext, useWatch } from "react-hook-form";
-import { ValidationError } from "./parts/validationError";
+import { ValidationError } from "./Parts/ValidationError";
 
 export default function ImageInput() {
   const {

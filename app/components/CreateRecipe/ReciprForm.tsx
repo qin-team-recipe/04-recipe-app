@@ -1,22 +1,18 @@
 "use client";
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import LinkInput from "./linkInput";
-import NameInput from "./nameInput";
+import LinkInput from "./LinkInput";
+import NameInput from "./NameInput";
 import IngredientInput from "./IngredientInput";
-import DescriptionInput from "./descriptionInput";
-import ImageInput from "./imageIput";
-import StepsInput from "./stepsInput";
-import { recipeSchema } from "./zodSchema";
-import { CreateRecipeHeader } from "./header";
+import DescriptionInput from "./DescriptionInput";
+import ImageInput from "./ImageIput";
+import StepsInput from "./StepsInput";
+import { CreateRecipeSchema, recipeSchema } from "./zodSchema";
+import { CreateRecipeHeader } from "./Header";
 import { usePathname } from "next/navigation";
 
 export default function RecipeForm() {
   const pathname = usePathname();
-
-  type Form = z.infer<typeof recipeSchema>;
-
   const createDefaultValues = {
     servings: 2,
     ingredients: [
@@ -58,19 +54,17 @@ export default function RecipeForm() {
 
   const defaultValues = pathname.includes("edit") ? editDefaultValues : createDefaultValues;
 
-  const form = useForm<Form>({
+  const form = useForm<CreateRecipeSchema>({
     resolver: zodResolver(recipeSchema),
     defaultValues,
   });
 
   const {
     handleSubmit,
-    watch,
-    getValues,
     formState: { errors },
   } = form;
 
-  const onSubmit: SubmitHandler<Form> = (data) => {
+  const onSubmit: SubmitHandler<CreateRecipeSchema> = (data) => {
     console.log(data);
     const result = window.confirm("保存しますか？");
     if (result) {

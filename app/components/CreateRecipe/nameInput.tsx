@@ -1,12 +1,13 @@
 "use client";
 import { useFormContext } from "react-hook-form";
-import { ValidationError } from "../../components/CreateRecipe/parts/validationError";
+import { ValidationError } from "./Parts/ValidationError";
+import { CreateRecipeSchema } from "./zodSchema";
 
 export default function NameInput() {
   const {
     register,
     formState: { errors },
-  } = useFormContext();
+  } = useFormContext<CreateRecipeSchema>();
 
   return (
     <section className="pt-[8px] pb-[24px]">
