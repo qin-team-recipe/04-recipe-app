@@ -17,7 +17,7 @@ import {
   DotsCircleHorizontal,
   Link as LinkIcon,
 } from "tabler-icons-react";
-import { RecipeLinks, formatRecipeLinks } from "@/app/utils/social-url";
+import { RecipeLinks, formatSocialLinks } from "@/app/utils/social-link";
 
 type Props = {
   page: string;
@@ -50,8 +50,7 @@ function hasOtherLinks(links: RecipeLinks): boolean {
 const RecipeHero: FC<Props> = ({ page, recipe }) => {
   const router = useRouter();
   const { data: session } = useSession();
-  const recipeLinks = formatRecipeLinks(recipe.links.map((link) => link.url));
-  console.log(recipeLinks);
+  const recipeLinks = formatSocialLinks(recipe.links);
 
   return (
     <>
@@ -94,12 +93,12 @@ const RecipeHero: FC<Props> = ({ page, recipe }) => {
           {/* Links */}
           <div className="flex items-center justify-between gap-x-[12px] ">
             {recipeLinks.youtube && (
-              <Link href={recipeLinks.youtube} target="_blank">
+              <Link href={recipeLinks.youtube.url} target="_blank">
                 <BrandYoutube className="text-black" />
               </Link>
             )}
             {recipeLinks.instagram && (
-              <Link href={recipeLinks.instagram} target="_blank">
+              <Link href={recipeLinks.instagram.url} target="_blank">
                 <BrandInstagram className="text-black" />
               </Link>
             )}
@@ -115,7 +114,7 @@ const RecipeHero: FC<Props> = ({ page, recipe }) => {
                       {recipeLinks.tiktok && (
                         <Link
                           className="py-[6px] pr-[12px] pl-[34px] block hover:bg-backgroundGray relative"
-                          href={recipeLinks.tiktok}
+                          href={recipeLinks.tiktok.url}
                         >
                           <BrandTiktok size={16} className="absolute top-1/2 -translate-y-1/2 left-[12px]" />
                           Tiktok
@@ -125,7 +124,7 @@ const RecipeHero: FC<Props> = ({ page, recipe }) => {
                     <li>
                       {recipeLinks.twitter && (
                         <Link
-                          href={recipeLinks.twitter}
+                          href={recipeLinks.twitter.url}
                           target="_blank"
                           className="py-[6px] pr-[12px] pl-[34px] block hover:bg-backgroundGray relative w-full text-left"
                         >
@@ -137,7 +136,7 @@ const RecipeHero: FC<Props> = ({ page, recipe }) => {
                     <li>
                       {recipeLinks.facebook && (
                         <Link
-                          href={recipeLinks.facebook}
+                          href={recipeLinks.facebook.url}
                           target="_blank"
                           className="py-[6px] pr-[12px] pl-[34px] block hover:bg-backgroundGray relative w-full text-left"
                         >
@@ -149,13 +148,13 @@ const RecipeHero: FC<Props> = ({ page, recipe }) => {
                     {recipeLinks.websites.map((link, index) => (
                       <li key={index}>
                         <Link
-                          href={link}
+                          href={link.url}
                           target="_blank"
                           className="py-[6px] pr-[12px] pl-[34px]  block hover:bg-backgroundGray relative w-full text-left overflow-hidden text-ellipsis"
                         >
                           <LinkIcon size={16} className="absolute top-1/2 -translate-y-1/2 left-[12px]" />
                           {/* TODO: サイト名を表示する？ */}
-                          {link}
+                          {link.url}
                         </Link>
                       </li>
                     ))}
