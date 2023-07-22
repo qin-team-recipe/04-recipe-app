@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 const ERROR_REQUIRE = "必須項目です";
-const ERROR_MAX_LENGTH = "191文字以内で入力してください";
-const ERROR_INVALID_URL = "有効なURLを入力してください";
+const ERROR_MAX_LENGTH = "191文字以内で入力してください。";
+const ERROR_INVALID_URL = "有効なURLを入力してください。";
 
 // プロフィール設定スキーマ
 export const profileFormSchema = z.object({
