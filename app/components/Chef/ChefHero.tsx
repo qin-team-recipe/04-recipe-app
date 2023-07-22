@@ -74,14 +74,14 @@ const ChefHero: FC<Props> = ({ page, chef }) => {
           {/* Links */}
           <div className="flex items-center justify-between gap-x-[12px]">
             {chefLinks.youtube && (
-              <Link href={chefLinks.youtube.url} target="_blank">
+              <a href={chefLinks.youtube.url} target="_blank">
                 <BrandYoutube className="text-black" />
-              </Link>
+              </a>
             )}
             {chefLinks.instagram && (
-              <Link href={chefLinks.instagram.url} target="_blank">
+              <a href={chefLinks.instagram.url} target="_blank">
                 <BrandInstagram className="text-black" />
-              </Link>
+              </a>
             )}
             <DropdownMenu.Root>
               <DropdownMenu.Trigger>
@@ -93,49 +93,49 @@ const ChefHero: FC<Props> = ({ page, chef }) => {
                   <ul>
                     <li>
                       {chefLinks.tiktok && (
-                        <Link
+                        <a
                           className="py-[6px] pr-[12px] pl-[34px] block hover:bg-backgroundGray relative"
                           href={chefLinks.tiktok.url}
                         >
                           <BrandTiktok size={16} className="absolute top-1/2 -translate-y-1/2 left-[12px]" />
                           Tiktok
-                        </Link>
+                        </a>
                       )}
                     </li>
                     <li>
                       {chefLinks.twitter && (
-                        <Link
+                        <a
                           href={chefLinks.twitter.url}
                           target="_blank"
                           className="py-[6px] pr-[12px] pl-[34px] block hover:bg-backgroundGray relative w-full text-left"
                         >
                           <BrandTwitter size={16} className="absolute top-1/2 -translate-y-1/2 left-[12px]" />
                           Twitter
-                        </Link>
+                        </a>
                       )}
                     </li>
                     <li>
                       {chefLinks.facebook && (
-                        <Link
+                        <a
                           href={chefLinks.facebook.url}
                           target="_blank"
                           className="py-[6px] pr-[12px] pl-[34px] block hover:bg-backgroundGray relative w-full text-left"
                         >
                           <BrandFacebook size={16} className="absolute top-1/2 -translate-y-1/2 left-[12px]" />
                           Facebook
-                        </Link>
+                        </a>
                       )}
                     </li>
                     {chefLinks.websites.map((link, index) => (
                       <li key={index}>
-                        <Link
+                        <a
                           href={link.url}
                           target="_blank"
                           className="py-[6px] pr-[12px] pl-[34px]  block hover:bg-backgroundGray relative w-full text-left overflow-hidden text-ellipsis"
                         >
                           <LinkIcon size={16} className="absolute top-1/2 -translate-y-1/2 left-[12px]" />
                           {link.siteName}
-                        </Link>
+                        </a>
                       </li>
                     ))}
                   </ul>
