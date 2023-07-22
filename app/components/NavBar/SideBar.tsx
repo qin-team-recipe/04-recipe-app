@@ -15,7 +15,7 @@ function NavigationLink({
   return (
     <Link
       href={href}
-      className={`flex gap-x-[12px] items-center rounded-full py-2 hover:bg-[#eeedef] ${
+      className={`flex gap-x-[12px] items-center rounded-full py-2 px-2 hover:bg-[#eeedef] ${
         currentPath === href ? " text-primary stroke-primary" : "stroke-title"
       }`}
     >
@@ -34,7 +34,7 @@ export default function SideBar() {
           <li className="mb-[16px]">
             <Link
               href="/"
-              className="flex gap-x-[9px] items-center stroke-title hover:text-primary hover:stroke-primary"
+              className="flex gap-x-[9px] items-center px-2 stroke-title hover:text-primary hover:stroke-primary"
             >
               <svg
                 width="32"
