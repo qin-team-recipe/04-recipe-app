@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FC } from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
@@ -181,22 +180,6 @@ const ChefHero: FC<Props> = ({ page, chef }) => {
           />
         </div>
       </div>
-
-      {/* ナビゲーション */}
-      <nav className="border-b-[1px] border-border">
-        <ul className="flex text-title">
-          <li className={`w-1/2 text-center text-[16px]  ${page === "recipes" ? "font-bold border-b-2" : ""}`}>
-            <Link href={`/chef/${chef.id}/recipes`} className="block py-[10px]">
-              新着レシピ
-            </Link>
-          </li>
-          <li className={`w-1/2 text-center text-[16px]  ${page === "hotrecipes" ? "font-bold border-b-2" : ""}`}>
-            <Link href={`/chef/${chef.id}/hotrecipes`} className="block py-[10px]">
-              人気レシピ
-            </Link>
-          </li>
-        </ul>
-      </nav>
     </>
   );
 };

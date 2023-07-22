@@ -1,4 +1,3 @@
-import { favoriteRecipe } from "../_follow-favorite/favorite-recipe";
 import { publicProcedure } from "../trpc/init-trpc";
 import { notFoundError } from "../trpc/trpc-error";
 import { getImageUrl } from "../utils/cloudinary";
@@ -9,6 +8,7 @@ import { getRecipeImageUrlFromImages } from "./recipe-util";
  * シェフの情報を取得する
  */
 export const getChef = publicProcedure.input(ChefIdInput).query(async ({ ctx, input }) => {
+  console.log("getChef");
   const [chef, recipes, popularRecipes] = await Promise.all([
     ctx.prisma.chef.findUnique({
       where: { id: input.chefId },

@@ -1,7 +1,7 @@
-import ChefHero from "@/app/components/Chef/ChefHero";
 import { trpcClient } from "@/app/utils/trpc";
 import Image from "next/image";
 import Link from "next/link";
+import { ChefNavigation } from "../ChefNavigation";
 
 export const metadata = {
   title: "Chef",
@@ -14,9 +14,7 @@ export default async function HotRecipes({ params }: { params: { id: string } })
 
   return (
     <>
-      <ChefHero page="hotrecipes" chef={chef} />
-
-      {/* レシピ */}
+      <ChefNavigation chefId={chef.id} page="hotrecipes" />
       <section className="pt-[20px] px-[15px] pb-[48px]">
         <ul className="flex justify-between gap-y-[16px] gap-x-[12px] flex-wrap">
           {chef.popularRecipes.map((recipe) => (
