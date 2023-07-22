@@ -26,6 +26,7 @@ type Props = {
     displayName: string;
     bio: string;
     followerCount: number;
+    recipeCount: number;
     profileImageUrl: string;
     isFollowing: boolean;
     links: { url: string; siteName: string }[];
@@ -162,7 +163,7 @@ const ChefHero: FC<Props> = ({ page, chef }) => {
         <p className="mt-[16px] text-title text-[16px] leading-snug ">{chef.bio}</p>
         <div className="flex gap-x-[16px]">
           <p className="pt-[14.17px] text-[16px] leading-snug">
-            <span className="font-bold">123</span> レシピ
+            <span className="font-bold">{chef.recipeCount}</span> レシピ
           </p>
           <p className="pt-[14.17px] text-[16px] leading-snug">
             <span className="font-bold">{chef.followerCount}</span> フォロワー

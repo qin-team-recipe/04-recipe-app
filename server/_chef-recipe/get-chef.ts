@@ -1,3 +1,4 @@
+import { favoriteRecipe } from "../_follow-favorite/favorite-recipe";
 import { publicProcedure } from "../trpc/init-trpc";
 import { notFoundError } from "../trpc/trpc-error";
 import { getImageUrl } from "../utils/cloudinary";
@@ -8,7 +9,7 @@ import { getRecipeImageUrlFromImages } from "./recipe-util";
  * シェフの情報を取得する
  */
 export const getChef = publicProcedure.input(ChefIdInput).query(async ({ ctx, input }) => {
-  const [chef, recipes] = await Promise.all([
+  const [chef, recipes, popularRecipes] = await Promise.all([
     ctx.prisma.chef.findUnique({
       where: { id: input.chefId },
       select: {
@@ -20,6 +21,7 @@ export const getChef = publicProcedure.input(ChefIdInput).query(async ({ ctx, in
         _count: {
           select: {
             followers: true,
+            recipes: true,
           },
         },
       },
@@ -41,6 +43,26 @@ export const getChef = publicProcedure.input(ChefIdInput).query(async ({ ctx, in
         },
       },
       orderBy: { id: "desc" },
+      take: 10,
+    }),
+    ctx.prisma.recipe.findMany({
+      where: {
+        chefRecipe: { chefId: input.chefId },
+      },
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        images: {
+          select: { imageId: true },
+          take: 1,
+        },
+        _count: {
+          select: { favorites: true },
+        },
+      },
+      orderBy: { favorites: { _count: "desc" } },
+      take: 10,
     }),
   ]);
   if (chef === null) throw notFoundError;
@@ -58,9 +80,15 @@ export const getChef = publicProcedure.input(ChefIdInput).query(async ({ ctx, in
   return {
     ...chefData,
     profileImageUrl: getImageUrl(profileImage),
+    recipeCount: _count.recipes,
     followerCount: _count.followers,
     isFollowing,
     recipes: recipes.map(({ _count, images, ...recipe }) => ({
+      ...recipe,
+      imageUrl: getRecipeImageUrlFromImages(images),
+      favoriteCount: _count.favorites,
+    })),
+    popularRecipes: popularRecipes.map(({ _count, images, ...recipe }) => ({
       ...recipe,
       imageUrl: getRecipeImageUrlFromImages(images),
       favoriteCount: _count.favorites,
