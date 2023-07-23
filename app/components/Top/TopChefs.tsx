@@ -15,7 +15,7 @@ export default async function TopChefs() {
         {chefs.slice(0, 4).map((chef) => (
           <li className="w-[148px] h-[220px] relative mt-[16px] rounded-[16px] flex-none overflow-hidden" key={chef.id}>
             <Link href={`/chef/${chef.id}/recipes`}>
-              <Image src={chef.profileImageUrl} alt={chef.displayName} width={148} height={220} />
+              <Image src={chef.profileImageUrl} alt={chef.displayName} fill />
               <p className="absolute bottom-[11px] left-[11px] text-[20px] text-white font-bold ">{chef.displayName}</p>
             </Link>
           </li>

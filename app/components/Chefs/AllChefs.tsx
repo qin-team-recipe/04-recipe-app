@@ -1,34 +1,5 @@
-import { RouterOutput, trpcCaller } from "@/server/trpc/router";
-import Image from "next/image";
-import Link from "next/link";
-
-type Chef = RouterOutput["chefs"][number];
-
-function ChefCard({ chef }: { chef: Chef }) {
-  return (
-    <li>
-      <Link href={`/chef/${chef.id}/recipes`} className="flex gap-x-[16px]">
-        <Image
-          className="w-[88px] flex-none h-[116px] rounded-[16px] overflow-hidden object-cover"
-          src={chef.profileImageUrl}
-          alt="シェフの写真"
-          width={88}
-          height={116}
-        />
-        <div>
-          <p className="text-[18px] font-bold text-title">{chef.displayName}</p>
-          <p className="text-[14px] mt-[5px] line-clamp-3">{chef.bio}</p>
-          <p className="text-[14px] mt-[5px] pl-[22px] relative leading-[16px]">
-            <span className="absolute left-0 top-0">
-              <Image src="/images/top/chefs/tabler-icon-tools-kitchen-2.png" alt="table icon" width={16} height={16} />
-            </span>
-            {chef.recipeCount} レシピ
-          </p>
-        </div>
-      </Link>
-    </li>
-  );
-}
+import { trpcCaller } from "@/server/trpc/router";
+import { ChefCard } from "./ChefCard";
 
 export default async function AllChefs({
   searchParams,
