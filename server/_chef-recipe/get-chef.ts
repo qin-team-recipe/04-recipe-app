@@ -8,7 +8,6 @@ import { getRecipeImageUrlFromImages } from "./recipe-util";
  * シェフの情報を取得する
  */
 export const getChef = publicProcedure.input(ChefIdInput).query(async ({ ctx, input }) => {
-  console.log("getChef");
   const [chef, recipes, popularRecipes] = await Promise.all([
     ctx.prisma.chef.findUnique({
       where: { id: input.chefId },

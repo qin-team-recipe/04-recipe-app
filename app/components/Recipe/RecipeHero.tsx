@@ -113,8 +113,9 @@ const RecipeHero: FC<Props> = ({ page, recipe }) => {
                     <li>
                       {recipeLinks.tiktok && (
                         <a
-                          className="py-[6px] pr-[12px] pl-[34px] block hover:bg-backgroundGray relative"
                           href={recipeLinks.tiktok.url}
+                          target="_blank"
+                          className="py-[6px] pr-[12px] pl-[34px] block hover:bg-backgroundGray relative"
                         >
                           <BrandTiktok size={16} className="absolute top-1/2 -translate-y-1/2 left-[12px]" />
                           Tiktok

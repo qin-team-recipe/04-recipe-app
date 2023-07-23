@@ -8,7 +8,7 @@ export default async function ChefLayout({ children, params }: { children: React
 
   return (
     <>
-      <ChefHero page="hotrecipes" chef={chef} />
+      <ChefHero chef={chef} />
       {children}
     </>
   );

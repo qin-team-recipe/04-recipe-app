@@ -19,7 +19,6 @@ import { useSession } from "next-auth/react";
 import { ChefLinks, formatSocialLinks } from "@/app/utils/social-link";
 
 type Props = {
-  page: string;
   chef: {
     id: string;
     displayName: string;
@@ -44,7 +43,7 @@ function hasOtherLinks(links: ChefLinks) {
   );
 }
 
-const ChefHero: FC<Props> = ({ page, chef }) => {
+const ChefHero: FC<Props> = ({ chef }) => {
   const router = useRouter();
   const { data: session } = useSession();
   const chefLinks = formatSocialLinks(chef.links);
@@ -94,6 +93,7 @@ const ChefHero: FC<Props> = ({ page, chef }) => {
                       {chefLinks.tiktok && (
                         <a
                           className="py-[6px] pr-[12px] pl-[34px] block hover:bg-backgroundGray relative"
+                          target="_blank"
                           href={chefLinks.tiktok.url}
                         >
                           <BrandTiktok size={16} className="absolute top-1/2 -translate-y-1/2 left-[12px]" />
