@@ -1,8 +1,6 @@
 import ChefHero from "@/app/components/Chef/ChefHero";
 import { ChefsRecipeCard } from "@/app/components/Chef/ChefsRecipeCard";
 import { trpcClient } from "@/app/utils/trpc";
-import Image from "next/image";
-import Link from "next/link";
 
 export const metadata = {
   title: "Chef",
