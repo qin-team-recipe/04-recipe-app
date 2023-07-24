@@ -10,7 +10,7 @@ export default function SearchInput2({
   page,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
-  page: string;
+  page: "chef" | "recipe";
 }) {
   const router = useRouter();
   const [inputValue, setInputValue] = useState(searchParams.q || "");

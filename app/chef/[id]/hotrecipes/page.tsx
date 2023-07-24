@@ -1,7 +1,7 @@
-import ChefHero from "@/app/components/Chef/ChefHero";
-import { trpcCaller } from "@/server/trpc/router";
+import { trpcClient } from "@/app/utils/trpc";
 import Image from "next/image";
 import Link from "next/link";
+import { ChefNavigation } from "../ChefNavigation";
 
 export const metadata = {
   title: "Chef",
@@ -10,183 +10,34 @@ export const metadata = {
 
 export default async function HotRecipes({ params }: { params: { id: string } }) {
   const chefId = params.id;
-  const chef = await trpcCaller.chef({ chefId });
+  const chef = await trpcClient.chef.query({ chefId });
 
   return (
     <>
-      <ChefHero page="hotrecipes" chef={chef} />
-
-      {/* レシピ */}
+      <ChefNavigation chefId={chef.id} page="hotrecipes" />
       <section className="pt-[20px] px-[15px] pb-[48px]">
         <ul className="flex justify-between gap-y-[16px] gap-x-[12px] flex-wrap">
-          <li className="w-[calc(50%_-_6px)] h-auto relative">
-            <Link href="/">
-              <Image
-                src="/images/top/recipes/recipe1.png"
-                alt="シェフの写真"
-                width={173}
-                height={173}
-                style={{ width: "100%", height: "auto" }}
-              />
-              <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
-                <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-                  <Image src="/images/top/recipes/favIcon.png" width={14} height={14} alt="vector icon" />
-                </span>
-                1,234
-              </div>
-              <p className="text-title font-bold mt-[8px] text-[12px]">
-                トマトとルッコラのマルゲリータピザに合うホワイト...
-              </p>
-              <p className="text-[10px] mt-[4px]">ウルトラハイパー超すごいしまぶ...</p>
-            </Link>
-          </li>
-          <li className="w-[calc(50%_-_6px)] h-auto relative">
-            <Link href="/">
-              <Image
-                src="/images/top/recipes/recipe1.png"
-                alt="シェフの写真"
-                width={173}
-                height={173}
-                style={{ width: "100%", height: "auto" }}
-              />
-              <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
-                <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-                  <Image src="/images/top/recipes/favIcon.png" width={14} height={14} alt="vector icon" />
-                </span>
-                1,234
-              </div>
-              <p className="text-title font-bold mt-[8px] text-[12px]">
-                トマトとルッコラのマルゲリータピザに合うホワイト...
-              </p>
-              <p className="text-[10px] mt-[4px]">ウルトラハイパー超すごいしまぶ...</p>
-            </Link>
-          </li>
-          <li className="w-[calc(50%_-_6px)] h-auto relative">
-            <Link href="/">
-              <Image
-                src="/images/top/recipes/recipe1.png"
-                alt="シェフの写真"
-                width={173}
-                height={173}
-                style={{ width: "100%", height: "auto" }}
-              />
-              <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
-                <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-                  <Image src="/images/top/recipes/favIcon.png" width={14} height={14} alt="vector icon" />
-                </span>
-                1,234
-              </div>
-              <p className="text-title font-bold mt-[8px] text-[12px]">
-                トマトとルッコラのマルゲリータピザに合うホワイト...
-              </p>
-              <p className="text-[10px] mt-[4px]">ウルトラハイパー超すごいしまぶ...</p>
-            </Link>
-          </li>
-          <li className="w-[calc(50%_-_6px)] h-auto relative">
-            <Link href="/">
-              <Image
-                src="/images/top/recipes/recipe1.png"
-                alt="シェフの写真"
-                width={173}
-                height={173}
-                style={{ width: "100%", height: "auto" }}
-              />
-              <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
-                <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-                  <Image src="/images/top/recipes/favIcon.png" width={14} height={14} alt="vector icon" />
-                </span>
-                1,234
-              </div>
-              <p className="text-title font-bold mt-[8px] text-[12px]">
-                トマトとルッコラのマルゲリータピザに合うホワイト...
-              </p>
-              <p className="text-[10px] mt-[4px]">ウルトラハイパー超すごいしまぶ...</p>
-            </Link>
-          </li>
-          <li className="w-[calc(50%_-_6px)] h-auto relative">
-            <Link href="/">
-              <Image
-                src="/images/top/recipes/recipe1.png"
-                alt="シェフの写真"
-                width={173}
-                height={173}
-                style={{ width: "100%", height: "auto" }}
-              />
-              <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
-                <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-                  <Image src="/images/top/recipes/favIcon.png" width={14} height={14} alt="vector icon" />
-                </span>
-                1,234
-              </div>
-              <p className="text-title font-bold mt-[8px] text-[12px]">
-                トマトとルッコラのマルゲリータピザに合うホワイト...
-              </p>
-              <p className="text-[10px] mt-[4px]">ウルトラハイパー超すごいしまぶ...</p>
-            </Link>
-          </li>
-          <li className="w-[calc(50%_-_6px)] h-auto relative">
-            <Link href="/">
-              <Image
-                src="/images/top/recipes/recipe1.png"
-                alt="シェフの写真"
-                width={173}
-                height={173}
-                style={{ width: "100%", height: "auto" }}
-              />
-              <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
-                <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-                  <Image src="/images/top/recipes/favIcon.png" width={14} height={14} alt="vector icon" />
-                </span>
-                1,234
-              </div>
-              <p className="text-title font-bold mt-[8px] text-[12px]">
-                トマトとルッコラのマルゲリータピザに合うホワイト...
-              </p>
-              <p className="text-[10px] mt-[4px]">ウルトラハイパー超すごいしまぶ...</p>
-            </Link>
-          </li>
-          <li className="w-[calc(50%_-_6px)] h-auto relative">
-            <Link href="/">
-              <Image
-                src="/images/top/recipes/recipe1.png"
-                alt="シェフの写真"
-                width={173}
-                height={173}
-                style={{ width: "100%", height: "auto" }}
-              />
-              <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
-                <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-                  <Image src="/images/top/recipes/favIcon.png" width={14} height={14} alt="vector icon" />
-                </span>
-                1,234
-              </div>
-              <p className="text-title font-bold mt-[8px] text-[12px]">
-                トマトとルッコラのマルゲリータピザに合うホワイト...
-              </p>
-              <p className="text-[10px] mt-[4px]">ウルトラハイパー超すごいしまぶ...</p>
-            </Link>
-          </li>
-          <li className="w-[calc(50%_-_6px)] h-auto relative">
-            <Link href="/">
-              <Image
-                src="/images/top/recipes/recipe1.png"
-                alt="シェフの写真"
-                width={173}
-                height={173}
-                style={{ width: "100%", height: "auto" }}
-              />
-              <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
-                <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-                  <Image src="/images/top/recipes/favIcon.png" width={14} height={14} alt="vector icon" />
-                </span>
-                1,234
-              </div>
-              <p className="text-title font-bold mt-[8px] text-[12px]">
-                トマトとルッコラのマルゲリータピザに合うホワイト...
-              </p>
-              <p className="text-[10px] mt-[4px]">ウルトラハイパー超すごいしまぶ...</p>
-            </Link>
-          </li>
+          {chef.popularRecipes.map((recipe) => (
+            <li key={recipe.id} className="w-[calc(50%_-_6px)] h-auto relative">
+              <Link href={`/recipe/${recipe.id}/steps`}>
+                <Image
+                  src={recipe.imageUrl ?? ""}
+                  alt="レシピの写真"
+                  width={173}
+                  height={173}
+                  className="w-full aspect-square object-cover rounded-2xl"
+                />
+                <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
+                  <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
+                    <Image src="/images/top/recipes/favIcon.png" width={14} height={14} alt="vector icon" />
+                  </span>
+                  {recipe.favoriteCount}
+                </div>
+                <p className="text-title font-bold mt-[8px] text-[12px] line-clamp-2">{recipe.name}</p>
+                <p className="text-[10px] mt-[4px] line-clamp-1">{recipe.description}</p>
+              </Link>
+            </li>
+          ))}
         </ul>
       </section>
     </>
