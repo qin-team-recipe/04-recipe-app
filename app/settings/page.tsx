@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirectIfNotLoggedIn } from "../utils/auth";
-import { LogoutButton } from "./LogoutButton";
-import { AlertCircle, ArrowLeft, ArrowUpRight, ChevronRight } from "tabler-icons-react";
+import { DeleteUserButton, LogoutButton } from "./ActionButton";
+import { ArrowLeft, ArrowUpRight, ChevronRight } from "tabler-icons-react";
 
 export const dynamic = "force-dynamic";
 
@@ -45,10 +45,7 @@ export default async function Settings() {
         </div>
         <div>
           <p className="font-bold px-4">取り消しができない操作</p>
-          <button className="px-4 py-3 flex justify-between w-full">
-            退会する
-            <AlertCircle />
-          </button>
+          <DeleteUserButton />
         </div>
       </div>
     </>
