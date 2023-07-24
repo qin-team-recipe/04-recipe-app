@@ -15,9 +15,11 @@ export default async function AllRecipes({
         {searchParams.q ? `「${searchParams.q}」で検索` : "話題のレシピ"}
       </h2>
       <ul className="flex justify-between gap-y-[16px] gap-x-[12px] mt-[10px] flex-wrap">
-        {recipes.map((recipe) => (
-          <RecipeCard key={recipe.id} recipe={recipe} />
-        ))}
+        {recipes.length === 0 ? (
+          <p className=" text-title">レシピが見つかりませんでした！</p>
+        ) : (
+          recipes.map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} />)
+        )}
       </ul>
     </section>
   );

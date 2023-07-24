@@ -16,9 +16,11 @@ export default async function HotRecipes({ params }: { params: { id: string } })
       <ChefNavigation chefId={chef.id} page="hotrecipes" />
       <section className="pt-[20px] px-[15px] pb-[48px]">
         <ul className="flex justify-between gap-y-[16px] gap-x-[12px] flex-wrap">
-          {chef.popularRecipes.map((recipe) => (
-            <ChefsRecipeCard key={recipe.id} recipe={recipe} />
-          ))}
+          {chef.popularRecipes.length === 0 ? (
+            <p className=" text-title">人気レシピがまだありません！</p>
+          ) : (
+            chef.popularRecipes.map((recipe) => <ChefsRecipeCard key={recipe.id} recipe={recipe} />)
+          )}
         </ul>
       </section>
     </>

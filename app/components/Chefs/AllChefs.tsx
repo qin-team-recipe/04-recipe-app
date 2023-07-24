@@ -15,9 +15,11 @@ export default async function AllChefs({
         {searchParams.q ? `「${searchParams.q}」で検索` : "シェフ一覧"}
       </h2>
       <ul className="flex flex-col gap-y-[20px] mt-[10px]">
-        {chefs.map((chef) => (
-          <ChefCard key={chef.id} chef={chef} />
-        ))}
+        {chefs.length === 0 ? (
+          <p className=" text-title">シェフが見つかりませんでした！</p>
+        ) : (
+          chefs.map((chef) => <ChefCard key={chef.id} chef={chef} />)
+        )}
       </ul>
     </section>
   );

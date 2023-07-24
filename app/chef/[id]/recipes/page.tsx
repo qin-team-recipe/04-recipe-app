@@ -18,9 +18,11 @@ export default async function ChefRecipes({ params }: { params: { id: string } }
       <ChefNavigation chefId={chef.id} page="recipes" />
       <section className="pt-[20px] px-[15px] pb-[48px]">
         <ul className="flex justify-between gap-y-[16px] gap-x-[12px] flex-wrap">
-          {chef.recipes.map((recipe) => (
-            <ChefsRecipeCard key={recipe.id} recipe={recipe} />
-          ))}
+          {chef.recipes.length === 0 ? (
+            <p className=" text-title">レシピがまだありません！</p>
+          ) : (
+            chef.recipes.map((recipe) => <ChefsRecipeCard key={recipe.id} recipe={recipe} />)
+          )}
         </ul>
       </section>
     </>
