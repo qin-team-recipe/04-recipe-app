@@ -1,12 +1,14 @@
 import { prisma } from "../prisma";
 import { chefLinkSeeder } from "./chef-link-seeder";
 import { chefSeeder } from "./chef-seeder";
+import { recipeLinkSeeder } from "./recipe-link-seeder";
 import { recipeSeeder } from "./recipe-seeder";
 
 const databaseSeeder = {
   chefSeeder,
   chefLinkSeeder,
   recipeSeeder,
+  recipeLinkSeeder,
 };
 
 type SeederName = keyof typeof databaseSeeder;

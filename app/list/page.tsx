@@ -1,8 +1,11 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import "./styles.css";
+import { useSession } from "next-auth/react";
+import { LoginScreen } from "../components/Auth/LoginScreen";
 
 // use clientとmetadata併記するとエラーになる、、
 // export const metadata = {
@@ -30,7 +33,7 @@ const gratinArray = [
   { item: "カレー粉", checked: false },
 ];
 
-export default function List() {
+function List() {
   // この辺はトグルの挙動確認用なのであとで消して頂いてOKです
   const [myMemo, setMyMeo] = useState(myMemoArray);
   const [curry, setCurry] = useState(curryArray);
@@ -57,11 +60,6 @@ export default function List() {
   return (
     <>
       <DropdownMenu.Root>
-        {/* ヘッダー */}
-        <div className="px-[15px] border-b-[1px] border-border text-center text-title font-bold text-[20px] py-[12px] ">
-          <h1>買い物リスト</h1>
-        </div>
-
         {/* じぶんメモ */}
         <section className=" pt-[8px] pb-[24px] ">
           <div className="flex justify-between py-[12px] items-center px-[16px] border-border border-b-[1px]">
@@ -322,6 +320,35 @@ export default function List() {
           </DropdownMenu.Portal>
         </section>
       </DropdownMenu.Root>
+    </>
+  );
+}
+
+export default function Page() {
+  const { data: session } = useSession();
+
+  return (
+    <>
+      {/* ヘッダー */}
+      <div className="px-[15px] border-b-[1px] border-border text-center text-title font-bold text-[20px] py-[12px] ">
+        <h1>買い物リスト</h1>
+      </div>
+
+      {session === null ? (
+        <div>
+          <Image
+            src="/images/girlCooking.png"
+            width="200"
+            height="200"
+            alt="揚げ物をする女の子"
+            className="mx-auto"
+            priority={true}
+          />
+          <LoginScreen />
+        </div>
+      ) : (
+        <List />
+      )}
     </>
   );
 }

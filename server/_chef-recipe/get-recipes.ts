@@ -10,6 +10,7 @@ export const getRecipes = publicProcedure.input(GetRecipesInput).query(async ({ 
       description: true,
       images: true,
       _count: { select: { favorites: true } },
+      chefRecipe: { select: { chef: true } },
     },
     where: {
       chefRecipe: { isNot: null },
@@ -21,9 +22,10 @@ export const getRecipes = publicProcedure.input(GetRecipesInput).query(async ({ 
     },
   });
 
-  return recipes.map(({ _count, ...recipe }) => ({
+  return recipes.map(({ _count, chefRecipe, ...recipe }) => ({
     ...recipe,
     imageUrl: getRecipeImageUrlFromImages(recipe.images),
     favoriteCount: _count.favorites,
+    chef: chefRecipe === null ? null : chefRecipe.chef,
   }));
 });

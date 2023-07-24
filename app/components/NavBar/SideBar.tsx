@@ -1,6 +1,32 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+function NavigationLink({
+  href,
+  currentPath,
+  children,
+}: {
+  href: string;
+  currentPath: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      className={`flex gap-x-[12px] items-center rounded-full py-2 px-2 hover:bg-[#eeedef] ${
+        currentPath === href ? " text-primary stroke-primary" : "stroke-title"
+      }`}
+    >
+      {children}
+    </Link>
+  );
+}
 
 export default function SideBar() {
+  const currentPath = usePathname();
+
   return (
     <div className="hidden md:inline md:w-[240px] p-[20px] bg-white text-title text-[24px] top-0 self-start sticky">
       <nav>
@@ -8,7 +34,7 @@ export default function SideBar() {
           <li className="mb-[16px]">
             <Link
               href="/"
-              className="flex gap-x-[9px] items-center stroke-title hover:text-primary hover:stroke-primary"
+              className="flex gap-x-[9px] items-center px-2 stroke-title hover:text-primary hover:stroke-primary"
             >
               <svg
                 width="32"
@@ -37,11 +63,8 @@ export default function SideBar() {
               <p className="font-bold">Top Chefs</p>
             </Link>
           </li>
-          <li className="mt-[24px] ml-[2px]">
-            <Link
-              href="/"
-              className="flex gap-x-[12px] items-center stroke-title hover:text-primary hover:stroke-primary"
-            >
+          <li className="mt-[8px] ml-[2px]">
+            <NavigationLink href="/" currentPath={currentPath}>
               <svg
                 width="25"
                 height="24"
@@ -66,13 +89,10 @@ export default function SideBar() {
                 />
               </svg>
               <p>話題を検索</p>
-            </Link>
+            </NavigationLink>
           </li>
-          <li className="mt-[24px] ml-[2px]">
-            <Link
-              href="/favorite"
-              className="flex gap-x-[12px] items-center stroke-title hover:text-primary hover:stroke-primary"
-            >
+          <li className="mt-[8px] ml-[2px]">
+            <NavigationLink href="/favorite" currentPath={currentPath}>
               <svg
                 width="24"
                 height="24"
@@ -90,13 +110,10 @@ export default function SideBar() {
                 />
               </svg>
               <p>お気に入り</p>
-            </Link>
+            </NavigationLink>
           </li>
-          <li className="mt-[24px] ml-[2px]">
-            <Link
-              href="/list"
-              className="flex gap-x-[12px] items-center stroke-title hover:text-primary hover:stroke-primary"
-            >
+          <li className="mt-[8px] ml-[2px]">
+            <NavigationLink href="/list" currentPath={currentPath}>
               <svg
                 width="25"
                 height="24"
@@ -129,7 +146,7 @@ export default function SideBar() {
               </svg>
 
               <p>買い物リスト</p>
-            </Link>
+            </NavigationLink>
           </li>
         </ul>
       </nav>
