@@ -1,18 +1,20 @@
-import { RouterOutput } from "@/server/trpc/router";
 import Image from "next/image";
 import Link from "next/link";
 
-type Recipe = RouterOutput["recipes"][number];
-type NewRecipe = RouterOutput["chefsNewRecipes"][number];
+type Recipe = {
+  id: string;
+  name: string;
+  imageUrl: string | null;
+  favoriteCount: number;
+  author?: {
+    displayName: string;
+  } | null;
+  chef?: {
+    displayName: string;
+  } | null;
+};
 
-export function HorizontalRecipeCard({ recipe }: { recipe: Recipe | NewRecipe }) {
-  // recipeがRecipe型だとtrueを返す
-  const isRecipeType = (recipe: Recipe | NewRecipe): recipe is Recipe => {
-    return (recipe as Recipe).chef !== undefined;
-  };
-
-  console.log(isRecipeType(recipe));
-
+export function HorizontalRecipeCard({ recipe }: { recipe: Recipe }) {
   return (
     <li className="w-[160px] relative mt-[16px] flex-none" key={recipe.id}>
       <Link href={`/recipe/${recipe.id}/steps`}>
@@ -27,9 +29,7 @@ export function HorizontalRecipeCard({ recipe }: { recipe: Recipe | NewRecipe })
           {recipe.favoriteCount}
         </div>
         <p className="text-title font-bold mt-[8px] text-[12px] line-clamp-1">{recipe.name}</p>
-        <p className="text-[10px] mt-[4px] line-clamp-3">
-          {isRecipeType(recipe) ? recipe.chef?.displayName : recipe.author?.displayName}
-        </p>
+        <p className="text-[10px] mt-[4px] line-clamp-3">{recipe.chef?.displayName || recipe.author?.displayName}</p>
       </Link>
     </li>
   );
