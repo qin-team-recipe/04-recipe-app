@@ -4,6 +4,7 @@ import { LoginScreen } from "../components/Auth/LoginScreen";
 import { getServerSession } from "next-auth";
 import { trpcClient } from "../utils/trpc";
 import { RouterOutput } from "@/server/trpc/router";
+import { HorizontalRecipeCard } from "../components/Recipes/HorizontalRecipeCard";
 
 export const metadata = {
   title: "Favorite",
@@ -20,40 +21,11 @@ function ChefCard({ chef }: { chef: Chef }) {
   return (
     <li className="w-[68px] relative overflow-hidden flex-none">
       <Link href={`/chef/${chef.id}/recipes`}>
-        <Image
-          src={chef.profileImageUrl}
-          alt="シェフの写真"
-          width={68}
-          height={68}
-          className="w-[68px] h-[68px] object-cover rounded-[34px]"
-        />
-        <p className="text-[12px] mt-[4px] text-center line-clamp-1">{chef.displayName}</p>
-      </Link>
-    </li>
-  );
-}
-
-type NewRecipe = RouterOutput["chefsNewRecipes"][number];
-
-function NewRecipeCard({ recipe }: { recipe: NewRecipe }) {
-  return (
-    <li className="w-[160px] relative mt-[16px] flex-none">
-      <Link href={`/recipe/${recipe.id}/steps`}>
-        <Image
-          src={recipe.imageUrl ?? "/images/top/recipes/recipe1.png"}
-          alt="レシピの写真"
-          width={160}
-          height={160}
-          className="aspect-square object-cover rounded-[16px]"
-        />
-        <div className="rounded-[16px] absolute top-[8px] right-[8px] py-[8px] pr-[8px] pl-[25px] text-white text-[15px] leading-none bg-[#040013]/[.48]">
-          <span className="absolute top-1/2 left-[8px] -translate-y-1/2 w-[14px] h-[14px] mt-[1.3px]">
-            <Image src="/images/top/recipes/favIcon.png" width={14} height={14} alt="vector icon" />
-          </span>
-          {recipe.favoriteCount}
+        <div className="relative w-[68px] h-[68px] object-cover rounded-[34px] overflow-hidden">
+          <Image src={chef.profileImageUrl} alt="シェフの写真" fill />
         </div>
-        <p className="text-title font-bold mt-[8px] text-[12px] line-clamp-2">{recipe.name}</p>
-        <p className="text-[10px] mt-[4px] line-clamp-1">{recipe.author?.displayName}</p>
+
+        <p className="text-[12px] mt-[4px] text-center line-clamp-1">{chef.displayName}</p>
       </Link>
     </li>
   );
@@ -115,7 +87,7 @@ async function FavoriteContents() {
         </div>
         <ul className="flex gap-x-[16px] w-screen  overflow-x-scroll md:w-full pl-[15px]">
           {newRecipes.map((recipe) => (
-            <NewRecipeCard key={recipe.id} recipe={recipe} />
+            <HorizontalRecipeCard key={recipe.id} recipe={recipe} />
           ))}
         </ul>
       </section>
