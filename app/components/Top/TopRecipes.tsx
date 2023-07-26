@@ -14,13 +14,16 @@ export default async function TopRecipes() {
           </Link>
         )}
       </div>
-      <ul className="flex gap-x-[16px] w-screen  overflow-x-scroll md:w-full pl-[15px]">
-        {recipes.length === 0 ? (
-          <p className="mt-[16px] text-title">話題のレシピがありません！</p>
-        ) : (
-          recipes.slice(0, 5).map((recipe) => <HorizontalRecipeCard key={recipe.id} recipe={recipe} />)
-        )}
-      </ul>
+
+      {recipes?.length === 0 ? (
+        <p className="mt-[16px] text-title  pl-[15px]">話題のレシピがありません！</p>
+      ) : (
+        <ul className="flex gap-x-[16px] w-screen  overflow-x-scroll md:w-full pl-[15px]">
+          {recipes.slice(0, 5).map((recipe) => (
+            <HorizontalRecipeCard key={recipe.id} recipe={recipe} />
+          ))}
+        </ul>
+      )}
     </section>
   );
 }

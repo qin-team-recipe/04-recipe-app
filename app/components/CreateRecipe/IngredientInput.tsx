@@ -36,7 +36,7 @@ export default function IngredientInput() {
   };
 
   return (
-    <section className=" pt-[8px] pb-[24px] ">
+    <section className="pt-[8px] pb-[24px] ">
       <div className="flex gap-x-[20px] py-[12px] items-center px-[16px] border-border border-b-[1px]">
         <h2 className="font-bold text-title text-[16px]">材料 / {servings}人前</h2>
         <input hidden className="display-none" type="number" {...register("servings")}></input>
@@ -83,7 +83,7 @@ export default function IngredientInput() {
 
       <ul className="bg-white">
         {fields.map((ingredient, index) => (
-          <li className=" text-[14px] border-border border-b-[1px] leading-[18px] relative" key={ingredient.id}>
+          <li className="text-[14px] border-border border-b-[1px] leading-[18px] relative" key={ingredient.id}>
             <input
               className="bg-white w-full  py-[16px] pr-[48px] pl-[18px] text-title focus:outline-text"
               {...register(`ingredients.${index}.value` as const)}
