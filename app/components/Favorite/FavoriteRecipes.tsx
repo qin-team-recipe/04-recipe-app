@@ -13,7 +13,7 @@ export default async function FavoriteRecipes() {
       {favoriteRecipes?.length === 0 ? (
         <p className="text-title mt-[12px]">まだレシピをお気に入りに追加していません！</p>
       ) : (
-        <ul className="flex gap-x-[16px] mt-[12px] w-screen  overflow-x-scroll md:w-full pl-[16px]">
+        <ul className="flex justify-between gap-y-[16px] gap-x-[12px] mt-[10px] flex-wrap">
           {favoriteRecipes.map((recipe) => (
             <RecipeCard key={recipe.id} recipe={recipe} />
           ))}

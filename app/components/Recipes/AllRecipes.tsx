@@ -18,7 +18,7 @@ export default async function AllRecipes({
       {recipes?.length === 0 ? (
         <p className="text-title mt-[10px]">レシピが見つかりませんでした！</p>
       ) : (
-        <ul className="flex justify-between gap-y-[16px] gap-x-[12px] mt-[10px] flex-wp">
+        <ul className="flex justify-between gap-y-[16px] gap-x-[12px] mt-[10px] flex-wrap">
           {recipes.map((recipe) => (
             <RecipeCard key={recipe.id} recipe={recipe} />
           ))}

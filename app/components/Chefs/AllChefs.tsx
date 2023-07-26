@@ -18,7 +18,7 @@ export default async function AllChefs({
       {chefs?.length === 0 ? (
         <p className="text-title">シェフが見つかりませんでした！</p>
       ) : (
-        <ul className="flex justify-between gap-y-[16px] gap-x-[12px] flex-wrap">
+        <ul className="flex justify-between gap-y-[16px] gap-x-[12px] flex-wrap mt-[10px]">
           {chefs.map((chef) => (
             <ChefCard key={chef.id} chef={chef} />
           ))}
