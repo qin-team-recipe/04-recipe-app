@@ -18,14 +18,14 @@ export default function LinkInput() {
   });
 
   return (
-    <section className=" pt-[8px] pb-[24px] ">
+    <section className="pt-[8px] pb-[24px] ">
       <div className="flex justify-between py-[12px] items-center px-[16px] border-border border-b-[1px]">
         <h2 className="font-bold text-title text-[16px]">リンク（任意）</h2>
       </div>
 
       <ul className="bg-white">
         {fields.map((link, index) => (
-          <li className=" text-[14px] border-border border-b-[1px] leading-[18px] relative" key={link.id}>
+          <li className="text-[14px] border-border border-b-[1px] leading-[18px] relative" key={link.id}>
             <input
               type="text"
               className="py-[15.5px] pr-[48px] pl-[16px] block text-title text-[14px] w-full focus:outline-text"

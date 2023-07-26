@@ -1,8 +1,18 @@
-import { RouterOutput } from "@/server/trpc/router";
 import Image from "next/image";
 import Link from "next/link";
 
-type Recipe = RouterOutput["recipes"][number];
+type Recipe = {
+  id: string;
+  name: string;
+  imageUrl: string | null;
+  favoriteCount: number;
+  author?: {
+    displayName: string;
+  } | null;
+  chef?: {
+    displayName: string;
+  } | null;
+};
 
 export function RecipeCard({ recipe }: { recipe: Recipe }) {
   return (
@@ -20,7 +30,7 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
           {recipe.favoriteCount}
         </div>
         <p className="text-title font-bold mt-[8px] text-[12px]">{recipe.name}</p>
-        <p className="text-[10px] mt-[4px] line-clamp-1">{recipe.chef?.displayName}</p>
+        <p className="text-[10px] mt-[4px] line-clamp-1">{recipe.chef?.displayName || recipe.author?.displayName}</p>
       </Link>
     </li>
   );

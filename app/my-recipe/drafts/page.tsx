@@ -28,15 +28,15 @@ export default function MyRecipeDraft() {
         <h1 className="text-[#020010]">下書き</h1>
       </div>
 
-      <section className=" pb-[24px] ">
+      <section className="pb-[24px] ">
         <ul className="bg-white">
-          <li className=" text-[14px] border-border border-b-[1px] leading-[18px]">
+          <li className="text-[14px] border-border border-b-[1px] leading-[18px]">
             <Link className="py-[15.5px] px-[16px] block" href="/recipe/1/edit">
               <p className="text-title text-[14px]">グラタン</p>
               <p className="mt-[6px] text-[12px] leading-[12px]">作成日時: 2023年4月12日</p>
             </Link>
           </li>
-          <li className=" text-[14px] border-border border-b-[1px] leading-[18px]">
+          <li className="text-[14px] border-border border-b-[1px] leading-[18px]">
             <Link className="py-[15.5px] px-[16px] block" href="/recipe/1/edit">
               <p className="text-title text-[14px]">グラタン</p>
               <p className="mt-[6px] text-[12px] leading-[12px]">作成日時: 2023年4月12日</p>

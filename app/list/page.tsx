@@ -61,7 +61,7 @@ function List() {
     <>
       <DropdownMenu.Root>
         {/* じぶんメモ */}
-        <section className=" pt-[8px] pb-[24px] ">
+        <section className="pt-[8px] pb-[24px] ">
           <div className="flex justify-between py-[12px] items-center px-[16px] border-border border-b-[1px]">
             <h2 className="font-bold text-title text-[16px]">じぶんメモ</h2>
             <button
@@ -123,7 +123,7 @@ function List() {
 
         {/* レシピ別 */}
 
-        <section className=" pt-[8px] pb-[24px]">
+        <section className="pt-[8px] pb-[24px]">
           <div className="flex justify-between py-[12px] items-center px-[16px] border-border border-b-[1px]">
             <h2 className="font-bold text-title text-[16px]">カレー</h2>
             <DropdownMenu.Trigger>
