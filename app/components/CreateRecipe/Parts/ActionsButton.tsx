@@ -1,7 +1,7 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import "./styles.css";
 import { FC } from "react";
 import { useWatch, useFormContext } from "react-hook-form";
+import styles from "../../../styles/dropdownMenuContent.module.css";
 
 type Props = {
   index: number;
@@ -49,7 +49,7 @@ export const ActionsButton: FC<Props> = ({ index, removeHandler, fieldName }) =>
         </DropdownMenu.Trigger>
 
         <DropdownMenu.Portal>
-          <DropdownMenu.Content sideOffset={5} align="end" className="DropdownMenuContent ">
+          <DropdownMenu.Content sideOffset={5} align="end" className={styles.DropdownMenuContent}>
             <ul>
               {index !== 0 && (
                 <li>

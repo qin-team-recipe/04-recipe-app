@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import "./styles.css";
+import styles from "../../styles/dropdownMenuContent.module.css";
 import { FavoriteButton } from "./FavoriteButton";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
@@ -108,7 +108,7 @@ const RecipeHero: FC<Props> = ({ page, recipe }) => {
               </DropdownMenu.Trigger>
 
               <DropdownMenu.Portal>
-                <DropdownMenu.Content sideOffset={5} align="end" className="DropdownMenuContent w-[260px]">
+                <DropdownMenu.Content sideOffset={5} align="end" className={`{${styles.DropdownMenuContent} w-[260px]`}>
                   <ul>
                     <li>
                       {recipeLinks.tiktok && (

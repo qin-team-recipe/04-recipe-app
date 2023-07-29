@@ -1,6 +1,7 @@
 import { trpcCaller } from "@/server/trpc/router";
 import Link from "next/link";
 import { HorizontalRecipeCard } from "../Recipes/HorizontalRecipeCard";
+import styles from "../../styles/noscrollbar.module.css";
 
 export default async function TopRecipes() {
   const recipes = await trpcCaller.recipes({});
@@ -18,7 +19,7 @@ export default async function TopRecipes() {
       {recipes?.length === 0 ? (
         <p className="mt-[16px] text-title  pl-[15px]">話題のレシピがありません！</p>
       ) : (
-        <ul className="flex gap-x-[16px] w-screen  overflow-x-scroll md:w-full pl-[15px]">
+        <ul className={`flex gap-x-[16px] w-screen  overflow-x-scroll md:w-full pl-[15px] ${styles.noscrollbar}`}>
           {recipes.slice(0, 5).map((recipe) => (
             <HorizontalRecipeCard key={recipe.id} recipe={recipe} />
           ))}
