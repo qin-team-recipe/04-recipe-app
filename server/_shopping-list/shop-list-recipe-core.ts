@@ -12,7 +12,7 @@ export type ShopListRecipe = {
  * 買い物リストのレシピの材料
  */
 export type ShopListIngredient = {
-  shopListRecipeId: string;
+  // shopListRecipeId: string;
   /**
    * レシピの材料（RecipeIngredient）のID
    */
@@ -32,7 +32,22 @@ export type ShopListIngredient = {
 };
 
 /**
- * 買い物リストのレシピの材料
+ * 買い物リストのレシピ（登録済み）
+ */
+export type CreatedShopListRecipe = {
+  id: string;
+  userId: string;
+  recipeId: string;
+  shopListIngredients: CreatedShopListIngredient[];
+};
+
+/**
+ * 買い物リストのレシピの材料（作成済み）
+ */
+export type CreatedShopListIngredient = ShopListIngredient & { id: string };
+
+/**
+ * 買い物リストのレシピの材料（登録前）
  */
 type UnprocessedShopListIngredient = Pick<ShopListIngredient, "recipeIngredientId" | "name">;
 
@@ -57,7 +72,23 @@ export function addIngredientToList(
   return {
     ...ingredient,
     isChecked: false,
-    shopListRecipeId: shopListRecipe.recipeId,
     sortOrder: Math.max(...shopListRecipe.shopListIngredients.map((ingredient) => ingredient.sortOrder)) + 1,
   };
+}
+
+type RecipeIngredient = {
+  id: number;
+  title: string;
+};
+
+/**
+ * レシピの材料を、買い物リストのレシピの材料に変換する
+ */
+export function convertRecipeIngredientsForShopList(ingredients: RecipeIngredient[]): ShopListIngredient[] {
+  return ingredients.map((ingredient, index) => ({
+    recipeIngredientId: ingredient.id,
+    name: ingredient.title,
+    isChecked: false,
+    sortOrder: index + 1,
+  }));
 }
