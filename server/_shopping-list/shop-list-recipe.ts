@@ -1,3 +1,4 @@
+import { TRPCError } from "@trpc/server";
 import { protectedProcedure } from "../trpc/init-trpc";
 import {
   RecipeIdInput,
@@ -7,16 +8,74 @@ import {
   ShopListRecipeIdInput,
   AppendShopListIngredientInput,
 } from "./api-schema";
+import { ShopListRecipe, addIngredientToList as addIngredientToListCore } from "./shop-list-recipe-core";
+import { Prisma } from "@prisma/client";
 
 /**
  * 全ての材料を買い物リストに追加する
  */
 export const addAllIngredientsToList = protectedProcedure.input(RecipeIdInput).mutation(async () => {});
 
+async function findOrCreateShopListRecipe({
+  prisma,
+  userId,
+  recipeId,
+}: {
+  prisma: Prisma.TransactionClient;
+  userId: string;
+  recipeId: string;
+}): Promise<ShopListRecipe> {
+  const shopListRecipe = await prisma.shopListRecipe.findUnique({
+    where: {
+      userId_recipeId: { userId, recipeId },
+    },
+    include: { shopListIngredients: true },
+  });
+  if (shopListRecipe !== null) return shopListRecipe;
+
+  return await prisma.shopListRecipe.create({
+    data: { userId, recipeId },
+    include: { shopListIngredients: true },
+  });
+}
+
 /**
  * 材料を買い物リストに追加する
  */
-export const addIngredientToList = protectedProcedure.input(IngredientIdInput).mutation(async () => {});
+export const addIngredientToList = protectedProcedure.input(IngredientIdInput).mutation(async ({ ctx, input }) => {
+  // 材料が存在することを確認する
+  const ingredient = await ctx.prisma.recipeIngredient.findUnique({ where: { id: input.ingredientId } });
+  if (ingredient === null) {
+    throw new TRPCError({ code: "BAD_REQUEST", message: "IDに該当する材料が存在しません" });
+  }
+
+  await ctx.prisma.$transaction(async (tx) => {
+    // 買い物リストのレシピを、存在しなければ作成する
+    const shopListRecipe = await findOrCreateShopListRecipe({
+      prisma: tx,
+      userId: ctx.user.userId,
+      recipeId: ingredient.recipeId,
+    });
+
+    // 買い物リストの材料を、追加されていなければ追加する
+    const newIngredient = addIngredientToListCore(shopListRecipe, {
+      name: ingredient.title,
+      recipeIngredientId: ingredient.id,
+    });
+
+    if (newIngredient !== null) {
+      await tx.shopListIngredient.create({
+        data: {
+          shopListRecipeId: newIngredient.shopListRecipeId,
+          recipeIngredientId: newIngredient.recipeIngredientId,
+          name: newIngredient.name,
+          isChecked: newIngredient.isChecked,
+          sortOrder: newIngredient.sortOrder,
+        },
+      });
+    }
+  });
+});
 
 /**
  * 材料を買い物リストから削除する

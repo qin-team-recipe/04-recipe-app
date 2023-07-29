@@ -216,7 +216,7 @@ model ShopListRecipe {
   recipe              Recipe               @relation(fields: [recipeId], references: [id])
   shopListIngredients ShopListIngredient[]
 
-  @@index([userId])
+  @@unique([userId, recipeId])
   @@index([recipeId])
 }
 

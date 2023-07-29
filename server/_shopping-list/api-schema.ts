@@ -11,7 +11,7 @@ export const RecipeIdInput = z.object({
  * レシピの材料（RecipeIngredient）のID
  */
 export const IngredientIdInput = z.object({
-  ingredientId: z.string(),
+  ingredientId: z.number(),
 });
 
 /**
