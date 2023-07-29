@@ -14,15 +14,17 @@ datasource db {
 
 /// ユーザー
 model User {
-  id            String      @id @default(cuid()) @db.VarChar(30)
-  name          String      @db.VarChar(32)
-  email         String      @unique
-  emailVerified DateTime?
-  image         String?
-  myRecipes     MyRecipe[]
-  followings    Following[]
-  favorites     Favorite[]
-  accounts      Account[]
+  id              String           @id @default(cuid()) @db.VarChar(30)
+  name            String           @db.VarChar(32)
+  email           String           @unique
+  emailVerified   DateTime?
+  image           String?
+  myRecipes       MyRecipe[]
+  followings      Following[]
+  favorites       Favorite[]
+  accounts        Account[]
+  myMemoItems     MyMemoItem[]
+  shopListRecipes ShopListRecipe[]
 }
 
 /// OAuthのアカウント（Google、Appleなど）
@@ -75,24 +77,26 @@ model ChefLink {
 
 /// レシピ（ベーステーブル）
 model Recipe {
-  id          String             @id @default(cuid())
+  id              String             @id @default(cuid())
   /// レシピ名
-  name        String
+  name            String
   /// レシピの説明
-  description String             @db.VarChar(255)
+  description     String             @db.VarChar(255)
   /// 何人分か
-  yields      Int                @db.UnsignedInt
-  chefRecipe  ChefRecipe?
-  myRecipe    MyRecipe?
-  favorites   Favorite[]
+  yields          Int                @db.UnsignedInt
+  chefRecipe      ChefRecipe?
+  myRecipe        MyRecipe?
+  favorites       Favorite[]
   /// レシピの画像
-  images      RecipeImage[]
+  images          RecipeImage[]
   /// レシピの材料
-  ingredients RecipeIngredient[]
+  ingredients     RecipeIngredient[]
   /// レシピの作り方
-  processes   RecipeProcess[]
+  processes       RecipeProcess[]
   /// レシピのリンク
-  links       RecipeLink[]
+  links           RecipeLink[]
+  /// 買い物リストのレシピ
+  shopListRecipes ShopListRecipe[]
 }
 
 /// シェフのレシピ
@@ -186,4 +190,49 @@ model Favorite {
 
   @@unique(fields: [userId, recipeId])
   @@index([recipeId])
+}
+
+/// 自分メモの項目
+model MyMemoItem {
+  id        String  @id @default(cuid())
+  userId    String
+  user      User    @relation(fields: [userId], references: [id])
+  /// 項目の内容
+  content   String
+  /// チェックされているかどうか
+  isChecked Boolean
+  /// ソート順
+  sortOrder Int     @db.UnsignedInt
+
+  @@index([userId])
+}
+
+/// 買い物リストのレシピ
+model ShopListRecipe {
+  id                  String               @id @default(cuid())
+  userId              String
+  user                User                 @relation(fields: [userId], references: [id])
+  recipeId            String
+  recipe              Recipe               @relation(fields: [recipeId], references: [id])
+  shopListIngredients ShopListIngredient[]
+
+  @@index([userId])
+  @@index([recipeId])
+}
+
+/// 買い物リストのレシピの材料
+model ShopListIngredient {
+  id                 String         @id @default(cuid())
+  shopListRecipeId   String
+  shopListRecipe     ShopListRecipe @relation(fields: [shopListRecipeId], references: [id])
+  /// レシピの材料（RecipeIngredient）のID
+  recipeIngredientId Int? // 買い物リスト画面から、レシピに登録されている材料以外も追加できるため、任意にしています
+  /// 材料名
+  name               String
+  /// チェックされているかどうか
+  isChecked          Boolean
+  /// ソート順
+  sortOrder          Int            @db.UnsignedInt
+
+  @@index([shopListRecipeId])
 }
