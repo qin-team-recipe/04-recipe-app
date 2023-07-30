@@ -21,7 +21,12 @@ export const ShopListIngredientIdInput = z.object({
   shopListIngredientId: z.string(),
 });
 
-export const UpdateShopListIngredientInput = ShopListIngredientIdInput.merge(z.object({}));
+export const UpdateShopListIngredientInput = ShopListIngredientIdInput.merge(
+  z.object({
+    isChecked: z.boolean().optional(),
+    name: z.string().optional(),
+  })
+);
 
 /**
  * 買い物リストのレシピ（ShopListRecipe）のID
