@@ -26,9 +26,9 @@ export const registrationMyRecipe = protectedProcedure
 
     // Cloudinaryの設定
     cloudinary.v2.config({
-        cloud_name: 'dmvffahda', 
-        api_key: '964782862971153', 
-        api_secret: 'ERErOlKWsroJMaMYF22bQ6S485I' 
+        cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+        api_key: process.env.CLOUDINARY_API_KEY, 
+        api_secret: process.env.CLOUDINARY_API_SECRET
     });
 
     async function uploadImageToCloudinary(localImagePath: string) {
