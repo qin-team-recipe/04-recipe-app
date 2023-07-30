@@ -69,10 +69,14 @@ export function addIngredientToList(
     return null;
   }
 
+  const maxSortOrder =
+    shopListRecipe.shopListIngredients.length === 0
+      ? 0
+      : Math.max(...shopListRecipe.shopListIngredients.map((ingredient) => ingredient.sortOrder));
   return {
     ...ingredient,
     isChecked: false,
-    sortOrder: Math.max(...shopListRecipe.shopListIngredients.map((ingredient) => ingredient.sortOrder)) + 1,
+    sortOrder: maxSortOrder + 1,
   };
 }
 

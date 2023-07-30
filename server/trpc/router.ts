@@ -5,6 +5,7 @@ import { authRouter } from "../_auth/router";
 import { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 import { followFavoriteRouter } from "../_follow-favorite/router";
 import { myRecipeRouter } from "../_my-recipe/router";
+import { shoppingListRouter } from "../_shopping-list/router";
 
 const healthCheck = publicProcedure.query(() => ({ status: "Running" }));
 
@@ -13,7 +14,8 @@ export const appRouter = mergeRouters(
   chefRecipeRouter,
   authRouter,
   followFavoriteRouter,
-  myRecipeRouter
+  myRecipeRouter,
+  shoppingListRouter
 );
 
 export const trpcCaller = appRouter.createCaller({ user: undefined, prisma });
