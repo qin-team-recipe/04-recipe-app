@@ -26,15 +26,15 @@ export const registrationMyRecipe = protectedProcedure
 
     // Cloudinaryの設定
     cloudinary.v2.config({
-        cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
-        api_key: process.env.CLOUDINARY_API_KEY, 
-        api_secret: process.env.CLOUDINARY_API_SECRET
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET,
     });
 
     async function uploadImageToCloudinary(localImagePath: string) {
       try {
         const result = await cloudinary.v2.uploader.upload(localImagePath, {
-          folder: "./iamges", 
+          folder: "./iamges",
         });
 
         console.log("公開URL:", result.secure_url);
@@ -58,33 +58,32 @@ export const registrationMyRecipe = protectedProcedure
       });
     });
 
-    const imageUrls[]=["http://image1","http://image3","http://image3"]
     //TODO渡されたＪＳＯＮをもとにrecipeテーブルとマイレシピテーブルと、画像、材料、作り方、リンクに登録処理？
     return await ctx.prisma.recipe.create({
-        data: {
-            name: input.name,
-            ingredients:{
-                createMany:{
-                    data:[{title:"test"}]
-                }
-            },
-            yields:input.yields,
-            processes:{
-                createMany:{
-                    data:[{title:"test"}]
-                }
-            },
-            images:{
-                createMany:{
-                    data:[imageUrls]
-                }
-            },
-            description:input.description,
-            links:{
-                createMany:{
-                    data:[{title:"test"}]
-                }
-            },
+      data: {
+        name: input.name,
+        ingredients: {
+          createMany: {
+            data: [{ title: "test" }],
+          },
         },
+        yields: input.yields,
+        processes: {
+          createMany: {
+            data: [{ title: "test" }],
+          },
+        },
+        images: {
+          createMany: {
+            data: [imageUrls],
+          },
+        },
+        description: input.description,
+        links: {
+          createMany: {
+            data: [{ title: "test" }],
+          },
+        },
+      },
     });
   });
