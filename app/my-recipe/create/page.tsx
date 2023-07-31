@@ -1,5 +1,3 @@
-import { getServerSession } from "next-auth";
-import { nextAuthOptions } from "@/server/utils/next-auth";
 import { RecipeForm } from "@/app/components/CreateRecipe/ReciprForm";
 
 export const metadata = {
@@ -8,11 +6,9 @@ export const metadata = {
 };
 
 export default async function CreateMyRecipe() {
-  const session = await getServerSession(nextAuthOptions);
-  console.log(session);
   return (
     <>
-      <RecipeForm userId={session?.user.userId} />
+      <RecipeForm />
     </>
   );
 }

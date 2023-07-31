@@ -1,12 +1,7 @@
 "use client";
-import { FC } from "react";
 import { Dialog } from "./Parts/Dialog";
 
-type Props = {
-  userId?: string;
-};
-
-export const CreateRecipeHeader: FC<Props> = ({ userId }) => {
+export const CreateRecipeHeader = () => {
   const triggerButtonDraft = <button type="button">下書き一覧</button>;
 
   const triggetButtonGoBack = (
@@ -28,7 +23,7 @@ export const CreateRecipeHeader: FC<Props> = ({ userId }) => {
   return (
     <div className="px-[15px] border-b-[1px] border-border text-center font-bold text-[16px] py-[12px] flex justify-between">
       {/* Xアイコン */}
-      <Dialog direction={"goBack"} triggerButton={triggetButtonGoBack} userId={userId} />
+      <Dialog direction={"goBack"} triggerButton={triggetButtonGoBack} />
 
       {/* 下書き一覧 */}
       <Dialog direction={"drafts"} triggerButton={triggerButtonDraft} />

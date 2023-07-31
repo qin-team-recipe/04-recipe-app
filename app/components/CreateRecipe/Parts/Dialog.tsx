@@ -1,21 +1,25 @@
 "use client";
+
 import * as RadixDialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
 import { FC, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { CreateRecipeSchema } from "../zodSchema";
+import { useSession } from "next-auth/react";
 
 type Props = {
   direction: string;
   triggerButton: React.ReactNode;
-  userId?: string;
 };
 
-export const Dialog: FC<Props> = ({ direction, triggerButton, userId }) => {
+export const Dialog: FC<Props> = ({ direction, triggerButton }) => {
   const router = useRouter();
   const { getFieldState } = useFormContext<CreateRecipeSchema>();
   const [dialogOpen, setDialogOpen] = useState(false);
+
+  const { data: session } = useSession();
+  const userId = session?.user?.userId;
 
   const handleTrafficHandler = (direction: string) => {
     setDialogOpen(false);
