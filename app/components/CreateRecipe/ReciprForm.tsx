@@ -10,8 +10,13 @@ import StepsInput from "./StepsInput";
 import { CreateRecipeSchema, recipeSchema } from "./zodSchema";
 import { CreateRecipeHeader } from "./Header";
 import { usePathname } from "next/navigation";
+import { FC } from "react";
 
-export default function RecipeForm() {
+type Props = {
+  userId?: string;
+};
+
+export const RecipeForm: FC<Props> = ({ userId }) => {
   const pathname = usePathname();
   const createDefaultValues = {
     servings: 2,
@@ -74,7 +79,7 @@ export default function RecipeForm() {
 
   return (
     <FormProvider {...form}>
-      <CreateRecipeHeader />
+      <CreateRecipeHeader userId={userId} />
 
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* レシピ名 */}
@@ -123,4 +128,4 @@ export default function RecipeForm() {
       </form>
     </FormProvider>
   );
-}
+};

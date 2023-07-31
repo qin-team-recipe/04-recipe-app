@@ -14,6 +14,7 @@ const CopyClipboard: FC<Props> = ({ text }) => {
       window.alert(`コピーに失敗しました:${text}`);
     }
   };
+
   return (
     <button
       onClick={() => onClickClipboardHandler(text)}
