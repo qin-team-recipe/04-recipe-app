@@ -48,6 +48,8 @@ const ChefHero: FC<Props> = ({ chef }) => {
   const { data: session } = useSession();
   const chefLinks = formatSocialLinks(chef.links);
 
+  // const notify = () => toast.success("お気にいりに追加しました！");
+
   return (
     <>
       {/* Chef詳細 */}

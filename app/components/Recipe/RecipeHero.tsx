@@ -174,6 +174,7 @@ const RecipeHero: FC<Props> = ({ page, recipe }) => {
           </p>
         </div>
 
+        {/* フォローボタン */}
         <div className="mt-4">
           <FavoriteButton
             isFavoriting={recipe.isFavoriting}
