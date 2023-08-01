@@ -1,6 +1,6 @@
 import CopyClipboard from "@/app/components/Parts/CopyClipboard";
-import RecipeHero from "@/app/components/Recipe/RecipeHero";
 import { trpcCaller } from "@/server/trpc/router";
+import { RecipeNavigation } from "../RecipeNavigation";
 
 export const metadata = {
   title: "Recipes",
@@ -18,8 +18,7 @@ export default async function RecipeIngredients({ params }: { params: { id: stri
 
   return (
     <>
-      <RecipeHero page="ingredients" recipe={{ ...recipe, chef: recipe.chefRecipe?.chef }} />
-
+      <RecipeNavigation page="ingredients" recipeId={recipe.id} />
       {/* 材料 */}
       <section className="pb-[48px]">
         <div className="flex justify-between pt-[20px] pb-[10.5px] px-[15px] items-center border-b-[1px] border-border font-bold">

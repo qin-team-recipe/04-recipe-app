@@ -20,7 +20,6 @@ import {
 import { RecipeLinks, formatSocialLinks } from "@/app/utils/social-link";
 
 type Props = {
-  page: string;
   recipe: {
     id: string;
     name: string;
@@ -29,7 +28,7 @@ type Props = {
       favorites: number;
     };
     primaryImageUrl: string | null;
-    chef: { id: string; displayName: string } | undefined;
+    chef?: { id: string; displayName: string } | undefined;
     isFavoriting: boolean;
     links: { url: string }[];
   };
@@ -47,7 +46,7 @@ function hasOtherLinks(links: RecipeLinks): boolean {
   );
 }
 
-const RecipeHero: FC<Props> = ({ page, recipe }) => {
+const RecipeHero: FC<Props> = ({ recipe }) => {
   const router = useRouter();
   const { data: session } = useSession();
   const recipeLinks = formatSocialLinks(recipe.links);
@@ -185,22 +184,6 @@ const RecipeHero: FC<Props> = ({ page, recipe }) => {
           />
         </div>
       </div>
-
-      {/* ナビゲーション */}
-      <nav className="border-b-[1px] border-border">
-        <ul className="flex text-title">
-          <li className={`w-1/2 text-center text-[16px]  ${page === "steps" ? "font-bold border-b-2" : ""}`}>
-            <Link href={`/recipe/${recipe.id}/steps`} className="block py-[10px]">
-              作り方
-            </Link>
-          </li>
-          <li className={`w-1/2 text-center text-[16px]  ${page === "ingredients" ? "font-bold border-b-2" : ""}`}>
-            <Link href={`/recipe/${recipe.id}/ingredients`} className="block py-[10px]">
-              材料
-            </Link>
-          </li>
-        </ul>
-      </nav>
     </>
   );
 };
