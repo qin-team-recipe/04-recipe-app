@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FC } from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import "./styles.css";
 import {
   BrandYoutube,
   BrandInstagram,
@@ -17,6 +16,7 @@ import {
 import { FollowButton } from "./FollowButton";
 import { useSession } from "next-auth/react";
 import { ChefLinks, formatSocialLinks } from "@/app/utils/social-link";
+import styles from "../../styles/dropdownMenuContent.module.css";
 
 type Props = {
   chef: {
@@ -87,7 +87,7 @@ const ChefHero: FC<Props> = ({ chef }) => {
               </DropdownMenu.Trigger>
 
               <DropdownMenu.Portal>
-                <DropdownMenu.Content sideOffset={5} align="end" className="DropdownMenuContent w-[260px]">
+                <DropdownMenu.Content sideOffset={5} align="end" className={`{${styles.DropdownMenuContent} w-[260px]`}>
                   <ul>
                     <li>
                       {chefLinks.tiktok && (

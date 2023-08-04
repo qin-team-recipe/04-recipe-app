@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import "./styles.css";
+import styles from "../../styles/dropdownMenuContent.module.css";
 
 type Props = {
   page: string;
@@ -112,7 +112,7 @@ const MyRecipeHero: FC<Props> = ({ page, recipe }) => {
               </DropdownMenu.Trigger>
 
               <DropdownMenu.Portal>
-                <DropdownMenu.Content sideOffset={5} align="end" className="DropdownMenuContent w-[260px]">
+                <DropdownMenu.Content sideOffset={5} align="end" className={`{${styles.DropdownMenuContent} w-[260px]`}>
                   <ul>
                     <li>
                       <Link

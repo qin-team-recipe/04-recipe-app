@@ -3,9 +3,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import "./styles.css";
 import { useSession } from "next-auth/react";
 import { LoginScreen } from "../components/Auth/LoginScreen";
+import styles from "../styles/dropdownMenuContent.module.css";
 
 // use clientとmetadata併記するとエラーになる、、
 // export const metadata = {
@@ -185,7 +185,7 @@ function List() {
           </ul>
 
           <DropdownMenu.Portal>
-            <DropdownMenu.Content sideOffset={5} align="end" className="DropdownMenuContent">
+            <DropdownMenu.Content sideOffset={5} align="end" className={styles.DropdownMenuContent}>
               <ul>
                 <li>
                   <Link
