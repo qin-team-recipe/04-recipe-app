@@ -6,6 +6,7 @@ import { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 import { followFavoriteRouter } from "../_follow-favorite/router";
 import { myRecipeRouter } from "../_my-recipe/router";
 import { shoppingListRouter } from "../_shopping-list/router";
+import { mypageRouter } from "../_mypage/router";
 
 const healthCheck = publicProcedure.query(() => ({ status: "Running" }));
 
@@ -15,6 +16,7 @@ export const appRouter = mergeRouters(
   authRouter,
   followFavoriteRouter,
   myRecipeRouter,
+  mypageRouter,
   router({ shoppingList: shoppingListRouter })
 );
 

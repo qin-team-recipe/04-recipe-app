@@ -6,7 +6,7 @@ import { profileFormSchema } from "./zodSchema";
 import type { TFieldValue } from "./types";
 import type { TProfileFormSchema } from "./zodSchema";
 import { CommonButton, MultiInputFields, TextField } from "@/app/components/Parts";
-import { ImageInputField } from "@/app/components/Parts/Form/ImageInputField";
+import { ImageInputField } from "@/app/components/Parts/form/ImageInputField";
 
 type Props = {
   links: TFieldValue[];

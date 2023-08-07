@@ -8,12 +8,15 @@ const ERROR_INVALID_URL = "有効なURLを入力してください。";
 export const profileFormSchema = z.object({
   nickname: z.string().min(1, { message: ERROR_REQUIRE }),
   biography: z.string().max(191, { message: ERROR_MAX_LENGTH }).optional(),
-  profileImage: z.custom<FileList>().transform((file) => file[0]),
-  multiInputItems: z.array(
-    z.object({
-      value: z.string().url({ message: ERROR_INVALID_URL }).max(191, { message: ERROR_MAX_LENGTH }),
-    })
-  ),
+  profileImage: z.string().optional(),
+  multiInputItems: z
+    .array(
+      z.object({
+        id: z.string().optional(),
+        value: z.string().url({ message: ERROR_INVALID_URL }).max(191, { message: ERROR_MAX_LENGTH }),
+      })
+    )
+    .optional(),
 });
 
 export type TProfileFormSchema = z.infer<typeof profileFormSchema>;
