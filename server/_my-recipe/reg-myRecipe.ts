@@ -12,16 +12,6 @@ import * as fs from "fs";
 export const registrationMyRecipe = protectedProcedure
   .input(RegistrationMyRecipeInput)
   .mutation(async ({ ctx, input }) => {
-    //TODObase64→画像への変換処理
-    let imageNum = 1;
-    for (const image of input.images) {
-      // Base64データ
-      const base64Data = image;
-      // 画像に変換してファイルに保存
-      imageNum++;
-      base64ToImage(base64Data, `./images/image_${imageNum}`);
-    }
-
     //TODOCloudinaryへの登録処理
 
     // Cloudinaryの設定
@@ -31,57 +21,48 @@ export const registrationMyRecipe = protectedProcedure
       api_secret: process.env.CLOUDINARY_API_SECRET,
     });
 
-    async function uploadImageToCloudinary(localImagePath: string) {
-      try {
-        const result = await cloudinary.v2.uploader.upload(localImagePath, {
-          folder: "./iamges",
-        });
-
-        console.log("公開URL:", result.secure_url);
-      } catch (error) {
-        console.error("エラー", error);
-      }
+    //Cloudinaryへ画像を登録
+    //TODO複数画像登録に対応する
+    async function uploadImageToCloudinary(dataURI: string): Promise<string> {
+      const result = await cloudinary.v2.uploader.upload(dataURI);
+      return result.public_id;
     }
 
-    // ローカルの画像フォルダパス
-    const localImageFolderPath = path.join(__dirname, "path/to/your/local/folder");
+    const publicids: string[] = [];
+    for (const dataURI of input.images) {
+      const publicid = await uploadImageToCloudinary(dataURI.slice(0, 200))
+        .then((publicid) => publicids.push(publicid))
+        .catch((e) => {
+          if (e instanceof Error) {
+            console.error(e.message);
+          }
+        });
+    }
 
-    fs.readdir(localImageFolderPath, (err, files) => {
-      if (err) {
-        console.error("フォルダの読み込み中にエラーが発生しました。", err);
-        return;
-      }
-
-      files.forEach((file) => {
-        const localImagePath = path.join(localImageFolderPath, file);
-        uploadImageToCloudinary(localImagePath);
-      });
-    });
-
-    //TODO渡されたＪＳＯＮをもとにrecipeテーブルとマイレシピテーブルと、画像、材料、作り方、リンクに登録処理？
+    //requestで渡されたJSONをもとに登録処理
     return await ctx.prisma.recipe.create({
       data: {
         name: input.name,
         ingredients: {
           createMany: {
-            data: [{ title: "test" }],
+            data: input.ingredients.map((title) => ({ title, description: "" })),
           },
         },
         yields: input.yields,
         processes: {
           createMany: {
-            data: [{ title: "test" }],
+            data: input.processes.map((title, index) => ({ order: index + 1, title, description: "" })),
           },
         },
         images: {
           createMany: {
-            data: [imageUrls],
+            data: publicids.map((pubulicid) => ({ imageId: pubulicid })),
           },
         },
-        description: input.description,
+        description: input.description ?? "",
         links: {
           createMany: {
-            data: [{ title: "test" }],
+            data: input.urls.map((url) => ({ url })),
           },
         },
       },
