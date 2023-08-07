@@ -8,17 +8,14 @@ import * as cloudinary from "cloudinary";
 export const registrationMyRecipe = protectedProcedure
   .input(RegistrationMyRecipeInput)
   .mutation(async ({ ctx, input }) => {
-    //TODOCloudinaryへの登録処理
-
     // Cloudinaryの設定
     cloudinary.v2.config({
       cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
       api_key: process.env.CLOUDINARY_API_KEY,
       api_secret: process.env.CLOUDINARY_API_SECRET,
     });
-
-    //Cloudinaryへ画像を登録
-    //TODO複数画像登録に対応する
+    //Cloudinaryへの登録処理
+    //TODO 複数登録対応
     async function uploadImageToCloudinary(dataURI: string): Promise<string> {
       const result = await cloudinary.v2.uploader.upload(dataURI);
       return result.public_id;
@@ -26,7 +23,7 @@ export const registrationMyRecipe = protectedProcedure
 
     const publicids: string[] = [];
     for (const dataURI of input.images) {
-      const publicid = await uploadImageToCloudinary(dataURI.slice(0, 200))
+      const publicid = await uploadImageToCloudinary(dataURI)
         .then((publicid) => publicids.push(publicid))
         .catch((e) => {
           if (e instanceof Error) {
@@ -35,7 +32,7 @@ export const registrationMyRecipe = protectedProcedure
         });
     }
 
-    //requestで渡されたJSONをもとに登録処理
+    //requestのJSONをもとにマイレシピ登録
     return await ctx.prisma.recipe.create({
       data: {
         name: input.name,
