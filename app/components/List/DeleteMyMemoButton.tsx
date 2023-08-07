@@ -9,9 +9,14 @@ type Props = {
   remove: (i: number) => void;
 };
 
+type Item = {
+  item: string;
+  checked: boolean;
+};
+
 export default function DeleteMyMemoButton({ remove }: Props) {
   const fieldArray = useWatch({
-    name: "myMemoList",
+    name: "list",
   });
 
   const handleDeleteCheckedItems = () => {
@@ -28,6 +33,8 @@ export default function DeleteMyMemoButton({ remove }: Props) {
     }
   };
 
+  const ifFieldArrayHasCheckedItems = fieldArray.some((item: Item) => item.checked === true);
+
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
@@ -36,21 +43,24 @@ export default function DeleteMyMemoButton({ remove }: Props) {
       <DropdownMenu.Portal>
         <DropdownMenu.Content sideOffset={5} align="end" className={styles.DropdownMenuContent}>
           <ul>
-            <li>
-              <button
-                onClick={handleDeleteCheckedItems}
-                type="button"
-                className="py-[6px] pr-[12px] pl-[34px] block hover:bg-backgroundGray relative w-full text-left"
-              >
-                <CircleCheck
-                  size={16}
-                  strokeWidth={1}
-                  color={"#6F6E77"}
-                  className="absolute top-1/2 -translate-y-1/2 left-[12px]"
-                />
-                完了したアイテムだけ削除する
-              </button>
-            </li>
+            {ifFieldArrayHasCheckedItems && (
+              <li>
+                <button
+                  onClick={handleDeleteCheckedItems}
+                  type="button"
+                  className="py-[6px] pr-[12px] pl-[34px] block hover:bg-backgroundGray relative w-full text-left"
+                >
+                  <CircleCheck
+                    size={16}
+                    strokeWidth={1}
+                    color={"#6F6E77"}
+                    className="absolute top-1/2 -translate-y-1/2 left-[12px]"
+                  />
+                  完了したアイテムだけ削除する
+                </button>
+              </li>
+            )}
+
             <li>
               <button
                 onClick={handleDeleteAllItems}

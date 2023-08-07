@@ -6,7 +6,7 @@ type Props = {
 
 export default function AddMyMemoButton({ append }: Props) {
   const fieldArray = useFieldArray({
-    name: "myMemoList",
+    name: "list",
   });
 
   const handleAddMyMemo = () => {

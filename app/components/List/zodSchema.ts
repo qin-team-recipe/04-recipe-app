@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-export const myMemoSchema = z.object({
-  myMemoList: z.array(
+export const listSchema = z.object({
+  list: z.array(
     z.object({
       item: z.string().nonempty({ message: "メモを入力してください。" }),
       checked: z.boolean(),
@@ -9,4 +9,4 @@ export const myMemoSchema = z.object({
   ),
 });
 
-export type MyMemoSchema = z.infer<typeof myMemoSchema>;
+export type ListSchema = z.infer<typeof listSchema>;

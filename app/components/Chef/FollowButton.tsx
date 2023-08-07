@@ -1,5 +1,4 @@
 "use client";
-
 import { trpcClient } from "@/app/utils/trpc-client";
 import { useCallback } from "react";
 import { toast } from "react-toastify";
