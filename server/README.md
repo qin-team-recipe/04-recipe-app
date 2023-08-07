@@ -28,7 +28,7 @@ https://miro.com/app/board/o9J_laecEvw=/
 - `utils`
 - `_auth`、`_chef-recipe`、`_follow-favorite`、...
 
-`_auth`、`_chef-recipe`などの`_`から始まるディレクトリは、機能を表すディレクトリ（移行、機能ディレクトリ）です。機能の依存関係を考慮して、次のように大まかにグルーピングしています。
+`_auth`、`_chef-recipe`などの`_`から始まるディレクトリは、機能を表すディレクトリ（以降、機能ディレクトリ）です。機能の依存関係を考慮して、次のように大まかにグルーピングしています。
 
 | ディレクトリ       | 機能                             |
 | ------------------ | -------------------------------- |
@@ -54,11 +54,11 @@ server/_chef-recipe
 └── router.ts
 ```
 
-`router.ts`にはAPIのルーティング、`api-schema`にはAPIの入力のバリデーション用のzodのスキーマを書いています。
+`router.ts`にはAPIのルーティング、`api-schema`にはAPIの入力のスキーマをzodで書いています。
 
-APIエンドポイントのファイルは、`get-chefs.ts`や`get-recipes`のようなファイルです。これらのファイルには、tRPCのプロシージャを書いています。
+APIエンドポイントのファイルは、`get-chefs.ts`や`get-recipes`などのファイルです。これらのファイルにはtRPCのプロシージャを書いています。
 
-新しくAPIエンドポイントを追加する場合は、`get-*.ts`や`create-*.ts`のようなファイルを作って、tRPCのプロシージャを記述してから、`router.ts`にルーティングを追加してください。
+新しくAPIエンドポイントを追加する場合は、`get-*.ts`や`create-*.ts`のようなファイルを作って、tRPCのプロシージャを記述します。それから、`router.ts`にルーティングを追加します。
 
 ## TIPS
 
@@ -95,7 +95,7 @@ tRPCはHTTPベースのRPCなので、curlやPostmanから実行することが�
 - [HTTP RPC Specification | tRPC](https://trpc.io/docs/v9/rpc)
 - [【小ネタ】tRPCのAPIをPostmanで実行する方法](https://zenn.dev/tekihei2317/articles/e9eb843eb728a9)
 
-認証付きのAPIを実行する場合は、Cookieを送信する必要があります。Postmanの場合は、Chrome拡張機能のPostman Interceptorを使って、ChromeのCookieと同期できます。
+認証付きのAPIを実行する場合はCookieが必要です。Postmanの場合は、Chrome拡張機能のPostman Interceptorを使って、ChromeのCookieと同期できます。
 
 - https://learning.postman.com/docs/sending-requests/capturing-request-data/syncing-cookies/#syncing-cookies-with-postman-interceptor
 
@@ -117,9 +117,15 @@ yarn prisma migrate deploy
 
 マイグレーションを実行したら、ローカルでの開発中に間違って接続しないように`DATABASE_URL`はコメントアウトします。
 
+#### 補足
+
 ドキュメントでは、PlanetScaleに開発用のブランチを作成して、デプロイリクエストでスキーマの変更を反映する方法が推奨されています。
 
 しかし、次の理由から開発中はmainブランチに対して直接`prisma migrate deploy`を実行することにしました。
 
 - ブランチを作成してからデプロイするまでの手間がかかるため
 - ローカル開発ではDockerのMySQLコンテナを使用したかったため
+
+PrismaとPlanetScaleの組み合わせ方については、次の記事も参考になるかもしれません。
+
+[PlanetScaleとPrismaの組み合わせ方](https://zenn.dev/tekihei2317/articles/c52b50988b423f)
