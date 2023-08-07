@@ -15,7 +15,7 @@ export const appRouter = mergeRouters(
   authRouter,
   followFavoriteRouter,
   myRecipeRouter,
-  shoppingListRouter
+  router({ shoppingList: shoppingListRouter })
 );
 
 export const trpcCaller = appRouter.createCaller({ user: undefined, prisma });
