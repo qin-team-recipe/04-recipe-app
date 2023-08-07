@@ -95,6 +95,12 @@ tRPCはHTTPベースのRPCなので、curlやPostmanから実行することが�
 - [HTTP RPC Specification | tRPC](https://trpc.io/docs/v9/rpc)
 - [【小ネタ】tRPCのAPIをPostmanで実行する方法](https://zenn.dev/tekihei2317/articles/e9eb843eb728a9)
 
+認証付きのAPIを実行する場合は、Cookieを送信する必要があります。Postmanの場合は、Chrome拡張機能のPostman Interceptorを使って、ChromeのCookieと同期できます。
+
+- https://learning.postman.com/docs/sending-requests/capturing-request-data/syncing-cookies/#syncing-cookies-with-postman-interceptor
+
+同期を有効にした後、WebアプリにログインしてからAPIにリクエストを送信します。
+
 ### PlanetScaleに対してマイグレーションを実行する方法
 
 まず、PlanetScaleのコンソールからmainブランチの接続URLを取得して、.envの`DATABASE_URL`に設定します。
