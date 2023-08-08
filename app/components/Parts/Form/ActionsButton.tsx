@@ -50,67 +50,12 @@ export const ActionsButton: FC<Props> = ({ index, removeHandler, fieldName }) =>
 
         <DropdownMenu.Portal>
           <DropdownMenu.Content sideOffset={5} align="end" className={styles.DropdownMenuContent}>
-            <ul>
-              {index !== 0 && (
-                <li>
-                  <button
-                    onClick={() => shiftField(index, index - 1)}
-                    type="button"
-                    className="py-[6px] pr-[12px] pl-[34px] block hover:bg-backgroundGray relative w-full text-left"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="17"
-                      viewBox="0 0 16 17"
-                      fill="none"
-                      className="absolute top-1/2 -translate-y-1/2 left-[12px]"
-                    >
-                      <path
-                        d="M4 10.5L8 6.5L12 10.5"
-                        stroke="#6F6E77"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                    上に移動する
-                  </button>
-                </li>
-              )}
-              {ifLastIndex(index) == false && (
-                <li>
-                  <button
-                    onClick={() => shiftField(index, index + 1)}
-                    type="button"
-                    className="py-[6px] pr-[12px] pl-[34px] block hover:bg-backgroundGray relative w-full text-left"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="17"
-                      viewBox="0 0 16 17"
-                      fill="none"
-                      className="absolute top-1/2 -translate-y-1/2 left-[12px]"
-                    >
-                      <path
-                        d="M4 6.5L8 10.5L12 6.5"
-                        stroke="#6F6E77"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                    下に移動する
-                  </button>
-                </li>
-              )}
-
-              <li>
+            {index !== 0 && (
+              <DropdownMenu.Item>
                 <button
+                  onClick={() => shiftField(index, index - 1)}
                   type="button"
                   className="py-[6px] pr-[12px] pl-[34px] block hover:bg-backgroundGray relative w-full text-left"
-                  onClick={removeHandler}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -121,16 +66,68 @@ export const ActionsButton: FC<Props> = ({ index, removeHandler, fieldName }) =>
                     className="absolute top-1/2 -translate-y-1/2 left-[12px]"
                   >
                     <path
-                      d="M2.66675 5.16667H13.3334M6.66675 7.83333V11.8333M9.33341 7.83333V11.8333M3.33341 5.16667L4.00008 13.1667C4.00008 13.5203 4.14056 13.8594 4.39061 14.1095C4.64065 14.3595 4.97979 14.5 5.33341 14.5H10.6667C11.0204 14.5 11.3595 14.3595 11.6096 14.1095C11.8596 13.8594 12.0001 13.5203 12.0001 13.1667L12.6667 5.16667M6.00008 5.16667V3.16667C6.00008 2.98986 6.07032 2.82029 6.19534 2.69526C6.32037 2.57024 6.48994 2.5 6.66675 2.5H9.33341C9.51023 2.5 9.6798 2.57024 9.80482 2.69526C9.92984 2.82029 10.0001 2.98986 10.0001 3.16667V5.16667"
+                      d="M4 10.5L8 6.5L12 10.5"
                       stroke="#6F6E77"
+                      strokeWidth="1.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
                   </svg>
-                  リストから削除する
+                  上に移動する
                 </button>
-              </li>
-            </ul>
+              </DropdownMenu.Item>
+            )}
+            {ifLastIndex(index) == false && (
+              <DropdownMenu.Item>
+                <button
+                  onClick={() => shiftField(index, index + 1)}
+                  type="button"
+                  className="py-[6px] pr-[12px] pl-[34px] block hover:bg-backgroundGray relative w-full text-left"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="17"
+                    viewBox="0 0 16 17"
+                    fill="none"
+                    className="absolute top-1/2 -translate-y-1/2 left-[12px]"
+                  >
+                    <path
+                      d="M4 6.5L8 10.5L12 6.5"
+                      stroke="#6F6E77"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  下に移動する
+                </button>
+              </DropdownMenu.Item>
+            )}
+            <DropdownMenu.Item>
+              <button
+                type="button"
+                className="py-[6px] pr-[12px] pl-[34px] block hover:bg-backgroundGray relative w-full text-left"
+                onClick={removeHandler}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="17"
+                  viewBox="0 0 16 17"
+                  fill="none"
+                  className="absolute top-1/2 -translate-y-1/2 left-[12px]"
+                >
+                  <path
+                    d="M2.66675 5.16667H13.3334M6.66675 7.83333V11.8333M9.33341 7.83333V11.8333M3.33341 5.16667L4.00008 13.1667C4.00008 13.5203 4.14056 13.8594 4.39061 14.1095C4.64065 14.3595 4.97979 14.5 5.33341 14.5H10.6667C11.0204 14.5 11.3595 14.3595 11.6096 14.1095C11.8596 13.8594 12.0001 13.5203 12.0001 13.1667L12.6667 5.16667M6.00008 5.16667V3.16667C6.00008 2.98986 6.07032 2.82029 6.19534 2.69526C6.32037 2.57024 6.48994 2.5 6.66675 2.5H9.33341C9.51023 2.5 9.6798 2.57024 9.80482 2.69526C9.92984 2.82029 10.0001 2.98986 10.0001 3.16667V5.16667"
+                    stroke="#6F6E77"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                リストから削除する
+              </button>
+            </DropdownMenu.Item>
           </DropdownMenu.Content>
         </DropdownMenu.Portal>
       </DropdownMenu.Root>

@@ -1,16 +1,21 @@
-import { useFieldArray } from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
+import { ListSchema } from "./zodSchema";
 
 type Props = {
   append: (value: { item: string; checked: boolean }) => void;
 };
 
 export default function AddMyMemoButton({ append }: Props) {
-  const fieldArray = useFieldArray({
+  const { setFocus, control } = useFormContext<ListSchema>();
+
+  const { fields } = useFieldArray({
+    control,
     name: "list",
   });
 
-  const handleAddMyMemo = () => {
-    append({ item: "", checked: false });
+  const handleAddMyMemo = async () => {
+    await append({ item: "", checked: false });
+    await setFocus(`list.${fields.length}.item`);
   };
 
   return (
