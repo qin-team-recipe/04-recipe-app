@@ -2,18 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --toastify-color-success: #e54d2e;
+  --toastify-icon-color-success: var(--toastify-color-success);
+  --toastify-color-progress-success: var(--toastify-color-success);
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  
 }
-
-/* スクロールバー非表示 */
-* ::-webkit-scrollbar{
-  display: none;
-}
-
 
 html,
 body {
@@ -22,9 +21,7 @@ body {
   color: #908e96;
 }
 
-
 a {
   color: inherit;
   text-decoration: none;
 }
-

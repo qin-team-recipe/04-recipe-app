@@ -3,9 +3,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import "./styles.css";
 import { useSession } from "next-auth/react";
 import { LoginScreen } from "../components/Auth/LoginScreen";
+import styles from "../styles/dropdownMenuContent.module.css";
 
 // use clientとmetadata併記するとエラーになる、、
 // export const metadata = {
@@ -61,7 +61,7 @@ function List() {
     <>
       <DropdownMenu.Root>
         {/* じぶんメモ */}
-        <section className=" pt-[8px] pb-[24px] ">
+        <section className="pt-[8px] pb-[24px] ">
           <div className="flex justify-between py-[12px] items-center px-[16px] border-border border-b-[1px]">
             <h2 className="font-bold text-title text-[16px]">じぶんメモ</h2>
             <button
@@ -123,7 +123,7 @@ function List() {
 
         {/* レシピ別 */}
 
-        <section className=" pt-[8px] pb-[24px]">
+        <section className="pt-[8px] pb-[24px]">
           <div className="flex justify-between py-[12px] items-center px-[16px] border-border border-b-[1px]">
             <h2 className="font-bold text-title text-[16px]">カレー</h2>
             <DropdownMenu.Trigger>
@@ -185,7 +185,7 @@ function List() {
           </ul>
 
           <DropdownMenu.Portal>
-            <DropdownMenu.Content sideOffset={5} align="end" className="DropdownMenuContent">
+            <DropdownMenu.Content sideOffset={5} align="end" className={styles.DropdownMenuContent}>
               <ul>
                 <li>
                   <Link

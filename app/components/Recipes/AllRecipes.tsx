@@ -11,14 +11,19 @@ export default async function AllRecipes({
 
   return (
     <section className="pt-[20px] px-[15px] pb-[48px]">
-      <h2 className=" text-title font-bold text-[20px]">
+      <h2 className="text-title font-bold text-[20px]">
         {searchParams.q ? `「${searchParams.q}」で検索` : "話題のレシピ"}
       </h2>
-      <ul className="flex justify-between gap-y-[16px] gap-x-[12px] mt-[10px] flex-wrap">
-        {recipes.map((recipe) => (
-          <RecipeCard key={recipe.id} recipe={recipe} />
-        ))}
-      </ul>
+
+      {recipes?.length === 0 ? (
+        <p className="text-title mt-[10px]">レシピが見つかりませんでした！</p>
+      ) : (
+        <ul className="flex justify-between gap-y-[16px] gap-x-[12px] mt-[10px] flex-wrap">
+          {recipes.map((recipe) => (
+            <RecipeCard key={recipe.id} recipe={recipe} />
+          ))}
+        </ul>
+      )}
     </section>
   );
 }

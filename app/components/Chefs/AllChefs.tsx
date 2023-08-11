@@ -11,14 +11,19 @@ export default async function AllChefs({
 
   return (
     <section className="pt-[20px] px-[15px] pb-[48px]">
-      <h2 className=" text-title font-bold text-[20px]">
+      <h2 className="text-title font-bold text-[20px]">
         {searchParams.q ? `「${searchParams.q}」で検索` : "シェフ一覧"}
       </h2>
-      <ul className="flex flex-col gap-y-[20px] mt-[10px]">
-        {chefs.map((chef) => (
-          <ChefCard key={chef.id} chef={chef} />
-        ))}
-      </ul>
+
+      {chefs?.length === 0 ? (
+        <p className="text-title">シェフが見つかりませんでした！</p>
+      ) : (
+        <ul className="flex justify-between gap-y-[16px] gap-x-[12px] flex-wrap mt-[10px]">
+          {chefs.map((chef) => (
+            <ChefCard key={chef.id} chef={chef} />
+          ))}
+        </ul>
+      )}
     </section>
   );
 }

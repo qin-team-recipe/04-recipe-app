@@ -1,8 +1,10 @@
 import Footer from "./components/NavBar/Footer";
 import SideBar from "./components/NavBar/SideBar";
+import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { AppProviders } from "./components/AppProviders";
+import ToastProvider from "./components/ToastProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,11 +18,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ja" className={inter.className}>
       <body className="min-h-screen md:flex md:justify-center md:mr-0">
         <AppProviders>
-          <SideBar />
-          <main className="pb-[58px] md:pb-[8px] md:max-w-[480px] md:w-[480px] lg:mr-[241px] md:border-x-border md:border-x-[1px]  bg-backgroundGray  min-h-screen h-auto ">
-            {children}
-            <Footer />
-          </main>
+          <ToastProvider>
+            <SideBar />
+            <main className="pb-[58px] md:pb-[8px] md:max-w-[480px] md:w-[480px] lg:mr-[241px] md:border-x-border md:border-x-[1px]  bg-backgroundGray  min-h-screen h-auto ">
+              {children}
+              <Footer />
+            </main>
+          </ToastProvider>
         </AppProviders>
       </body>
     </html>

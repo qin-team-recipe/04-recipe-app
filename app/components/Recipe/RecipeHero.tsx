@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import "./styles.css";
+import styles from "../../styles/dropdownMenuContent.module.css";
 import { FavoriteButton } from "./FavoriteButton";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
@@ -20,7 +20,6 @@ import {
 import { RecipeLinks, formatSocialLinks } from "@/app/utils/social-link";
 
 type Props = {
-  page: string;
   recipe: {
     id: string;
     name: string;
@@ -29,7 +28,7 @@ type Props = {
       favorites: number;
     };
     primaryImageUrl: string | null;
-    chef: { id: string; displayName: string } | undefined;
+    chef?: { id: string; displayName: string } | undefined;
     isFavoriting: boolean;
     links: { url: string }[];
   };
@@ -47,7 +46,7 @@ function hasOtherLinks(links: RecipeLinks): boolean {
   );
 }
 
-const RecipeHero: FC<Props> = ({ page, recipe }) => {
+const RecipeHero: FC<Props> = ({ recipe }) => {
   const router = useRouter();
   const { data: session } = useSession();
   const recipeLinks = formatSocialLinks(recipe.links);
@@ -108,7 +107,7 @@ const RecipeHero: FC<Props> = ({ page, recipe }) => {
               </DropdownMenu.Trigger>
 
               <DropdownMenu.Portal>
-                <DropdownMenu.Content sideOffset={5} align="end" className="DropdownMenuContent w-[260px]">
+                <DropdownMenu.Content sideOffset={5} align="end" className={`{${styles.DropdownMenuContent} w-[260px]`}>
                   <ul>
                     <li>
                       {recipeLinks.tiktok && (
@@ -174,6 +173,7 @@ const RecipeHero: FC<Props> = ({ page, recipe }) => {
           </p>
         </div>
 
+        {/* フォローボタン */}
         <div className="mt-4">
           <FavoriteButton
             isFavoriting={recipe.isFavoriting}
@@ -184,22 +184,6 @@ const RecipeHero: FC<Props> = ({ page, recipe }) => {
           />
         </div>
       </div>
-
-      {/* ナビゲーション */}
-      <nav className="border-b-[1px] border-border">
-        <ul className="flex text-title">
-          <li className={`w-1/2 text-center text-[16px]  ${page === "steps" ? "font-bold border-b-2" : ""}`}>
-            <Link href={`/recipe/${recipe.id}/steps`} className="block py-[10px]">
-              作り方
-            </Link>
-          </li>
-          <li className={`w-1/2 text-center text-[16px]  ${page === "ingredients" ? "font-bold border-b-2" : ""}`}>
-            <Link href={`/recipe/${recipe.id}/ingredients`} className="block py-[10px]">
-              材料
-            </Link>
-          </li>
-        </ul>
-      </nav>
     </>
   );
 };

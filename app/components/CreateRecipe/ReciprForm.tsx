@@ -11,7 +11,7 @@ import { CreateRecipeSchema, recipeSchema } from "./zodSchema";
 import { CreateRecipeHeader } from "./Header";
 import { usePathname } from "next/navigation";
 
-export default function RecipeForm() {
+export const RecipeForm = () => {
   const pathname = usePathname();
   const createDefaultValues = {
     servings: 2,
@@ -123,4 +123,4 @@ export default function RecipeForm() {
       </form>
     </FormProvider>
   );
-}
+};
