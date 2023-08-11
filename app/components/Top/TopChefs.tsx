@@ -9,7 +9,7 @@ export default async function TopChefs() {
   return (
     <section className="pt-[20px] pb-[48px] overflow-hidden">
       <div className="flex center justify-between px-[15px]">
-        <h2 className="text-[20px] font-bold text-title">注目のシェフ</h2>
+        <h2 className="font-serif text-[20px] font-bold text-title">注目のシェフ</h2>
       </div>
 
       {chefs.length === 0 ? (
