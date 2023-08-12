@@ -1,11 +1,11 @@
 import { protectedProcedure } from "../trpc/init-trpc";
 import { cloudinary } from "../utils/cloudinary";
-import { RegistrationMyRecipeInput } from "./api-schema";
+import { createMyRecipeInput } from "./api-schema";
 
 /**
  * マイレシピを新規登録する
  */
-export const createMyRecipe = protectedProcedure.input(RegistrationMyRecipeInput).mutation(async ({ ctx, input }) => {
+export const createMyRecipe = protectedProcedure.input(createMyRecipeInput).mutation(async ({ ctx, input }) => {
   //Cloudinaryへの登録処理
   //TODO 複数登録対応
   async function uploadImageToCloudinary(dataURI: string): Promise<string> {

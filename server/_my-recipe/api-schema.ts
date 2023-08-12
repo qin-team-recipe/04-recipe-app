@@ -4,7 +4,7 @@ export const UserIdInput = z.object({
   userId: z.string(),
 });
 
-export const RegistrationMyRecipeInput = z.object({
+export const createMyRecipeInput = z.object({
   //TODO文字数チェックを追加する
   name: z.string(),
   ingredients: z.array(z.string()),
