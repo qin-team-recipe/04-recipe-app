@@ -50,6 +50,11 @@ export const createMyRecipe = protectedProcedure.input(createMyRecipeInput).muta
           data: input.urls.map((url) => ({ url })),
         },
       },
+      myRecipe: {
+        create: {
+          userId: ctx.user.userId,
+        },
+      },
     },
   });
 });
