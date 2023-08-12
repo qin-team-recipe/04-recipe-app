@@ -1,17 +1,11 @@
 import { protectedProcedure } from "../trpc/init-trpc";
+import { cloudinary } from "../utils/cloudinary";
 import { RegistrationMyRecipeInput } from "./api-schema";
-import * as cloudinary from "cloudinary";
 
 /**
  * マイレシピを新規登録する
  */
 export const createMyRecipe = protectedProcedure.input(RegistrationMyRecipeInput).mutation(async ({ ctx, input }) => {
-  // Cloudinaryの設定
-  cloudinary.v2.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-  });
   //Cloudinaryへの登録処理
   //TODO 複数登録対応
   async function uploadImageToCloudinary(dataURI: string): Promise<string> {
