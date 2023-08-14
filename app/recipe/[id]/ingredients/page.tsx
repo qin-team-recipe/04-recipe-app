@@ -1,6 +1,6 @@
 import CopyClipboard from "@/app/components/Parts/CopyClipboard";
-import { trpcCaller } from "@/server/trpc/router";
 import { RecipeNavigation } from "../RecipeNavigation";
+import { trpcClient } from "@/app/utils/trpc";
 
 export const metadata = {
   title: "Recipes",
@@ -9,7 +9,7 @@ export const metadata = {
 
 export default async function RecipeIngredients({ params }: { params: { id: string } }) {
   const recipeId = params.id;
-  const recipe = await trpcCaller.recipe({ recipeId });
+  const recipe = await trpcClient.recipe.query({ recipeId });
   const text = recipe.ingredients
     .map((ingredient) => {
       return `${ingredient.title} ${ingredient.description}`;
@@ -77,7 +77,11 @@ export default async function RecipeIngredients({ params }: { params: { id: stri
             <li className="relative border-b-[1px] border-border px-[16px] py-[8px]" key={ingredient.id}>
               <p className="text-title text-[14px]">{ingredient.title}</p>
               <p className="text-[10px] mt-[4px]">{ingredient.description}</p>
-              <span className="absolute top-1/2 -translate-y-1/2 right-[16px] pl-[20px] stroke-[#908E96] hover:stroke-primary hover:text-primary">
+              <span
+                className={`absolute top-1/2 -translate-y-1/2 right-[16px] pl-[20px] stroke-[#908E96] hover:cursor-pointer ${
+                  ingredient.isAddedToList ? "stroke-primary text-primary" : ""
+                }`}
+              >
                 <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clipPath="url(#clip0_3478_253)">
                     <path
