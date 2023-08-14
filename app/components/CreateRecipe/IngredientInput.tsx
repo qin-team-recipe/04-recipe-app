@@ -2,7 +2,7 @@
 
 import { AppendInputButton } from "@/app/components/Parts/Form/AppendInputButton";
 import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
-import { ActionsButton } from "./Parts/ActionsButton";
+import { ActionsButton } from "../Parts/Form/ActionsButton";
 import { ValidationError } from "./Parts/ValidationError";
 import { CreateRecipeSchema } from "./zodSchema";
 
