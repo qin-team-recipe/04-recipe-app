@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <AppProviders>
           <ToastProvider>
             <SideBar />
-            <main className="pb-[58px] md:pb-[8px] md:max-w-[480px] md:w-[480px] lg:mr-[241px] md:border-x-border md:border-x-[1px]  bg-backgroundGray  min-h-screen h-auto ">
+            <main className="pb-[58px] md:pb-[8px] md:max-w-[480px] md:w-[480px] lg:mr-[241px] md:border-x-border md:border-x-[1px]  bg-backgroundGray  min-h-screen h-auto relative items-center block">
               {children}
               <Footer />
             </main>
