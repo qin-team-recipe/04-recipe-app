@@ -1732,13 +1732,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clsx@npm:^1.1.1":
-  version: 1.2.1
-  resolution: "clsx@npm:1.2.1"
-  checksum: 30befca8019b2eb7dbad38cff6266cf543091dae2825c856a62a8ccf2c3ab9c2907c4d12b288b73101196767f66812365400a227581484a05f968b0307cfaf12
-  languageName: node
-  linkType: hard
-
 "cloudinary-core@npm:^2.13.0":
   version: 2.13.0
   resolution: "cloudinary-core@npm:2.13.0"
@@ -1757,6 +1750,13 @@ __metadata:
     lodash: ^4.17.21
     q: ^1.5.1
   checksum: d15596960f700d1dbef775ded63c50418724d9e324a04fb4b9d3ddb393cb598846be7bb100ffbd1d92e465f72ce0f6999c4a69ed16f03b36f85dbe117101491d
+  languageName: node
+  linkType: hard
+
+"clsx@npm:^1.1.1":
+  version: 1.2.1
+  resolution: "clsx@npm:1.2.1"
+  checksum: 30befca8019b2eb7dbad38cff6266cf543091dae2825c856a62a8ccf2c3ab9c2907c4d12b288b73101196767f66812365400a227581484a05f968b0307cfaf12
   languageName: node
   linkType: hard
 
