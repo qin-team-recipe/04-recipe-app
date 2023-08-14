@@ -1,7 +1,7 @@
 "use client";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import AddMyMemoButton from "./AddMyMemoButton";
-import DeleteMyMemoButton from "./DeleteMyMemoButton";
+import AddListButton from "./AddListButton";
+import DeleteListButton from "./DeleteListButton";
 import { ListSchema } from "./zodSchema";
 import { ActionsButton } from "../Parts/Form/ActionsButton";
 import { ValidationError } from "../CreateRecipe/Parts/ValidationError";
@@ -25,12 +25,12 @@ export default function ListSection({ title }: { title: string }) {
   return (
     <section className="pt-[8px] pb-[24px] ">
       <div className="flex justify-between py-[12px] items-center px-[16px] border-border border-b-[1px]">
-        <h2 className="font-bold text-title text-[16px]">{title.length > 20 ? `${title.slice(0, 22)}...` : title}</h2>
+        <h2 className="font-bold text-title text-[16px] truncate">{title}</h2>
         <div className="flex gap-x-[16px]">
           {/* 追加ボタン */}
-          <AddMyMemoButton append={append} />
+          <AddListButton append={append} />
           {/* 一括削除ボタン */}
-          <DeleteMyMemoButton remove={remove} />
+          <DeleteListButton remove={remove} />
         </div>
       </div>
       {fields.length === 0 ? (
@@ -40,7 +40,7 @@ export default function ListSection({ title }: { title: string }) {
       ) : (
         <>
           <ul className="bg-white">
-            {fields.map((memo, index) => (
+            {fields.map((memo, id) => (
               <li key={memo.id} className="relative border-border border-b-[1px] ">
                 <input
                   type="checkbox"
@@ -53,18 +53,18 @@ export default function ListSection({ title }: { title: string }) {
               }
               `}
                   checked={memo.checked}
-                  {...register(`list.${index}.checked` as const, {
-                    onChange: () => toggleMyMemoChecked(index),
+                  {...register(`list.${id}.checked` as const, {
+                    onChange: () => toggleMyMemoChecked(id),
                   })}
                 ></input>
                 <textarea
                   className="py-[15.5px] pr-[48px] pl-[46px] block text-title text-[14px] w-full focus:outline-text leading-[18px] resize-none"
-                  {...register(`list.${index}.item` as const, {
+                  {...register(`list.${id}.item` as const, {
                     onBlur: () => window.alert("フォーカスアウトしたときにsubmitする"),
                   })}
                 ></textarea>
                 <div className="absolute top-1/2 -translate-y-1/2 right-[16px] ">
-                  <ActionsButton fieldName={"list"} index={index} removeHandler={() => remove(index)} />
+                  <ActionsButton fieldName={"list"} index={id} removeHandler={() => remove(id)} />
                 </div>
               </li>
             ))}

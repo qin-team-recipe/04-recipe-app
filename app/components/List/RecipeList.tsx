@@ -22,7 +22,7 @@ const defaultValuesArray = [
 ];
 
 export default function RecipeList() {
-  return defaultValuesArray.map((recipe, index) => (
+  return defaultValuesArray.map((recipe) => (
     <Recipe key={recipe.recipe} recipe={recipe.recipe} ingredients={recipe.ingredients} />
   ));
 }
