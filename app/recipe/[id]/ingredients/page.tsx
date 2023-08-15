@@ -1,9 +1,9 @@
 import CopyClipboard from "@/app/components/Parts/CopyClipboard";
-import { trpcCaller } from "@/server/trpc/router";
 import { RecipeNavigation } from "../RecipeNavigation";
 import { ShoppingCartPlus } from "tabler-icons-react";
 import { AllIngredientsButton } from "@/app/components/Recipe/AllIngredientsButton";
 import { IngredientsButton } from "@/app/components/Recipe/IngredientsButton";
+import { trpcClient } from "@/app/utils/trpc";
 
 export const metadata = {
   title: "Recipes",
@@ -12,7 +12,7 @@ export const metadata = {
 
 export default async function RecipeIngredients({ params }: { params: { id: string } }) {
   const recipeId = params.id;
-  const recipe = await trpcCaller.recipe({ recipeId });
+  const recipe = await trpcClient.recipe.query({ recipeId });
   const text = recipe.ingredients
     .map((ingredient) => {
       return `${ingredient.title} ${ingredient.description}`;
