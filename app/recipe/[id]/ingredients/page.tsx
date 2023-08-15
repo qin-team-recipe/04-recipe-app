@@ -1,6 +1,5 @@
 import CopyClipboard from "@/app/components/Parts/CopyClipboard";
 import { RecipeNavigation } from "../RecipeNavigation";
-import { ShoppingCartPlus } from "tabler-icons-react";
 import { AllIngredientsButton } from "@/app/components/Recipe/AllIngredientsButton";
 import { IngredientsButton } from "@/app/components/Recipe/IngredientsButton";
 import { trpcClient } from "@/app/utils/trpc";
@@ -31,13 +30,14 @@ export default async function RecipeIngredients({ params }: { params: { id: stri
           />
         </div>
         <ul>
-          {recipe.ingredients.map(({ id, title, description }) => (
+          {recipe.ingredients.map(({ id, title, description, isAddedToList }) => (
             <li className="relative border-b-[1px] border-border px-[16px] py-[8px]" key={id}>
               <p className="text-title text-[14px]">{title}</p>
               <p className="text-[10px] mt-[4px]">{description}</p>
               <IngredientsButton
                 ingredientId={id}
-                className="absolute top-1/2 -translate-y-1/2 right-[16px] pl-[20px] stroke-[#908E96] hover:stroke-primary hover:text-primary"
+                isAddedToList={isAddedToList ?? false}
+                className={`absolute top-1/2 -translate-y-1/2 right-[16px] pl-[20px] stroke-[#908E96] hover:stroke-primary hover:text-primary`}
               />
             </li>
           ))}
