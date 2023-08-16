@@ -8,7 +8,7 @@ export default async function TopRecipes() {
   return (
     <section className="pt-[20px] pb-[48px] overflow-hidden">
       <div className="flex center justify-between px-[15px]">
-        <h2 className="text-[20px] font-bold text-title">話題のレシピ</h2>
+        <h2 className="font-serif text-[20px] font-bold text-title">話題のレシピ</h2>
         {recipes.length > 5 && (
           <Link href="/search/recipe" className="font-bold text-[16px]">
             もっと見る
