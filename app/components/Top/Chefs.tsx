@@ -8,7 +8,7 @@ export default async function Chefs() {
   return (
     <section className="pt-[20px] px-[15px] pb-[48px]">
       <div className="flex center justify-between">
-        <h2 className="text-[20px] font-bold text-title">シェフ</h2>
+        <h2 className="font-serif text-[20px] font-bold text-title">シェフ</h2>
         {chefs.length > 5 && (
           <Link href="/search/chef" className="font-bold text-[16px]">
             もっと見る
