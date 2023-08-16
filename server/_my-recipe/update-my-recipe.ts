@@ -42,4 +42,38 @@ export const updateMyRecipe = protectedProcedure.input(updateMyRecipeInput).muta
       },
     },
   });
+
+  //参考　登録処理
+  // return await ctx.prisma.recipe.create({
+  //   data: {
+  //     name: input.name,
+  //     ingredients: {
+  //       createMany: {
+  //         data: input.ingredients.map((title) => ({ title, description: "" })),
+  //       },
+  //     },
+  //     yields: input.yields,
+  //     processes: {
+  //       createMany: {
+  //         data: input.processes.map((title, index) => ({ order: index + 1, title, description: "" })),
+  //       },
+  //     },
+  //     images: {
+  //       createMany: {
+  //         data: publicIds.map((pubulicid) => ({ imageId: pubulicid })),
+  //       },
+  //     },
+  //     description: input.description ?? "",
+  //     links: {
+  //       createMany: {
+  //         data: input.urls.map((url) => ({ url })),
+  //       },
+  //     },
+  //     myRecipe: {
+  //       create: {
+  //         userId: ctx.user.userId,
+  //       },
+  //     },
+  //   },
+  // });
 });
