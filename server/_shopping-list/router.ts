@@ -8,6 +8,11 @@ import { deleteShopListIngredient } from "./delete-shop-list-ingredient";
 import { deleteShopListRecipe } from "./delete-shop-list-recipe";
 import { deleteCheckedShopListIngredients } from "./delete-checked-shop-list-ingredients";
 import { appendShopListIngredient } from "./append-shop-list-ingredient";
+import { myMemoAddItem } from "./my-memo-add-item";
+import { myMemoDeleteItem } from "./my-memo-delete-item";
+import { myMemoUpdateItem } from "./my-memo-update-item";
+import { myMemoDeleteCompleted } from "./my-memo-delete-completed";
+import { myMemoDeleteAll } from "./my-memo-delete-all";
 
 export const shoppingListRouter = router({
   // レシピ詳細画面の操作
@@ -21,4 +26,11 @@ export const shoppingListRouter = router({
   deleteShopListRecipe,
   deleteCheckedShopListIngredients,
   appendShopListIngredient,
+  // 自分メモの操作
+  myMemoAddItem,
+  myMemoUpdateItem,
+  myMemoDeleteItem,
+  myMemoDeleteCompleted,
+  myMemoDeleteAll,
+  // myMemoReorder
 });
