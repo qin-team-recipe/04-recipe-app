@@ -24,7 +24,7 @@ type ShopListResponse = {
 /**
  * 買い物リストを取得する
  */
-export const getShoppingList = protectedProcedure.query(async ({ ctx, input }): Promise<ShopListResponse> => {
+export const getShoppingList = protectedProcedure.query(async ({ ctx }): Promise<ShopListResponse> => {
   // 買い物リストのレシピを取得する
   const recipes: ShopListRecipeResponse[] = await ctx.prisma.shopListRecipe.findMany({
     where: { userId: ctx.user.userId },

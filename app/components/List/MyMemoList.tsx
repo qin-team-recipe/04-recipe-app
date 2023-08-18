@@ -7,9 +7,9 @@ import ListSection from "./ListSection";
 // DBから取得する仕様に変更予定
 const defaultValues = {
   list: [
-    { item: "マカロニ", checked: false },
+    { name: "マカロニ", checked: false },
     {
-      item: "生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム",
+      name: "生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム",
       checked: false,
     },
   ],

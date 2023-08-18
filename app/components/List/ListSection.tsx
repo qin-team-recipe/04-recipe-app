@@ -19,7 +19,7 @@ export default function ListSection({ title }: { title: string }) {
   });
 
   const toggleMyMemoChecked = (index: number) => {
-    update(index, { checked: !fields[index].checked, item: fields[index].item });
+    update(index, { checked: !fields[index].checked, name: fields[index].name });
   };
 
   return (
@@ -59,7 +59,7 @@ export default function ListSection({ title }: { title: string }) {
                 ></input>
                 <textarea
                   className="py-[15.5px] pr-[48px] pl-[46px] block text-title text-[14px] w-full focus:outline-text leading-[18px] resize-none"
-                  {...register(`list.${id}.item` as const, {
+                  {...register(`list.${id}.name` as const, {
                     onBlur: () => window.alert("フォーカスアウトしたときにsubmitする"),
                   })}
                 ></textarea>

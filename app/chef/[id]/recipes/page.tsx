@@ -1,6 +1,4 @@
 import { trpcClient } from "@/app/utils/trpc";
-import Image from "next/image";
-import Link from "next/link";
 import { ChefNavigation } from "../ChefNavigation";
 import { ChefsRecipeCard } from "@/app/components/Chef/ChefsRecipeCard";
 

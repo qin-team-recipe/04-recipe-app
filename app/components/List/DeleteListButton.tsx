@@ -8,7 +8,7 @@ type Props = {
 };
 
 type Item = {
-  item: string;
+  name: string;
   checked: boolean;
 };
 
