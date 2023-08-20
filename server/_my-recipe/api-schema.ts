@@ -5,7 +5,6 @@ export const UserIdInput = z.object({
 });
 
 export const createMyRecipeInput = z.object({
-  //TODO文字数チェックを追加する
   name: z.string(),
   ingredients: z.array(z.string()),
   yields: z.number().max(6).min(1),
@@ -16,6 +15,7 @@ export const createMyRecipeInput = z.object({
 });
 
 export const updateMyRecipeInput = z.object({
+  recipeid: z.string(),
   name: z.string(),
   ingredients: z.array(z.string()),
   yields: z.number().max(6).min(1),

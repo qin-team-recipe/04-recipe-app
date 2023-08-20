@@ -14,7 +14,15 @@ cloudinary.v2.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+//画像の新規登録
 export async function uploadImageToCloudinary(dataURI: string): Promise<string> {
   const result = await cloudinary.v2.uploader.upload(dataURI);
+  return result.public_id;
+}
+
+//画像の削除
+export async function deleteImageInCloudinary(oldPublicId: string): Promise<string> {
+  const result = await cloudinary.v2.uploader.destroy(oldPublicId, { invalidate: true });
+  //何を返すべき？
   return result.public_id;
 }
