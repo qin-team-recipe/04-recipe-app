@@ -53,3 +53,10 @@ export const UpdateMyMemoItemInput = MyMemoItemIdInput.merge(
     content: MyMemoContent.optional(),
   })
 );
+
+export const ReorderMyMemoInput = z.object({
+  /** 移動元の要素のID */
+  sourceItemId: z.string(),
+  /** 移動先の要素のID */
+  targetItemId: z.string(),
+});

@@ -13,6 +13,7 @@ import { myMemoDeleteItem } from "./my-memo-delete-item";
 import { myMemoUpdateItem } from "./my-memo-update-item";
 import { myMemoDeleteCompleted } from "./my-memo-delete-completed";
 import { myMemoDeleteAll } from "./my-memo-delete-all";
+import { myMemoReorder } from "./my-memo-reorder";
 
 export const shoppingListRouter = router({
   // レシピ詳細画面の操作
@@ -32,5 +33,5 @@ export const shoppingListRouter = router({
   myMemoDeleteItem,
   myMemoDeleteCompleted,
   myMemoDeleteAll,
-  // myMemoReorder
+  myMemoReorder,
 });
