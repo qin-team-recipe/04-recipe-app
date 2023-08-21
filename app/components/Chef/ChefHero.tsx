@@ -87,7 +87,7 @@ const ChefHero: FC<Props> = ({ chef }) => {
               </DropdownMenu.Trigger>
 
               <DropdownMenu.Portal>
-                <DropdownMenu.Content sideOffset={5} align="end" className={`{${styles.DropdownMenuContent} w-[260px]`}>
+                <DropdownMenu.Content sideOffset={5} align="end" className={`${styles.DropdownMenuContent} w-[260px]`}>
                   <ul>
                     <li>
                       {chefLinks.tiktok && (
