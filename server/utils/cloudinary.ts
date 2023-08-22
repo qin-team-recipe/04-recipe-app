@@ -21,8 +21,6 @@ export async function uploadImageToCloudinary(dataURI: string): Promise<string> 
 }
 
 //画像の削除
-export async function deleteImageInCloudinary(oldPublicId: string): Promise<string> {
+export async function deleteImageInCloudinary(oldPublicId: string) {
   const result = await cloudinary.v2.uploader.destroy(oldPublicId, { invalidate: true });
-  //何を返すべき？
-  return result.public_id;
 }
