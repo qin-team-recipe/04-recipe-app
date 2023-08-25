@@ -5,11 +5,12 @@ import { listSchema, ListSchema } from "./zodSchema";
 import ListSection from "./ListSection";
 
 type Props = {
+  id: string;
   name: string;
   ingredients: { name: string; checked: boolean }[];
 };
 
-export default function Recipe({ ingredients, name }: Props) {
+export default function Recipe({ id, ingredients, name }: Props) {
   const form = useForm<ListSchema>({
     resolver: zodResolver(listSchema),
     defaultValues: { list: ingredients },
@@ -18,7 +19,7 @@ export default function Recipe({ ingredients, name }: Props) {
 
   return (
     <FormProvider {...form}>
-      <ListSection title={name} />
+      <ListSection title={name} id={id} />
     </FormProvider>
   );
 }

@@ -2,9 +2,14 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import styles from "../../styles/dropdownMenuContent.module.css";
 import { DotsCircleHorizontal, Trash, CircleCheck } from "tabler-icons-react";
 import { useWatch } from "react-hook-form";
+import { trpcClient } from "@/app/utils/trpc-client";
+import { toast } from "react-toastify";
 
 type Props = {
+  id?: string;
   remove: (i: number) => void;
+  refresh: () => void;
+  title: string;
 };
 
 type Item = {
@@ -12,7 +17,8 @@ type Item = {
   checked: boolean;
 };
 
-export default function DeleteListButton({ remove }: Props) {
+export default function DeleteListButton({ id, remove, refresh, title }: Props) {
+  const shopListRecipeId = id;
   const fieldArray = useWatch({
     name: "list",
   });
@@ -25,10 +31,16 @@ export default function DeleteListButton({ remove }: Props) {
     }
   };
 
-  const handleDeleteAllItems = () => {
-    for (let i = fieldArray.length - 1; i >= 0; i--) {
-      remove(i);
+  const handleDeleteAllItems = async () => {
+    if (!shopListRecipeId) {
+      for (let i = fieldArray.length - 1; i >= 0; i--) {
+        remove(i);
+      }
+      return;
     }
+    await trpcClient.shoppingList.deleteShopListRecipe.mutate({ shopListRecipeId });
+    await toast.success(`${title}の買い物リストを全て削除しました！`);
+    await refresh();
   };
 
   const ifFieldArrayHasCheckedItems = fieldArray.some((item: Item) => item.checked === true);

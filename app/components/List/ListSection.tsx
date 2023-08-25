@@ -5,8 +5,9 @@ import DeleteListButton from "./DeleteListButton";
 import { ListSchema } from "./zodSchema";
 import { ActionsButton } from "../Parts/Form/ActionsButton";
 import { ValidationError } from "../CreateRecipe/Parts/ValidationError";
+import { useRouter } from "next/navigation";
 
-export default function ListSection({ title }: { title: string }) {
+export default function ListSection({ title, id }: { title: string; id?: string }) {
   const {
     register,
     formState: { errors },
@@ -22,6 +23,8 @@ export default function ListSection({ title }: { title: string }) {
     update(index, { checked: !fields[index].checked, name: fields[index].name });
   };
 
+  const router = useRouter();
+
   return (
     <section className="pt-[8px] pb-[24px] ">
       <div className="flex justify-between py-[12px] items-center px-[16px] border-border border-b-[1px]">
@@ -30,7 +33,7 @@ export default function ListSection({ title }: { title: string }) {
           {/* 追加ボタン */}
           <AddListButton append={append} />
           {/* 一括削除ボタン */}
-          <DeleteListButton remove={remove} />
+          <DeleteListButton remove={remove} id={id} refresh={() => router.refresh()} title={title} />
         </div>
       </div>
       {fields.length === 0 ? (

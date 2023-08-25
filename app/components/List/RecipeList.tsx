@@ -14,10 +14,10 @@ type Props = {
 
 export const RecipeList: FC<Props> = ({ shoppingList }) => {
   const shoppingListRecipes = shoppingList.recipes;
-
   return shoppingListRecipes.map((recipe) => (
     <Recipe
       key={recipe.id}
+      id={recipe.id}
       name={recipe.recipe.name}
       ingredients={recipe.shopListIngredients.map((ingredient) => ({
         name: ingredient.name,
