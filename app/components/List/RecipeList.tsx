@@ -22,6 +22,7 @@ export const RecipeList: FC<Props> = ({ shoppingList }) => {
       ingredients={recipe.shopListIngredients.map((ingredient) => ({
         name: ingredient.name,
         checked: ingredient.isChecked,
+        shopListIngredientId: ingredient.id,
       }))}
     />
   ));

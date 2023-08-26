@@ -5,6 +5,7 @@ export const listSchema = z.object({
     z.object({
       name: z.string().nonempty({ message: "メモを入力してください。" }),
       checked: z.boolean(),
+      shopListIngredientId: z.string().optional(),
     })
   ),
 });

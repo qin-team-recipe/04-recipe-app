@@ -13,6 +13,7 @@ export const metadata = {
 export default async function Page() {
   const session = await getServerSession();
   const shoppingList = await trpcClient.shoppingList.shoppingList.query();
+  console.log(shoppingList.recipes[0].shopListIngredients);
 
   return (
     <>

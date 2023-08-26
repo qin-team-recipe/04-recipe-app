@@ -7,7 +7,7 @@ import ListSection from "./ListSection";
 type Props = {
   id: string;
   name: string;
-  ingredients: { name: string; checked: boolean }[];
+  ingredients: { name: string; checked: boolean; shopListIngredientId: string }[];
 };
 
 export default function Recipe({ id, ingredients, name }: Props) {

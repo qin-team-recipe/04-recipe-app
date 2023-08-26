@@ -6,6 +6,8 @@ import { ListSchema } from "./zodSchema";
 import { ActionsButton } from "../Parts/Form/ActionsButton";
 import { ValidationError } from "../CreateRecipe/Parts/ValidationError";
 import { useRouter } from "next/navigation";
+import { trpcClient } from "@/app/utils/trpc-client";
+import { toast } from "react-toastify";
 
 export default function ListSection({ title, id }: { title: string; id?: string }) {
   const {
@@ -20,10 +22,27 @@ export default function ListSection({ title, id }: { title: string; id?: string 
   });
 
   const toggleMyMemoChecked = (index: number) => {
-    update(index, { checked: !fields[index].checked, name: fields[index].name });
+    update(index, {
+      checked: !fields[index].checked,
+      name: fields[index].name,
+      shopListIngredientId: fields[index].shopListIngredientId,
+    });
   };
 
   const router = useRouter();
+
+  const removeHandler = async (id: number) => {
+    // TODO:自分メモの場合の処理は後日追加
+
+    const shopListIngredientId = fields[id].shopListIngredientId;
+    if (shopListIngredientId) {
+      const shopListIngredientName = fields[id].name;
+      await trpcClient.shoppingList.deleteShopListIngredient.mutate({ shopListIngredientId });
+      toast.success(`${shopListIngredientName}を削除しました！`);
+    }
+    remove(id);
+    router.refresh();
+  };
 
   return (
     <section className="pt-[8px] pb-[24px] ">
@@ -67,7 +86,7 @@ export default function ListSection({ title, id }: { title: string; id?: string 
                   })}
                 ></textarea>
                 <div className="absolute top-1/2 -translate-y-1/2 right-[16px] ">
-                  <ActionsButton fieldName={"list"} index={id} removeHandler={() => remove(id)} />
+                  <ActionsButton fieldName={"list"} index={id} removeHandler={() => removeHandler(id)} />
                 </div>
               </li>
             ))}

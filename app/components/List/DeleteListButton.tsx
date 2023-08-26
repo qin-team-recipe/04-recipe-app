@@ -38,9 +38,9 @@ export default function DeleteListButton({ id, remove, refresh, title }: Props) 
       }
       return;
     }
-    await trpcClient.shoppingList.deleteShopListRecipe.mutate({ shopListRecipeId });
-    await toast.success(`${title}の買い物リストを全て削除しました！`);
-    await refresh();
+    trpcClient.shoppingList.deleteShopListRecipe.mutate({ shopListRecipeId });
+    toast.success(`${title}の買い物リストを全て削除しました！`);
+    refresh();
   };
 
   const ifFieldArrayHasCheckedItems = fieldArray.some((item: Item) => item.checked === true);
