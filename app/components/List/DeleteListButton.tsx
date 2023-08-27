@@ -23,23 +23,33 @@ export default function DeleteListButton({ id, remove, refresh, title }: Props) 
     name: "list",
   });
 
-  const handleDeleteCheckedItems = () => {
+  const handleDeleteCheckedItems = async () => {
+    // TODO:自分メモの場合の処理は後日追加
+
+    if (shopListRecipeId) {
+      await trpcClient.shoppingList.deleteCheckedShopListIngredients.mutate({ shopListRecipeId });
+      toast.success(`${title}の完了した買い物リストを削除しました！`);
+    }
     for (let i = fieldArray.length - 1; i >= 0; i--) {
       if (fieldArray[i].checked === true) {
         remove(i);
       }
     }
+
+    refresh();
   };
 
   const handleDeleteAllItems = async () => {
-    if (!shopListRecipeId) {
-      for (let i = fieldArray.length - 1; i >= 0; i--) {
-        remove(i);
-      }
-      return;
+    // TODO:自分メモの場合の処理は後日追加
+
+    if (shopListRecipeId) {
+      await trpcClient.shoppingList.deleteShopListRecipe.mutate({ shopListRecipeId });
+      toast.success(`${title}の買い物リストを全て削除しました！`);
     }
-    trpcClient.shoppingList.deleteShopListRecipe.mutate({ shopListRecipeId });
-    toast.success(`${title}の買い物リストを全て削除しました！`);
+
+    for (let i = fieldArray.length - 1; i >= 0; i--) {
+      remove(i);
+    }
     refresh();
   };
 
