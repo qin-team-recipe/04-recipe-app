@@ -21,12 +21,23 @@ export default function ListSection({ title, id }: { title: string; id?: string 
     name: "list",
   });
 
-  const toggleMyMemoChecked = (index: number) => {
-    update(index, {
-      checked: !fields[index].checked,
-      name: fields[index].name,
-      shopListIngredientId: fields[index].shopListIngredientId,
+  const toggleMyMemoChecked = async (id: number) => {
+    // TODO:自分メモの場合の処理は後日追加
+
+    update(id, {
+      checked: !fields[id].checked,
+      name: fields[id].name,
+      shopListIngredientId: fields[id].shopListIngredientId,
     });
+
+    const shopListIngredientId = fields[id].shopListIngredientId;
+    if (shopListIngredientId) {
+      await trpcClient.shoppingList.updateShopListIngredient.mutate({
+        shopListIngredientId,
+        isChecked: !fields[id].checked,
+      });
+      router.refresh();
+    }
   };
 
   const router = useRouter();
