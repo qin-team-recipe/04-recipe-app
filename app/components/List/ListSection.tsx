@@ -10,6 +10,8 @@ import { trpcClient } from "@/app/utils/trpc-client";
 import { toast } from "react-toastify";
 
 export default function ListSection({ title, id }: { title: string; id?: string }) {
+  const shopListRecipeId = id;
+
   const {
     register,
     formState: { errors },
@@ -55,6 +57,27 @@ export default function ListSection({ title, id }: { title: string; id?: string 
     router.refresh();
   };
 
+  const onBlurHandler = async (id: number, event: React.FocusEvent<HTMLTextAreaElement>) => {
+    const currentValue = event.target.value;
+    // TODO:自分メモの場合の処理は後日追加
+
+    const shopListIngredientId = fields[id].shopListIngredientId;
+    if (!errors.list && shopListIngredientId !== "" && shopListIngredientId) {
+      await trpcClient.shoppingList.updateShopListIngredient.mutate({
+        shopListIngredientId,
+        isChecked: fields[id].checked,
+        name: currentValue,
+      });
+      router.refresh();
+    } else if (!errors.list && shopListIngredientId == "" && shopListRecipeId !== undefined) {
+      await trpcClient.shoppingList.appendShopListIngredient.mutate({
+        shopListRecipeId,
+        name: currentValue,
+      });
+      router.refresh();
+    }
+  };
+
   return (
     <section className="pt-[8px] pb-[24px] ">
       <div className="flex justify-between py-[12px] items-center px-[16px] border-border border-b-[1px]">
@@ -93,7 +116,7 @@ export default function ListSection({ title, id }: { title: string; id?: string 
                 <textarea
                   className="py-[15.5px] pr-[48px] pl-[46px] block text-title text-[14px] w-full focus:outline-text leading-[18px] resize-none"
                   {...register(`list.${id}.name` as const, {
-                    onBlur: () => window.alert("フォーカスアウトしたときにsubmitする"),
+                    onBlur: (event) => onBlurHandler(id, event),
                   })}
                 ></textarea>
                 <div className="absolute top-1/2 -translate-y-1/2 right-[16px] ">
@@ -105,8 +128,8 @@ export default function ListSection({ title, id }: { title: string; id?: string 
           {errors.list &&
             (errors.list as any).map(
               (myMemo: any, index: number) =>
-                myMemo?.item?.message && (
-                  <ValidationError errorMessage={`${index + 1}：${myMemo?.item?.message}`} key={index} />
+                myMemo?.name?.message && (
+                  <ValidationError errorMessage={`${index + 1}：${myMemo?.name?.message}`} key={index} />
                 )
             )}
         </>
