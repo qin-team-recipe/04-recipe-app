@@ -22,23 +22,26 @@ const customIngredientsSchema = (field: "ingredients" | "steps") => {
 };
 
 export const recipeSchema = z.object({
-  title: z.string().nonempty({
+  name: z.string().nonempty({
     message: "レシピ名を入力してください。",
   }),
-  links: z.array(
-    z.object({
-      value: z.string().url({ message: "URLを入力してください。" }).max(191, { message: "長すぎです" }),
-    })
-  ),
-  servings: z
+  ingredients: customIngredientsSchema("ingredients"),
+  yields: z
     .number()
     .int()
-    .lte(6, { message: "6人以下で入力してください。" })
-    .gte(2, { message: "2人以上で入力してください。" }),
-  ingredients: customIngredientsSchema("ingredients"),
-  description: z.string().max(1000, { message: "1000文字以下で入力してください。" }),
-  image: z.custom<FileList>().transform((file) => file[0]),
-  steps: customIngredientsSchema("steps"),
+    .min(1, { message: "1人以上で入力してください。" })
+    .max(6, { message: "6人以下で入力してください。" }),
+  processes: customIngredientsSchema("steps"),
+  image: z
+    .custom<FileList>()
+    .transform((file) => file[0])
+    .optional(),
+  description: z.string().max(1000, { message: "1000文字以下で入力してください。" }).optional(),
+  urls: z.array(
+    z.object({
+      value: z.string().url({ message: "URLを入力してください。" }).max(191, { message: "長すぎです" }).optional(),
+    })
+  ),
 });
 
 export type CreateRecipeSchema = z.infer<typeof recipeSchema>;

@@ -19,60 +19,60 @@ export default function IngredientInput() {
     name: fieldName,
   });
 
-  const servings = useWatch({
-    name: "servings",
+  const yields = useWatch({
+    name: "yields",
   });
 
-  const servingsIncreaseHandler = () => {
-    if (servings < 6) {
-      setValue("servings", servings + 1, { shouldDirty: true });
+  const yieldsIncreaseHandler = () => {
+    if (yields < 6) {
+      setValue("yields", yields + 1, { shouldDirty: true });
     }
   };
 
-  const servingsDecreaseHandler = () => {
-    if (servings > 2) {
-      setValue("servings", servings - 1, { shouldDirty: true });
+  const yieldsDecreaseHandler = () => {
+    if (yields > 2) {
+      setValue("yields", yields - 1, { shouldDirty: true });
     }
   };
 
   return (
     <section className="pt-[8px] pb-[24px] ">
       <div className="flex gap-x-[20px] py-[12px] items-center px-[16px] border-border border-b-[1px]">
-        <h2 className="font-bold text-title text-[16px]">材料 / {servings}人前</h2>
-        <input hidden className="display-none" type="number" {...register("servings")}></input>
+        <h2 className="font-bold text-title text-[16px]">材料 / {yields}人前</h2>
+        <input hidden className="display-none" type="number" {...register("yields")}></input>
 
         <div className="flex gap-x-[10px] text-[25px]">
           {/* マイナスボタン */}
-          <button type="button" className="hover:bg-[#FFF0EE] hover:fill-[#ca3214]" onClick={servingsDecreaseHandler}>
+          <button type="button" className="hover:bg-[#FFF0EE] hover:fill-[#ca3214]" onClick={yieldsDecreaseHandler}>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
               <rect
                 width="16"
                 height="16"
                 transform="translate(0 0.5)"
                 // fill="#FFF0EE"
-                fill={servings > 2 ? "#FFF0EE" : "#F2F2F2"}
+                fill={yields > 2 ? "#FFF0EE" : "#F2F2F2"}
               />
               <path
                 d="M3.33325 8.5H12.6666"
-                stroke={servings > 2 ? "#CA3214" : "#D1D1D1"}
+                stroke={yields > 2 ? "#CA3214" : "#D1D1D1"}
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
             </svg>
           </button>
           {/* プラスボタン */}
-          <button type="button" onClick={servingsIncreaseHandler}>
+          <button type="button" onClick={yieldsIncreaseHandler}>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
               <rect
                 width="16"
                 height="16"
                 transform="translate(0 0.5)"
                 // fill="#FFF0EE"
-                fill={servings < 6 ? "#FFF0EE" : "#F2F2F2"}
+                fill={yields < 6 ? "#FFF0EE" : "#F2F2F2"}
               />
               <path
                 d="M7.99992 3.83333V13.1667M3.33325 8.49999H12.6666"
-                stroke={servings < 6 ? "#CA3214" : "#D1D1D1"}
+                stroke={yields < 6 ? "#CA3214" : "#D1D1D1"}
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
@@ -99,7 +99,7 @@ export default function IngredientInput() {
 
       <AppendInputButton type="ingredient" append={append} />
 
-      {errors.servings && <ValidationError errorMessage={(errors.servings as any).message} />}
+      {errors.yields && <ValidationError errorMessage={(errors.yields as any).message} />}
 
       {errors.ingredients &&
         errors.ingredients.map?.((ingredient, index) =>

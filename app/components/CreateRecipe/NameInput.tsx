@@ -18,10 +18,10 @@ export default function NameInput() {
         className="bg-white w-full border-border border-b-[1px] py-[13px] px-[16px] text-title focus:outline-text"
         placeholder="例：肉じゃが"
         type="text"
-        {...register("title")}
+        {...register("name")}
       ></input>
 
-      {errors["title"] && <ValidationError errorMessage={errors["title"]?.message as string} />}
+      {errors["name"] && <ValidationError errorMessage={errors["name"]?.message as string} />}
     </section>
   );
 }

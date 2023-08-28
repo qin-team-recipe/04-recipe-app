@@ -11,7 +11,7 @@ export default function LinkInput() {
     formState: { errors },
   } = useFormContext<CreateRecipeSchema>();
 
-  const fieldName = "links";
+  const fieldName = "urls";
 
   const { fields, append, remove } = useFieldArray({
     name: fieldName,
@@ -24,8 +24,8 @@ export default function LinkInput() {
       </div>
 
       <ul className="bg-white">
-        {fields.map((link, index) => (
-          <li className="text-[14px] border-border border-b-[1px] leading-[18px] relative" key={link.id}>
+        {fields.map((url, index) => (
+          <li className="text-[14px] border-border border-b-[1px] leading-[18px] relative" key={url.id}>
             <input
               type="text"
               className="py-[15.5px] pr-[48px] pl-[16px] block text-title text-[14px] w-full focus:outline-text"
@@ -39,14 +39,14 @@ export default function LinkInput() {
         ))}
       </ul>
 
-      <AppendInputButton type="link" append={append} />
+      <AppendInputButton type="url" append={append} />
 
-      {errors.links &&
-        (errors.links as any).map((link: any, index: number) =>
-          link?.value?.message ? (
-            <ValidationError errorMessage={`link${index + 1}：${link?.value?.message}`} key={index} />
+      {errors.urls &&
+        (errors.urls as any).map((url: any, index: number) =>
+          url?.value?.message ? (
+            <ValidationError errorMessage={`url${index + 1}：${url?.value?.message}`} key={index} />
           ) : (
-            <ValidationError errorMessage={`link${index + 1}：URLを入力してください。`} key={index} />
+            <ValidationError errorMessage={`url${index + 1}：URLを入力してください。`} key={index} />
           )
         )}
     </section>
