@@ -37,13 +37,13 @@ export const Dialog: FC<Props> = ({ direction, triggerButton }) => {
 
   const headerButtonsHandler = (direction: string) => {
     if (
-      getFieldState("servings").isDirty ||
+      getFieldState("yields").isDirty ||
       getFieldState("description").isDirty ||
-      getFieldState("title").isDirty ||
+      getFieldState("name").isDirty ||
       getFieldState("image").isDirty ||
       getFieldState("ingredients").isDirty ||
-      getFieldState("steps").isDirty ||
-      getFieldState("links").isDirty
+      getFieldState("processes").isDirty ||
+      getFieldState("urls").isDirty
     ) {
       setDialogOpen(true);
     } else {
