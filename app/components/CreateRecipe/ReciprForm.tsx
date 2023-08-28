@@ -10,22 +10,57 @@ import StepsInput from "./StepsInput";
 import { CreateRecipeSchema, recipeSchema } from "./zodSchema";
 import { CreateRecipeHeader } from "./Header";
 import { usePathname } from "next/navigation";
+import { trpcClient } from "@/app/utils/trpc-client";
+
+import { createMyRecipeInput } from "../../../server/_my-recipe/api-schema";
+import { z } from "zod";
+
+type ServerRecipeSchema = z.infer<typeof createMyRecipeInput>;
+
+// ファイルをBase64エンコードして返す関数
+//TODO サーバー側で実装するべき？
+const readFileAsBase64 = (file: File) => {
+  return new Promise((resolve, reject) => {
+    const base64Encoder = new FileReader();
+    base64Encoder.onload = () => {
+      resolve(base64Encoder.result as string);
+    };
+    base64Encoder.readAsDataURL(file);
+    base64Encoder.onerror = reject;
+  });
+};
+
+const transformedServerScheme = async (input: CreateRecipeSchema) => {
+  let imageFile: string[] = [];
+
+  if (typeof input.image !== "undefined") {
+    imageFile.push((await readFileAsBase64(input.image)) as string);
+  }
+
+  return {
+    ...input,
+    ingredients: input.ingredients.map((item) => item.value),
+    processes: input.processes.map((item) => item.value),
+    urls: input.urls.map((item) => item.value as string),
+    images: imageFile,
+  };
+};
 
 export const RecipeForm = () => {
   const pathname = usePathname();
   const createDefaultValues = {
-    servings: 2,
+    yields: 2,
     ingredients: [
       {
         value: "",
       },
     ],
-    steps: [
+    processes: [
       {
         value: "",
       },
     ],
-    links: [
+    urls: [
       {
         value: "",
       },
@@ -34,18 +69,18 @@ export const RecipeForm = () => {
 
   const editDefaultValues = {
     // APIから取得したをデータへ変更予定
-    servings: 2,
+    yields: 2,
     ingredients: [
       {
         value: "",
       },
     ],
-    steps: [
+    processes: [
       {
         value: "",
       },
     ],
-    links: [
+    urls: [
       {
         value: "",
       },
@@ -64,11 +99,11 @@ export const RecipeForm = () => {
     formState: { errors },
   } = form;
 
-  const onSubmit: SubmitHandler<CreateRecipeSchema> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<CreateRecipeSchema> = async (data) => {
     const result = window.confirm("保存しますか？");
     if (result) {
-      window.alert(data);
+      const shapedData = await transformedServerScheme(data);
+      await trpcClient.regmyrecipe.mutate(shapedData);
     }
   };
 
@@ -80,7 +115,7 @@ export const RecipeForm = () => {
         {/* レシピ名 */}
         <NameInput />
 
-        {/* 材料*/}
+        {/* 材料 */}
         <IngredientInput />
 
         {/* 作り方*/}

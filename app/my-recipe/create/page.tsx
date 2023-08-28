@@ -6,9 +6,5 @@ export const metadata = {
 };
 
 export default async function CreateMyRecipe() {
-  return (
-    <>
-      <RecipeForm />
-    </>
-  );
+  return <RecipeForm />;
 }
