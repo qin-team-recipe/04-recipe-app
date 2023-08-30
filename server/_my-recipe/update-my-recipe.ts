@@ -23,7 +23,6 @@ export const updateMyRecipe = protectedProcedure.input(updateMyRecipeInput).muta
   // userIDが一致しているかのチェック
   if (recipe === null || recipe.myRecipe?.userId !== ctx.user.userId) throw notFoundError;
 
-  console.log(recipe);
   // cloudinaryの画像を更新
   await Promise.all(recipe.images.map((image) => deleteImageInCloudinary(image.imageId)));
   const publicIds = await Promise.all(input.images.map((image) => uploadImageToCloudinary(image)));
