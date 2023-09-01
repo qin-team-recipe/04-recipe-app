@@ -40,3 +40,23 @@ export const AppendShopListIngredientInput = ShopListRecipeIdInput.merge(
     name: z.string(),
   })
 );
+
+export const MyMemoContent = z.string().max(191);
+
+export const MyMemoItemIdInput = z.object({
+  myMemoItemId: z.string(),
+});
+
+export const UpdateMyMemoItemInput = MyMemoItemIdInput.merge(
+  z.object({
+    isChecked: z.boolean().optional(),
+    content: MyMemoContent.optional(),
+  })
+);
+
+export const ReorderMyMemoInput = z.object({
+  /** 移動元の要素のID */
+  sourceItemId: z.string(),
+  /** 移動先の要素のID */
+  targetItemId: z.string(),
+});
