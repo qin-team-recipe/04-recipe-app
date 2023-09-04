@@ -11,6 +11,8 @@ export type User = AdminUser | GeneralUser;
 export async function createContext() {
   const session = await getServerSession(nextAuthOptions);
 
+  console.log({ session });
+
   return { user: session?.user, prisma };
 }
 
