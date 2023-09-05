@@ -52,25 +52,9 @@ const ChefHero: FC<Props> = ({ chef }) => {
     <>
       {/* Chef詳細 */}
       <div className="px-[16px] pt-[16px] pb-[18.17px]">
-        <div className="flex justify-between items-center">
-          {/* Go back */}
-          {/* ブラウザ戻るリンク */}
-          <button onClick={() => router.back()}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g clipPath="url(#clip0_393_1908)">
-                <path d="M5 12H19" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M5 12L11 18" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M5 12L11 6" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </g>
-              <defs>
-                <clipPath id="clip0_393_1908">
-                  <rect width="24" height="24" fill="white" />
-                </clipPath>
-              </defs>
-            </svg>
-          </button>
+        <div className="flex  items-center">
           {/* Links */}
-          <div className="flex items-center justify-between gap-x-[12px]">
+          <div className="flex items-center justify-between gap-x-[12px] ml-auto">
             {chefLinks.youtube && (
               <a href={chefLinks.youtube.url} target="_blank">
                 <BrandYoutube className="text-black" />
@@ -87,7 +71,7 @@ const ChefHero: FC<Props> = ({ chef }) => {
               </DropdownMenu.Trigger>
 
               <DropdownMenu.Portal>
-                <DropdownMenu.Content sideOffset={5} align="end" className={`{${styles.DropdownMenuContent} w-[260px]`}>
+                <DropdownMenu.Content sideOffset={5} align="end" className={`${styles.DropdownMenuContent} w-[260px]`}>
                   <ul>
                     <li>
                       {chefLinks.tiktok && (

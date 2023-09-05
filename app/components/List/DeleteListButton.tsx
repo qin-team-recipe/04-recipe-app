@@ -60,6 +60,7 @@ export default function DeleteListButton({ id, remove, refresh, title }: Props) 
       <DropdownMenu.Trigger>
         <DotsCircleHorizontal className="hover:cursor-pointer" />
       </DropdownMenu.Trigger>
+
       <DropdownMenu.Portal>
         <DropdownMenu.Content sideOffset={5} align="end" className={styles.DropdownMenuContent}>
           {ifFieldArrayHasCheckedItems && (

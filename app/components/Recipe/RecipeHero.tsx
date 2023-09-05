@@ -64,25 +64,6 @@ const RecipeHero: FC<Props> = ({ recipe }) => {
           className="max-h-[480px] object-cover"
           priority={true}
         />
-
-        <Link href="/" className="stroke-white hover:stroke-primary absolute top-[20px] left-[20px]">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M25.3333 16H6.66666"
-              // stroke="white"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M16 25.3333L6.66666 16L16 6.66666"
-              // stroke="white"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </Link>
       </div>
 
       {/* Recipe詳細 */}
