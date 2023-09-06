@@ -5,8 +5,13 @@ import DeleteListButton from "./DeleteListButton";
 import { ListSchema } from "./zodSchema";
 import { ActionsButton } from "../Parts/Form/ActionsButton";
 import { ValidationError } from "../CreateRecipe/Parts/ValidationError";
+import { useRouter } from "next/navigation";
+import { trpcClient } from "@/app/utils/trpc-client";
+import { toast } from "react-toastify";
 
-export default function ListSection({ title }: { title: string }) {
+export default function ListSection({ title, id }: { title: string; id?: string }) {
+  const shopListRecipeId = id;
+
   const {
     register,
     formState: { errors },
@@ -18,8 +23,59 @@ export default function ListSection({ title }: { title: string }) {
     name: "list",
   });
 
-  const toggleMyMemoChecked = (index: number) => {
-    update(index, { checked: !fields[index].checked, item: fields[index].item });
+  const toggleMyMemoChecked = async (id: number) => {
+    // TODO:自分メモの場合の処理は後日追加
+
+    update(id, {
+      checked: !fields[id].checked,
+      name: fields[id].name,
+      shopListIngredientId: fields[id].shopListIngredientId,
+    });
+
+    const shopListIngredientId = fields[id].shopListIngredientId;
+    if (shopListIngredientId) {
+      await trpcClient.shoppingList.updateShopListIngredient.mutate({
+        shopListIngredientId,
+        isChecked: !fields[id].checked,
+      });
+      router.refresh();
+    }
+  };
+
+  const router = useRouter();
+
+  const removeHandler = async (id: number) => {
+    // TODO:自分メモの場合の処理は後日追加
+
+    const shopListIngredientId = fields[id].shopListIngredientId;
+    if (shopListIngredientId) {
+      const shopListIngredientName = fields[id].name;
+      await trpcClient.shoppingList.deleteShopListIngredient.mutate({ shopListIngredientId });
+      toast.success(`${shopListIngredientName}を削除しました！`);
+    }
+    remove(id);
+    router.refresh();
+  };
+
+  const onBlurHandler = async (id: number, event: React.FocusEvent<HTMLTextAreaElement>) => {
+    const currentValue = event.target.value;
+    // TODO:自分メモの場合の処理は後日追加
+
+    const shopListIngredientId = fields[id].shopListIngredientId;
+    if (!errors.list && shopListIngredientId !== "" && shopListIngredientId) {
+      await trpcClient.shoppingList.updateShopListIngredient.mutate({
+        shopListIngredientId,
+        isChecked: fields[id].checked,
+        name: currentValue,
+      });
+      router.refresh();
+    } else if (!errors.list && shopListIngredientId == "" && shopListRecipeId !== undefined) {
+      await trpcClient.shoppingList.appendShopListIngredient.mutate({
+        shopListRecipeId,
+        name: currentValue,
+      });
+      router.refresh();
+    }
   };
 
   return (
@@ -30,7 +86,7 @@ export default function ListSection({ title }: { title: string }) {
           {/* 追加ボタン */}
           <AddListButton append={append} />
           {/* 一括削除ボタン */}
-          <DeleteListButton remove={remove} />
+          <DeleteListButton remove={remove} id={id} refresh={() => router.refresh()} title={title} />
         </div>
       </div>
       {fields.length === 0 ? (
@@ -59,12 +115,12 @@ export default function ListSection({ title }: { title: string }) {
                 ></input>
                 <textarea
                   className="py-[15.5px] pr-[48px] pl-[46px] block text-title text-[14px] w-full focus:outline-text leading-[18px] resize-none"
-                  {...register(`list.${id}.item` as const, {
-                    onBlur: () => window.alert("フォーカスアウトしたときにsubmitする"),
+                  {...register(`list.${id}.name` as const, {
+                    onBlur: (event) => onBlurHandler(id, event),
                   })}
                 ></textarea>
                 <div className="absolute top-1/2 -translate-y-1/2 right-[16px] ">
-                  <ActionsButton fieldName={"list"} index={id} removeHandler={() => remove(id)} />
+                  <ActionsButton fieldName={"list"} index={id} removeHandler={() => removeHandler(id)} />
                 </div>
               </li>
             ))}
@@ -72,8 +128,8 @@ export default function ListSection({ title }: { title: string }) {
           {errors.list &&
             (errors.list as any).map(
               (myMemo: any, index: number) =>
-                myMemo?.item?.message && (
-                  <ValidationError errorMessage={`${index + 1}：${myMemo?.item?.message}`} key={index} />
+                myMemo?.name?.message && (
+                  <ValidationError errorMessage={`${index + 1}：${myMemo?.name?.message}`} key={index} />
                 )
             )}
         </>

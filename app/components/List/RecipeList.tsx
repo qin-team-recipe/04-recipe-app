@@ -1,28 +1,29 @@
 "use client";
+import { FC } from "react";
 import Recipe from "./Recipe";
 
-// DBから取得する仕様に変更予定
-const defaultValuesArray = [
-  {
-    recipe: "インドカレーインドカレーインドカレーインドカレーインドカレー",
-    ingredients: [
-      { item: "バター", checked: false },
-      { item: "ターメリック", checked: false },
-      { item: "パプリカパウダー", checked: false },
-    ],
-  },
-  {
-    recipe: "タイカレー",
-    ingredients: [
-      { item: "パクチー", checked: false },
-      { item: "ナンプラー", checked: false },
-      { item: "えび", checked: false },
-    ],
-  },
-];
+type Props = {
+  shoppingList: {
+    recipes: {
+      id: string;
+      recipe: { id: string; name: string };
+      shopListIngredients: { id: string; name: string; isChecked: boolean; recipeIngredientId: number | null }[];
+    }[];
+  };
+};
 
-export default function RecipeList() {
-  return defaultValuesArray.map((recipe) => (
-    <Recipe key={recipe.recipe} recipe={recipe.recipe} ingredients={recipe.ingredients} />
+export const RecipeList: FC<Props> = ({ shoppingList }) => {
+  const shoppingListRecipes = shoppingList.recipes;
+  return shoppingListRecipes.map((recipe) => (
+    <Recipe
+      key={recipe.id}
+      id={recipe.id}
+      name={recipe.recipe.name}
+      ingredients={recipe.shopListIngredients.map((ingredient) => ({
+        name: ingredient.name,
+        checked: ingredient.isChecked,
+        shopListIngredientId: ingredient.id,
+      }))}
+    />
   ));
-}
+};
