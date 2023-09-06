@@ -1,3 +1,3 @@
-export { CommonButton } from "./Form/CommonButton";
-export { TextField } from "./Form/TextField";
-export { MultiInputFields } from "./Form/MultiInputFields";
+export { CommonButton } from "./form/CommonButton";
+export { TextField } from "./form/TextField";
+export { MultiInputFields } from "./form/MultiInputFields";
