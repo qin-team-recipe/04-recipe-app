@@ -1,7 +1,8 @@
 import { z } from "zod";
 
-export const UserIdInput = z.object({
+export const GetMyRecipesInput = z.object({
   userId: z.string(),
+  sortBy: z.union([z.literal("latest"), z.literal("populality")]).optional(),
 });
 
 export const createMyRecipeInput = z.object({
