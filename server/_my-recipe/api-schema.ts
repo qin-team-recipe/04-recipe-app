@@ -26,5 +26,5 @@ export const updateMyRecipeInput = z.object({
 });
 
 export const deleteMyRecipeInput = z.object({
-  recipeid: z.string(),
+  myrecipeid: z.string(),
 });
