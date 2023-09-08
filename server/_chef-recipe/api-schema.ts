@@ -12,4 +12,8 @@ export const RecipeIdInput = z.object({
   recipeId: z.string(),
 });
 
+export const UserIdInput = z.object({
+  userId: z.string(),
+});
+
 export const GetRecipesInput = SearchInput;
