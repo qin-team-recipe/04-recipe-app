@@ -2,33 +2,55 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import styles from "../../styles/dropdownMenuContent.module.css";
 import { DotsCircleHorizontal, Trash, CircleCheck } from "tabler-icons-react";
 import { useWatch } from "react-hook-form";
+import { trpcClient } from "@/app/utils/trpc-client";
+import { toast } from "react-toastify";
 
 type Props = {
+  id?: string;
   remove: (i: number) => void;
+  refresh: () => void;
+  title: string;
 };
 
 type Item = {
-  item: string;
+  name: string;
   checked: boolean;
 };
 
-export default function DeleteListButton({ remove }: Props) {
+export default function DeleteListButton({ id, remove, refresh, title }: Props) {
+  const shopListRecipeId = id;
   const fieldArray = useWatch({
     name: "list",
   });
 
-  const handleDeleteCheckedItems = () => {
+  const handleDeleteCheckedItems = async () => {
+    // TODO:自分メモの場合の処理は後日追加
+
+    if (shopListRecipeId) {
+      await trpcClient.shoppingList.deleteCheckedShopListIngredients.mutate({ shopListRecipeId });
+      toast.success(`${title}の完了した買い物リストを削除しました！`);
+    }
     for (let i = fieldArray.length - 1; i >= 0; i--) {
       if (fieldArray[i].checked === true) {
         remove(i);
       }
     }
+
+    refresh();
   };
 
-  const handleDeleteAllItems = () => {
+  const handleDeleteAllItems = async () => {
+    // TODO:自分メモの場合の処理は後日追加
+
+    if (shopListRecipeId) {
+      await trpcClient.shoppingList.deleteShopListRecipe.mutate({ shopListRecipeId });
+      toast.success(`${title}の買い物リストを全て削除しました！`);
+    }
+
     for (let i = fieldArray.length - 1; i >= 0; i--) {
       remove(i);
     }
+    refresh();
   };
 
   const ifFieldArrayHasCheckedItems = fieldArray.some((item: Item) => item.checked === true);
@@ -38,6 +60,7 @@ export default function DeleteListButton({ remove }: Props) {
       <DropdownMenu.Trigger>
         <DotsCircleHorizontal className="hover:cursor-pointer" />
       </DropdownMenu.Trigger>
+
       <DropdownMenu.Portal>
         <DropdownMenu.Content sideOffset={5} align="end" className={styles.DropdownMenuContent}>
           {ifFieldArrayHasCheckedItems && (

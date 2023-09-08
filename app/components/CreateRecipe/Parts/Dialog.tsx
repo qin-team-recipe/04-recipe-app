@@ -27,7 +27,7 @@ export const Dialog: FC<Props> = ({ direction, triggerButton }) => {
       if (window.history.length > 1) {
         router.back();
       } else {
-        router.push(`/mypage/${userId}/myrecipes`);
+        router.push(`/mypage/${userId}/recipes`);
       }
     }
     if (direction === "drafts") {

@@ -3,7 +3,7 @@ import { ListSchema } from "./zodSchema";
 import { Plus } from "tabler-icons-react";
 
 type Props = {
-  append: (value: { item: string; checked: boolean }) => void;
+  append: (value: { name: string; checked: boolean; shopListIngredientId?: string }) => void;
 };
 
 export default function AddListButton({ append }: Props) {
@@ -15,8 +15,8 @@ export default function AddListButton({ append }: Props) {
   });
 
   const handleAddList = async () => {
-    await append({ item: "", checked: false });
-    await setFocus(`list.${fields.length}.item`);
+    await append({ name: "", checked: false, shopListIngredientId: "" });
+    await setFocus(`list.${fields.length}.name`);
   };
 
   return (
