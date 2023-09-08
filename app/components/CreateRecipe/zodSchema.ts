@@ -39,7 +39,10 @@ export const recipeSchema = z.object({
   description: z.string().max(1000, { message: "1000文字以下で入力してください。" }).optional(),
   urls: z.array(
     z.object({
-      value: z.string().url({ message: "URLを入力してください。" }).max(191, { message: "長すぎです" }).optional(),
+      value: z.union([
+        z.literal(""),
+        z.string().url({ message: "URLを入力してください。" }).max(191, { message: "長すぎます" }),
+      ]),
     })
   ),
 });
