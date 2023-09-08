@@ -11,30 +11,21 @@ import { CreateRecipeSchema, recipeSchema } from "./zodSchema";
 import { CreateRecipeHeader } from "./Header";
 import { usePathname } from "next/navigation";
 import { trpcClient } from "@/app/utils/trpc-client";
-
-import { createMyRecipeInput } from "../../../server/_my-recipe/api-schema";
-import { z } from "zod";
-
-type ServerRecipeSchema = z.infer<typeof createMyRecipeInput>;
-
-// ファイルをBase64エンコードして返す関数
-//TODO サーバー側で実装するべき？
-const readFileAsBase64 = (file: File) => {
-  return new Promise((resolve, reject) => {
-    const base64Encoder = new FileReader();
-    base64Encoder.onload = () => {
-      resolve(base64Encoder.result as string);
-    };
-    base64Encoder.readAsDataURL(file);
-    base64Encoder.onerror = reject;
-  });
-};
+import React from "react";
 
 const transformedServerScheme = async (input: CreateRecipeSchema) => {
-  let imageFile: string[] = [];
+  let base64ImageArr: string[] = [];
+
+  //TODO ここで、input.image をしても値を取得できない。
 
   if (typeof input.image !== "undefined") {
-    imageFile.push((await readFileAsBase64(input.image)) as string);
+    const reader = new FileReader();
+    reader.readAsDataURL(input.image);
+    reader.onload = () => {
+      const result = reader.result as string;
+      //TODO "data:image/****;base64,XXXXX" という文字列から、XXXXX という文字列のみを抽出するロジックを記述
+      base64ImageArr.push(result);
+    };
   }
 
   return {
@@ -42,7 +33,7 @@ const transformedServerScheme = async (input: CreateRecipeSchema) => {
     ingredients: input.ingredients.map((item) => item.value),
     processes: input.processes.map((item) => item.value),
     urls: input.urls.map((item) => item.value as string),
-    images: imageFile,
+    images: base64ImageArr,
   };
 };
 
@@ -153,7 +144,7 @@ export const RecipeForm = () => {
             />
           </section>
         ) : (
-          <></>
+          <React.Fragment></React.Fragment>
         )}
       </form>
     </FormProvider>
