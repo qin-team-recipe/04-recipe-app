@@ -8,5 +8,5 @@ export const myRecipeRouter = router({
   myrecipes: getMyRecipes,
   regmyrecipe: createMyRecipe,
   updatemyrecipe: updateMyRecipe,
-  deletemyrecipe: deleteMyRecipe,
+  deleteMyRecipe: deleteMyRecipe,
 });
