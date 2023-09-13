@@ -14,6 +14,7 @@ import { myMemoUpdateItem } from "./my-memo-update-item";
 import { myMemoDeleteCompleted } from "./my-memo-delete-completed";
 import { myMemoDeleteAll } from "./my-memo-delete-all";
 import { myMemoReorder } from "./my-memo-reorder";
+import { myMemoGetItems } from "./my-memo-get-items";
 
 export const shoppingListRouter = router({
   // レシピ詳細画面の操作
@@ -28,6 +29,7 @@ export const shoppingListRouter = router({
   deleteCheckedShopListIngredients,
   appendShopListIngredient,
   // 自分メモの操作
+  myMemoItems: myMemoGetItems,
   myMemoAddItem,
   myMemoUpdateItem,
   myMemoDeleteItem,
