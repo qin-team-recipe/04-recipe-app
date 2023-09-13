@@ -15,7 +15,7 @@ type Props = {
     id: string;
     displayName: string;
     bio?: string;
-    followerCount: number;
+    // followerCount: number;
     recipeCount: number;
     profileImageUrl?: string;
     links?: {
@@ -127,9 +127,9 @@ const MyPageHero: FC<Props> = ({ user, userId }) => {
           <p className="pt-[14.17px] text-[16px] leading-snug">
             <span className="font-bold">{user.recipeCount}</span> レシピ
           </p>
-          <p className="pt-[14.17px] text-[16px] leading-snug">
+          {/* <p className="pt-[14.17px] text-[16px] leading-snug">
             <span className="font-bold">{user.followerCount}</span> フォロワー
-          </p>
+          </p> */}
         </div>
 
         <div className="mt-4 text-center">
