@@ -8,7 +8,7 @@ const ERROR_INVALID_URL = "有効なURLを入力してください。";
 export const profileFormSchema = z.object({
   nickname: z.string().min(1, { message: ERROR_REQUIRE }),
   biography: z.string().max(191, { message: ERROR_MAX_LENGTH }).optional(),
-  profileImage: z.string().optional(),
+  profileImage: z.custom<FileList>().transform((file) => file[0]),
   multiInputItems: z
     .array(
       z.object({

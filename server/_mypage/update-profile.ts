@@ -5,7 +5,7 @@ import { deleteImageInCloudinary, uploadImageToCloudinary } from "../utils/cloud
 /**
  * マイページの情報を更新する
  */
-export const updateProfile = protectedProcedure.input(MypageInput).query(async ({ ctx, input }) => {
+export const updateProfile = protectedProcedure.input(MypageInput).mutation(async ({ ctx, input }) => {
   const user = await ctx.prisma.user.findUniqueOrThrow({
     where: {
       id: ctx.user.userId,
@@ -20,7 +20,10 @@ export const updateProfile = protectedProcedure.input(MypageInput).query(async (
   if (user.imageId) {
     await deleteImageInCloudinary(user.imageId);
   }
-  const imageId = await uploadImageToCloudinary(input?.profileImage);
+  let imageId = "";
+  if (input.profileImage && input.profileImage !== "") {
+    imageId = await uploadImageToCloudinary(input.profileImage ?? "");
+  }
 
   const userUpdate = await ctx.prisma.user.update({
     where: {
@@ -41,10 +44,10 @@ export const updateProfile = protectedProcedure.input(MypageInput).query(async (
           })),
         deleteMany:
           user.url
-            ?.filter((item) => !input.multiInputItems?.some((it) => it.id === item.id))
+            ?.filter((item) => input.multiInputItems?.every((it) => it.id !== item.id))
             ?.map((url) => ({ id: url.id })) ?? [],
       },
-      imageId: imageId,
+      imageId: imageId ?? "",
     },
     include: {
       url: true,
@@ -56,5 +59,7 @@ export const updateProfile = protectedProcedure.input(MypageInput).query(async (
     nickname: userUpdate.name,
     biography: userUpdate.biography,
     multiInputItems: userUpdate.url,
+    profileImage: userUpdate.image,
+    imageId: userUpdate.imageId,
   };
 });
