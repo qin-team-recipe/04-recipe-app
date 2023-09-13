@@ -7,7 +7,10 @@ import { createMyRecipeInput } from "./api-schema";
  */
 export const createMyRecipe = protectedProcedure.input(createMyRecipeInput).mutation(async ({ ctx, input }) => {
   // TODO: 画像を複数登録した場合にエラーになることがある（Macでは動作しました）
-  const publicIds = await Promise.all(input.images.map((image) => uploadImageToCloudinary(image)));
+  if (input.images !== undefined) {
+    const publicIds = await Promise.all(input.images.map((image) => uploadImageToCloudinary(image)));
+  }
+  // const publicIds = await Promise.all(input.images.map((image) => uploadImageToCloudinary(image)));
 
   // requestのJSONをもとにマイレシピ登録
   return await ctx.prisma.recipe.create({
@@ -24,17 +27,25 @@ export const createMyRecipe = protectedProcedure.input(createMyRecipeInput).muta
           data: input.processes.map((title, index) => ({ order: index + 1, title, description: "" })),
         },
       },
-      images: {
-        createMany: {
-          data: publicIds.map((pubulicid) => ({ imageId: pubulicid })),
-        },
-      },
+      ...(input.images
+        ? {
+            images: {
+              createMany: {
+                data: input.images.map((publicId) => ({ imageId: publicId })),
+              },
+            },
+          }
+        : {}),
       description: input.description ?? "",
-      links: {
-        createMany: {
-          data: input.urls.map((url) => ({ url })),
-        },
-      },
+      ...(input.urls
+        ? {
+            links: {
+              createMany: {
+                data: input.urls.map((url) => ({ url })),
+              },
+            },
+          }
+        : {}),
       myRecipe: {
         create: {
           userId: ctx.user.userId,
