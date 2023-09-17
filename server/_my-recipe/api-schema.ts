@@ -11,7 +11,7 @@ export const createMyRecipeInput = z.object({
   processes: z.array(z.string()),
   images: z.array(z.string()).optional(),
   description: z.string().optional(),
-  urls: z.array(z.string().url()).optional().default([]),
+  urls: z.array(z.string().url()).optional(),
 });
 
 export const updateMyRecipeInput = z.object({
