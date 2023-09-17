@@ -45,6 +45,7 @@ export default async function MyPageRecipes({ params }: { params: { userId: stri
         user={{
           ...user,
           displayName: user.name,
+          profileImageUrl: user.profileImageUrl ?? undefined,
           // bioを設定する
         }}
         userId={userId}
