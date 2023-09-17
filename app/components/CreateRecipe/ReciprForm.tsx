@@ -13,30 +13,6 @@ import { usePathname } from "next/navigation";
 import { trpcClient } from "@/app/utils/trpc-client";
 import React from "react";
 
-const transformedServerScheme = async (input: CreateRecipeSchema) => {
-  let base64ImageArr: string[] = [];
-
-  //TODO ここで、input.image をしても値を取得できない。
-
-  if (typeof input.image !== "undefined") {
-    const reader = new FileReader();
-    reader.readAsDataURL(input.image);
-    reader.onload = () => {
-      const result = reader.result as string;
-      //TODO "data:image/****;base64,XXXXX" という文字列から、XXXXX という文字列のみを抽出するロジックを記述
-      base64ImageArr.push(result);
-    };
-  }
-
-  return {
-    ...input,
-    ingredients: input.ingredients.map((item) => item.value),
-    processes: input.processes.map((item) => item.value),
-    urls: input.urls.map((item) => item.value as string),
-    images: base64ImageArr,
-  };
-};
-
 export const RecipeForm = () => {
   const pathname = usePathname();
   const createDefaultValues = {
@@ -87,8 +63,50 @@ export const RecipeForm = () => {
 
   const {
     handleSubmit,
+    getFieldState,
     formState: { errors },
   } = form;
+
+  const transformedServerScheme = async (input: CreateRecipeSchema) => {
+    let imageUrl = null;
+    const fileData = input.image;
+
+    if (typeof fileData !== "undefined") {
+      const readFile = new Promise<string | null>((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = function (event: ProgressEvent<FileReader>) {
+          if (event.target) {
+            const base64Url = event.target.result as string;
+            const matchArr = base64Url.match(/base64,(.+)/);
+            const shapedBase64Url = matchArr ? matchArr[1] : null;
+
+            resolve(shapedBase64Url);
+          } else {
+            resolve(null);
+          }
+        };
+        reader.onerror = function () {
+          resolve(null);
+        };
+        reader.readAsDataURL(fileData);
+      });
+
+      imageUrl = await readFile;
+    }
+
+    const images = imageUrl ? [imageUrl] : [];
+
+    return {
+      ...input,
+      ingredients: input.ingredients.map((item) => item.value),
+      processes: input.processes.map((item) => item.value),
+      urls:
+        input.urls && getFieldState("urls").isDirty
+          ? input.urls.map((item) => item.value as string)
+          : ["https://google.com"],
+      images,
+    };
+  };
 
   const onSubmit: SubmitHandler<CreateRecipeSchema> = async (data) => {
     const result = window.confirm("保存しますか？");

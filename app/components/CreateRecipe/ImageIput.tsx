@@ -23,7 +23,6 @@ export default function ImageInput() {
 
     const reader = new FileReader();
     reader.onload = () => {
-      setValue("image", files);
       setPreviewImageData(reader.result as string);
     };
     reader.readAsDataURL(file);
@@ -34,8 +33,6 @@ export default function ImageInput() {
     setPreviewImageData("");
   };
 
-  const { onBlur, name, ref } = register("image");
-
   return (
     <section className="pt-[8px] pb-[24px]  overflow-x-hidden">
       <div className="flex justify-between py-[12px] items-center px-[16px] ">
@@ -44,7 +41,7 @@ export default function ImageInput() {
 
       <div className="px-[16px]">
         <div className="inline-block relative">
-          {image ? (
+          {previewImageData ? (
             <>
               <Image src={previewImageData} alt="レシピの写真" width={128} height={128} />
               <button
@@ -90,13 +87,9 @@ export default function ImageInput() {
                 id="file"
                 hidden
                 className="display-none"
-                onChange={uploadImageHandler}
                 accept="image/*"
                 multiple={false}
-                onBlur={onBlur} // assign onBlur event
-                name={name} // assign name prop
-                ref={ref} // assign ref prop
-                // {...register("image")}
+                {...register("image", { onChange: uploadImageHandler })}
               />
             </>
           )}
