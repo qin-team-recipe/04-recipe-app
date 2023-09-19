@@ -77,10 +77,7 @@ export const RecipeForm = () => {
         reader.onloadend = function (event: ProgressEvent<FileReader>) {
           if (event.target) {
             const base64Url = event.target.result as string;
-            const matchArr = base64Url.match(/base64,(.+)/);
-            const shapedBase64Url = matchArr ? matchArr[1] : null;
-
-            resolve(shapedBase64Url);
+            resolve(base64Url);
           } else {
             resolve(null);
           }
