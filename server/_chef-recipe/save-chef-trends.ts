@@ -16,7 +16,7 @@ type ChefTrendRaw = {
 const dateTimeFormat = "YYYY-MM-DD HH:mm:ss";
 
 /**
- * 注目のシェフを計算する。注目のシェフは、直近3日間の獲得フォロワー数の上位10人。
+ * シェフのトレンドを計算する。トレンドは直近3日間の獲得フォロワー数が基準。上位10名が注目のシェフになる。
  */
 async function calculateChefTrends(prisma: PrismaClient): Promise<ChefTrend[]> {
   const chefs = await prisma.$queryRaw<ChefTrendRaw[]>`
@@ -46,7 +46,7 @@ async function calculateChefTrends(prisma: PrismaClient): Promise<ChefTrend[]> {
 }
 
 /**
- * 注目のシェフを計算して、データベースに保存する
+ * シェフのトレンドを計算して、データベースに保存する
  */
 export async function saveChefTrends(prisma: PrismaClient): Promise<void> {
   const chefTrends = await calculateChefTrends(prisma);

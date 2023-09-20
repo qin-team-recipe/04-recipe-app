@@ -4,7 +4,7 @@ import { HorizontalRecipeCard } from "../Recipes/HorizontalRecipeCard";
 import styles from "../../styles/noscrollbar.module.css";
 
 export default async function TopRecipes() {
-  const recipes = await trpcCaller.recipes({});
+  const recipes = await trpcCaller.featuredRecipes();
   return (
     <section className="pt-[20px] pb-[48px] overflow-hidden">
       <div className="flex center justify-between px-[15px]">
