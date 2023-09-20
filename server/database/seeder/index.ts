@@ -3,12 +3,14 @@ import { chefLinkSeeder } from "./chef-link-seeder";
 import { chefSeeder } from "./chef-seeder";
 import { recipeLinkSeeder } from "./recipe-link-seeder";
 import { recipeSeeder } from "./recipe-seeder";
+import { trendSeeder } from "./trend-seeder";
 
 const databaseSeeder = {
   chefSeeder,
   chefLinkSeeder,
   recipeSeeder,
   recipeLinkSeeder,
+  trendSeeder,
 };
 
 type SeederName = keyof typeof databaseSeeder;

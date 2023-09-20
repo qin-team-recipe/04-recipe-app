@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { prisma } from "../database/prisma";
+import dayjs from "dayjs";
 
 type ChefTrend = {
   chefId: string;
@@ -7,31 +7,48 @@ type ChefTrend = {
   newFollowers: number;
 };
 
+type ChefTrendRaw = {
+  chefId: string;
+  /** 獲得フォロワー数 */
+  newFollowers: bigint;
+};
+
+const dateTimeFormat = "YYYY-MM-DD HH:mm:ss";
+
 /**
  * 注目のシェフを計算する。注目のシェフは、直近3日間の獲得フォロワー数の上位10人。
  */
 async function calculateChefTrends(prisma: PrismaClient): Promise<ChefTrend[]> {
-  const chefs = await prisma.$queryRaw<ChefTrend[]>`
+  const chefs = await prisma.$queryRaw<ChefTrendRaw[]>`
+    with LatestFollowing as (
+      select
+        *
+      from
+        Following
+      where
+        createdAt > ${dayjs().subtract(3, "days").format(dateTimeFormat)}
+    )
     select
-      chefId,
-      count(chefId) as newFollowers
+      Chef.id as chefId,
+      count(Following.id) as newFollowers
     from
-      Following
-    -- TODO: 直近3日間での絞り込み
+      Chef
+      left outer join LatestFollowing Following
+      on Chef.id = Following.chefId
     group by
-      chefId
+      Chef.id
     order by
       newFollowers desc
-    limit 10;
+    limit 10
   `;
 
-  return chefs;
+  return chefs.map((chef) => ({ chefId: chef.chefId, newFollowers: Number(chef.newFollowers) }));
 }
 
 /**
  * 注目のシェフを計算して、データベースに保存する
  */
-export async function saveChefTrends(): Promise<void> {
+export async function saveChefTrends(prisma: PrismaClient): Promise<void> {
   const chefTrends = await calculateChefTrends(prisma);
 
   // 運用するまではトレンドの履歴は不要のため、最新のトレンドのみ保存する
