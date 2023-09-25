@@ -21,7 +21,7 @@ export default async function Settings() {
           <p className="font-bold px-4">利用規約や問い合わせ</p>
           <div className="mt-3 flex flex-col">
             {/* TODO: リンクを設定する */}
-            <Link href="/" className="px-4 py-3 flex justify-between">
+            <Link href="/terms" className="px-4 py-3 flex justify-between">
               利用規約
               <ChevronRight />
             </Link>
