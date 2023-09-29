@@ -19,12 +19,24 @@ model User {
   email           String           @unique
   emailVerified   DateTime?
   image           String?
+  imageId         String?
+  biography       String?
+  url             UserUrl[]
   myRecipes       MyRecipe[]
   followings      Following[]
   favorites       Favorite[]
   accounts        Account[]
   myMemoItems     MyMemoItem[]
   shopListRecipes ShopListRecipe[]
+}
+
+model UserUrl {
+  id     String @id @default(cuid()) @db.VarChar(30)
+  userId String
+  url    String
+  User   User   @relation(fields: [userId], references: [id])
+
+  @@index([userId])
 }
 
 /// OAuthのアカウント（Google、Appleなど）
