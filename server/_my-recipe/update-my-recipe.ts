@@ -25,7 +25,7 @@ export const updateMyRecipe = protectedProcedure.input(updateMyRecipeInput).muta
 
   // cloudinaryの画像を更新
   await Promise.all(recipe.images.map((image) => deleteImageInCloudinary(image.imageId)));
-  const publicIds = await Promise.all(input.images.map((image) => uploadImageToCloudinary(image)));
+  const publicIds = input.images ? await Promise.all(input.images.map((image) => uploadImageToCloudinary(image))) : [];
 
   // requestのJSONをもとに更新処理
   return await ctx.prisma.recipe.update({
@@ -57,7 +57,7 @@ export const updateMyRecipe = protectedProcedure.input(updateMyRecipeInput).muta
       links: {
         deleteMany: {},
         createMany: {
-          data: input.urls.map((url) => ({ url })),
+          data: (input.urls ?? []).map((url) => ({ url })),
         },
       },
     },

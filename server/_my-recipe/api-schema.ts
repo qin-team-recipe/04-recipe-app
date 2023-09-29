@@ -9,9 +9,9 @@ export const createMyRecipeInput = z.object({
   ingredients: z.array(z.string()),
   yields: z.number().max(6).min(1),
   processes: z.array(z.string()),
-  images: z.array(z.string()),
+  images: z.array(z.string()).optional(),
   description: z.string().optional(),
-  urls: z.array(z.string().url()),
+  urls: z.array(z.string().url()).optional(),
 });
 
 export const updateMyRecipeInput = z.object({
@@ -20,9 +20,9 @@ export const updateMyRecipeInput = z.object({
   ingredients: z.array(z.string()),
   yields: z.number().max(6).min(1),
   processes: z.array(z.string()),
-  images: z.array(z.string()),
+  images: z.array(z.string()).optional(),
   description: z.string().optional(),
-  urls: z.array(z.string().url()),
+  urls: z.array(z.string().url()).optional(),
 });
 
 export const deleteMyRecipeInput = z.object({

@@ -7,7 +7,10 @@ import { createMyRecipeInput } from "./api-schema";
  */
 export const createMyRecipe = protectedProcedure.input(createMyRecipeInput).mutation(async ({ ctx, input }) => {
   // TODO: 画像を複数登録した場合にエラーになることがある（Macでは動作しました）
-  const publicIds = await Promise.all(input.images.map((image) => uploadImageToCloudinary(image)));
+  let publicIds: string[] = [];
+  if (input.images !== undefined) {
+    publicIds = await Promise.all(input.images.map((image) => uploadImageToCloudinary(image)));
+  }
 
   // requestのJSONをもとにマイレシピ登録
   return await ctx.prisma.recipe.create({
@@ -26,13 +29,13 @@ export const createMyRecipe = protectedProcedure.input(createMyRecipeInput).muta
       },
       images: {
         createMany: {
-          data: publicIds.map((pubulicid) => ({ imageId: pubulicid })),
+          data: publicIds.map((publicId) => ({ imageId: publicId })),
         },
       },
       description: input.description ?? "",
       links: {
         createMany: {
-          data: input.urls.map((url) => ({ url })),
+          data: (input.urls ?? []).map((url) => ({ url })),
         },
       },
       myRecipe: {
