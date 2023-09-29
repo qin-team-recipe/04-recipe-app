@@ -2,21 +2,19 @@
 import { useFieldArray, useFormContext } from "react-hook-form";
 import AddListButton from "./AddListButton";
 import DeleteListButton from "./DeleteListButton";
-import { ListSchema } from "./zodSchema";
+import { MyMemoListSchema } from "./zodSchema";
 import { ActionsButton } from "../Parts/Form/ActionsButton";
 import { ValidationError } from "../CreateRecipe/Parts/ValidationError";
 import { useRouter } from "next/navigation";
 import { trpcClient } from "@/app/utils/trpc-client";
 import { toast } from "react-toastify";
 
-export default function ListSection({ title, id }: { title: string; id?: string }) {
-  const shopListRecipeId = id;
-
+export default function MyMemoListSection({ id }: { id?: string }) {
   const {
     register,
     formState: { errors },
     control,
-  } = useFormContext<ListSchema>();
+  } = useFormContext<MyMemoListSchema>();
 
   const { fields, update, append, remove } = useFieldArray({
     control,
@@ -24,18 +22,16 @@ export default function ListSection({ title, id }: { title: string; id?: string 
   });
 
   const toggleMyMemoChecked = async (id: number) => {
-    // TODO:自分メモの場合の処理は後日追加
-
     update(id, {
       checked: !fields[id].checked,
       name: fields[id].name,
-      shopListIngredientId: fields[id].shopListIngredientId,
+      myMemoItemId: fields[id].myMemoItemId,
     });
 
-    const shopListIngredientId = fields[id].shopListIngredientId;
+    const shopListIngredientId = fields[id].myMemoItemId;
     if (shopListIngredientId) {
-      await trpcClient.shoppingList.updateShopListIngredient.mutate({
-        shopListIngredientId,
+      await trpcClient.shoppingList.myMemoUpdateItem.mutate({
+        myMemoItemId: shopListIngredientId,
         isChecked: !fields[id].checked,
       });
       router.refresh();
@@ -45,12 +41,10 @@ export default function ListSection({ title, id }: { title: string; id?: string 
   const router = useRouter();
 
   const removeHandler = async (id: number) => {
-    // TODO:自分メモの場合の処理は後日追加
-
-    const shopListIngredientId = fields[id].shopListIngredientId;
-    if (shopListIngredientId) {
+    const myMemoItemId = fields[id].myMemoItemId;
+    if (myMemoItemId) {
       const shopListIngredientName = fields[id].name;
-      await trpcClient.shoppingList.deleteShopListIngredient.mutate({ shopListIngredientId });
+      await trpcClient.shoppingList.myMemoDeleteItem.mutate({ myMemoItemId });
       toast.success(`${shopListIngredientName}を削除しました！`);
     }
     remove(id);
@@ -59,40 +53,36 @@ export default function ListSection({ title, id }: { title: string; id?: string 
 
   const onBlurHandler = async (id: number, event: React.FocusEvent<HTMLTextAreaElement>) => {
     const currentValue = event.target.value;
-    // TODO:自分メモの場合の処理は後日追加
+    const myMemoItemId = fields[id].myMemoItemId;
 
-    const shopListIngredientId = fields[id].shopListIngredientId;
-    if (!errors.list && shopListIngredientId !== "" && shopListIngredientId) {
-      await trpcClient.shoppingList.updateShopListIngredient.mutate({
-        shopListIngredientId,
-        isChecked: fields[id].checked,
-        name: currentValue,
+    if (!errors.list && myMemoItemId !== "" && myMemoItemId) {
+      // 更新の場合
+      await trpcClient.shoppingList.myMemoUpdateItem.mutate({
+        myMemoItemId,
+        content: currentValue,
       });
-      router.refresh();
-    } else if (!errors.list && shopListIngredientId == "" && shopListRecipeId !== undefined) {
-      await trpcClient.shoppingList.appendShopListIngredient.mutate({
-        shopListRecipeId,
-        name: currentValue,
+    } else if (!errors.list && myMemoItemId == "" && myMemoItemId !== undefined) {
+      // 新規追加の場合
+      await trpcClient.shoppingList.myMemoAddItem.mutate({
+        content: currentValue,
       });
-      router.refresh();
     }
+    router.refresh();
   };
 
   return (
     <section className="pt-[8px] pb-[24px] ">
       <div className="flex justify-between py-[12px] items-center px-[16px] border-border border-b-[1px]">
-        <h2 className="font-bold text-title text-[16px] truncate">{title}</h2>
+        <h2 className="font-bold text-title text-[16px] truncate">じぶんメモ</h2>
         <div className="flex gap-x-[16px]">
           {/* 追加ボタン */}
-          <AddListButton append={append} />
+          <AddListButton append={append} title="じぶんメモ" />
           {/* 一括削除ボタン */}
-          <DeleteListButton remove={remove} id={id} refresh={() => router.refresh()} title={title} />
+          <DeleteListButton remove={remove} id={id} refresh={() => router.refresh()} title="じぶんメモ" />
         </div>
       </div>
       {fields.length === 0 ? (
-        <p className="text-title pt-[20px] px-[15px]">
-          {title === "じぶんメモ" ? "じぶんメモがありません！" : "お買い物リストがありません！"}
-        </p>
+        <p className="text-title pt-[20px] px-[15px]">じぶんメモがありません！</p>
       ) : (
         <>
           <ul className="bg-white">

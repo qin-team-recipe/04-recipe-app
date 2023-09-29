@@ -2,7 +2,7 @@
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { listSchema, ListSchema } from "./zodSchema";
-import ListSection from "./ListSection";
+import ShopListSection from "./ShopListSection";
 
 type Props = {
   id: string;
@@ -19,7 +19,7 @@ export default function Recipe({ id, ingredients, name }: Props) {
 
   return (
     <FormProvider {...form}>
-      <ListSection title={name} id={id} />
+      <ShopListSection title={name} id={id} />
     </FormProvider>
   );
 }
