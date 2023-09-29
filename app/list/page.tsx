@@ -2,7 +2,7 @@ import Image from "next/image";
 import { getServerSession } from "next-auth";
 import { LoginScreen } from "../components/Auth/LoginScreen";
 import { RecipeList } from "../components/List/RecipeList";
-import MyMemoList from "../components/List/MyMemoList";
+import { MyMemoList } from "../components/List/MyMemoList";
 import { trpcClient } from "@/app/utils/trpc";
 
 export const metadata = {
@@ -13,7 +13,8 @@ export const metadata = {
 export default async function Page() {
   const session = await getServerSession();
   const shoppingList = await trpcClient.shoppingList.shoppingList.query();
-  console.log(shoppingList.recipes[0]?.shopListIngredients);
+
+  const myMemoList = await trpcClient.shoppingList.myMemoItems.query();
 
   return (
     <>
@@ -36,7 +37,7 @@ export default async function Page() {
         </div>
       ) : (
         <div>
-          <MyMemoList />
+          <MyMemoList myMemoList={myMemoList} />
           <RecipeList shoppingList={shoppingList} />
         </div>
       )}

@@ -19,41 +19,58 @@ type Item = {
 
 export default function DeleteListButton({ id, remove, refresh, title }: Props) {
   const shopListRecipeId = id;
+
   const fieldArray = useWatch({
     name: "list",
   });
 
+  // checkされているアイテムを削除する
   const handleDeleteCheckedItems = async () => {
-    // TODO:自分メモの場合の処理は後日追加
+    const removeAllCheckedItems = async () => {
+      for (let i = fieldArray.length - 1; i >= 0; i--) {
+        if (fieldArray[i].checked === true) {
+          remove(i);
+        }
+      }
+      // 買い物リストの場合
+      if (shopListRecipeId) {
+        await trpcClient.shoppingList.deleteCheckedShopListIngredients.mutate({ shopListRecipeId });
+        await removeAllCheckedItems();
+        toast.success(`${title}の完了した買い物リストを削除しました！`);
+      } else {
+        // じぶんメモの場合
+        await trpcClient.shoppingList.myMemoDeleteCompleted.mutate();
+        await removeAllCheckedItems();
+        toast.success(`${title}の完了したアイテムを削除しました！`);
+      }
+      refresh();
+    };
+  };
 
-    if (shopListRecipeId) {
-      await trpcClient.shoppingList.deleteCheckedShopListIngredients.mutate({ shopListRecipeId });
-      toast.success(`${title}の完了した買い物リストを削除しました！`);
-    }
-    for (let i = fieldArray.length - 1; i >= 0; i--) {
-      if (fieldArray[i].checked === true) {
+  // 全てのアイテムを削除する
+  const handleDeleteAllItems = async () => {
+    const removeAll = async () => {
+      for (let i = fieldArray.length - 1; i >= 0; i--) {
         remove(i);
       }
-    }
-
-    refresh();
-  };
-
-  const handleDeleteAllItems = async () => {
-    // TODO:自分メモの場合の処理は後日追加
+    };
 
     if (shopListRecipeId) {
+      // 買い物リストの場合
       await trpcClient.shoppingList.deleteShopListRecipe.mutate({ shopListRecipeId });
+      await removeAll();
       toast.success(`${title}の買い物リストを全て削除しました！`);
+    } else {
+      // じぶんメモ場合
+      await trpcClient.shoppingList.myMemoDeleteAll.mutate();
+      await removeAll();
+      toast.success(`${title}を全て削除しました！`);
     }
 
-    for (let i = fieldArray.length - 1; i >= 0; i--) {
-      remove(i);
-    }
     refresh();
   };
 
-  const ifFieldArrayHasCheckedItems = fieldArray.some((item: Item) => item.checked === true);
+  const ifFieldArrayHasCheckedItems = fieldArray?.some((item: Item) => item.checked === true);
 
   return (
     <DropdownMenu.Root>

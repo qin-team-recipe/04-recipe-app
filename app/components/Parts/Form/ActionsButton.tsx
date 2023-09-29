@@ -35,7 +35,7 @@ export const ActionsButton: FC<Props> = ({ index, removeHandler, fieldName }) =>
   };
 
   return (
-    (fieldArray.length > 1 || fieldName == "links") && (
+    (fieldArray.length >= 1 || fieldName == "links") && (
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -104,6 +104,7 @@ export const ActionsButton: FC<Props> = ({ index, removeHandler, fieldName }) =>
                 </button>
               </DropdownMenu.Item>
             )}
+
             <DropdownMenu.Item>
               <button
                 type="button"

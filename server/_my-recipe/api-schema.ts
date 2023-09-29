@@ -24,3 +24,7 @@ export const updateMyRecipeInput = z.object({
   description: z.string().optional(),
   urls: z.array(z.string().url()),
 });
+
+export const deleteMyRecipeInput = z.object({
+  myRecipeId: z.string(),
+});

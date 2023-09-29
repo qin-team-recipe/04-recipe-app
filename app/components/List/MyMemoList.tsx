@@ -1,30 +1,37 @@
 "use client";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { listSchema, ListSchema } from "./zodSchema";
-import ListSection from "./ListSection";
+import { myMemoListSchema, MyMemoListSchema } from "./zodSchema";
+import MyMemoListSection from "./MyMemoListSection";
+import { FC } from "react";
 
-// DBから取得する仕様に変更予定
-const defaultValues = {
-  list: [
-    { name: "マカロニ", checked: false },
-    {
-      name: "生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム生クリーム",
-      checked: false,
-    },
-  ],
+type Props = {
+  myMemoList: {
+    id: string;
+    name: string;
+    isChecked: boolean;
+    sortOrder: number;
+  }[];
 };
 
-export default function MyMemoList() {
-  const form = useForm<ListSchema>({
-    resolver: zodResolver(listSchema),
+export const MyMemoList: FC<Props> = ({ myMemoList }) => {
+  const defaultValues = {
+    list: myMemoList.map((memo) => ({
+      name: memo.name,
+      checked: memo.isChecked,
+      myMemoItemId: memo.id,
+    })),
+  };
+
+  const form = useForm<MyMemoListSchema>({
+    resolver: zodResolver(myMemoListSchema),
     defaultValues,
     mode: "onBlur",
   });
 
   return (
     <FormProvider {...form}>
-      <ListSection title="じぶんメモ" />
+      <MyMemoListSection />
     </FormProvider>
   );
-}
+};
