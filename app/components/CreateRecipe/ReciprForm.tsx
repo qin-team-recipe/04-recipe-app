@@ -97,10 +97,7 @@ export const RecipeForm = () => {
       ...input,
       ingredients: input.ingredients.map((item) => item.value),
       processes: input.processes.map((item) => item.value),
-      urls:
-        input.urls && getFieldState("urls").isDirty
-          ? input.urls.map((item) => item.value as string)
-          : ["https://google.com"],
+      urls: input.urls && getFieldState("urls").isDirty ? input.urls.map((item) => item.value as string) : [],
       images,
     };
   };
