@@ -4,7 +4,7 @@ import Link from "next/link";
 import styles from "../../styles/noscrollbar.module.css";
 
 export default async function TopChefs() {
-  const chefs = await trpcCaller.chefs({});
+  const chefs = await trpcCaller.featuredChefs();
 
   return (
     <section className="pt-[20px] pb-[48px] overflow-hidden">
@@ -18,7 +18,7 @@ export default async function TopChefs() {
         <ul
           className={`flex gap-x-[16px] overflow-x-scroll w-screen md:w-full pl-[15px] mt-[16px] ${styles.noscrollbar}`}
         >
-          {chefs.slice(0, 4).map((chef) => (
+          {chefs.map((chef) => (
             <li className="w-[148px] h-[220px] relative  rounded-[16px] flex-none overflow-hidden" key={chef.id}>
               <Link href={`/chef/${chef.id}/recipes`}>
                 <Image src={chef.profileImageUrl} alt={chef.displayName} fill />

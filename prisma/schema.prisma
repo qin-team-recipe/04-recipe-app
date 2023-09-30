@@ -59,6 +59,7 @@ model Chef {
   recipes      ChefRecipe[]
   followers    Following[]
   links        ChefLink[]
+  trends       ChefTrend[]
 }
 
 /// シェフのリンク（Twitter、Instagram、Webサイトなど）
@@ -71,6 +72,18 @@ model ChefLink {
   siteName      String
   /// フォロワー数（Twitter、Instagram）
   followerCount Int?   @db.UnsignedInt
+
+  @@index([chefId])
+}
+
+/// シェフのトレンド（注目のシェフ）
+model ChefTrend {
+  id           Int      @id @default(autoincrement())
+  chefId       String
+  chef         Chef     @relation(fields: [chefId], references: [id])
+  /// 新規フォロワー数
+  newFollowers Int
+  createdAt    DateTime @default(now())
 
   @@index([chefId])
 }
@@ -97,6 +110,7 @@ model Recipe {
   links           RecipeLink[]
   /// 買い物リストのレシピ
   shopListRecipes ShopListRecipe[]
+  trends          RecipeTrend[]
 }
 
 /// シェフのレシピ
@@ -168,13 +182,26 @@ model RecipeLink {
   @@index([recipeId])
 }
 
+/// レシピのトレンド（話題のレシピ）
+model RecipeTrend {
+  id           Int      @id @default(autoincrement())
+  recipeId     String
+  recipe       Recipe   @relation(fields: [recipeId], references: [id])
+  /// 新規お気に入り数
+  newFavorites Int
+  createdAt    DateTime @default(now())
+
+  @@index([recipeId])
+}
+
 /// フォロー（ユーザーがシェフをフォローする）
 model Following {
-  id     Int    @id @default(autoincrement())
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
-  chefId String
-  chef   Chef   @relation(fields: [chefId], references: [id])
+  id        Int      @id @default(autoincrement())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  chefId    String
+  chef      Chef     @relation(fields: [chefId], references: [id])
+  createdAt DateTime @default(now())
 
   @@unique(fields: [userId, chefId])
   @@index([chefId])
@@ -182,11 +209,12 @@ model Following {
 
 /// お気に入り（ユーザーがレシピをお気に入りする）
 model Favorite {
-  id       Int    @id @default(autoincrement())
-  userId   String
-  user     User   @relation(fields: [userId], references: [id])
-  recipeId String
-  recipe   Recipe @relation(fields: [recipeId], references: [id])
+  id        Int      @id @default(autoincrement())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  recipeId  String
+  recipe    Recipe   @relation(fields: [recipeId], references: [id])
+  createdAt DateTime @default(now())
 
   @@unique(fields: [userId, recipeId])
   @@index([recipeId])
