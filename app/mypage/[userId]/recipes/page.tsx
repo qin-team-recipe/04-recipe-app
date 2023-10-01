@@ -12,30 +12,6 @@ export const metadata = {
 export default async function MyPageRecipes({ params }: { params: { userId: string } }) {
   const userId = params.userId;
 
-  // ダミー。あとで消す
-  // const user = {
-  //   id: "foobarid",
-  //   displayName: "山田シェフ",
-  //   bio: "初の絵本出版！ 『 まねっこシェフ』 ・ふわふわ！スクランブルエッグ ・にぎにぎ！おにぎり 主婦の友社より３月３日、２冊同時発売！ 絶賛発売中！",
-  //   followerCount: 123,
-  //   recipeCount: 456,
-  //   profileImageUrl: "/images/favChef.png",
-  //   links: {
-  //     youtube: {
-  //       url: "https://www.youtube.com/channel/UCJFp8uSYCjXOMnkUyb3CQ3Q",
-  //       siteName: "Youtube",
-  //     },
-  //     instagram: {
-  //       url: "https://www.instagram.com/ryuji_ryuji_ryuji/",
-  //       siteName: "Instagram",
-  //     },
-  //   },
-  //   recipes: [
-  //   ],
-  //   popularRecipes: [
-  //   ],
-  // };
-
   const user = await trpcClient.generalChef.query({ userId });
   console.log({ user });
 
