@@ -2,14 +2,15 @@
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { listSchema, ListSchema } from "./zodSchema";
-import ListSection from "./ListSection";
+import ShopListSection from "./ShopListSection";
 
 type Props = {
-  recipe: string;
-  ingredients: { item: string; checked: boolean }[];
+  id: string;
+  name: string;
+  ingredients: { name: string; checked: boolean; shopListIngredientId: string }[];
 };
 
-export default function Recipe({ ingredients, recipe }: Props) {
+export default function Recipe({ id, ingredients, name }: Props) {
   const form = useForm<ListSchema>({
     resolver: zodResolver(listSchema),
     defaultValues: { list: ingredients },
@@ -18,7 +19,7 @@ export default function Recipe({ ingredients, recipe }: Props) {
 
   return (
     <FormProvider {...form}>
-      <ListSection title={recipe} />
+      <ShopListSection title={name} id={id} />
     </FormProvider>
   );
 }
