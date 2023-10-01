@@ -7,7 +7,8 @@ export default async function ChefLayout({ children }: { children: React.ReactNo
 
   return (
     <>
-      {session == null ? (
+      {/* TODO: ログインしていない場合は、プロフィール編集画面を見れないようにする */}
+      {/* {session == null ? (
         <div>
           <div className="flex justify-between px-[15px] border-b-[1px] border-border text-center text-title font-bold text-[20px] py-[12px] items-center">
             <h1 className="flex-grow text-center">マイページ</h1>
@@ -24,7 +25,8 @@ export default async function ChefLayout({ children }: { children: React.ReactNo
         </div>
       ) : (
         <>{children}</>
-      )}
+      )} */}
+      <>{children}</>
     </>
   );
 }

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { FC } from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { BrandYoutube, BrandInstagram, DotsCircleHorizontal, ArrowLeft, Copy, Pencil } from "tabler-icons-react";
-// import { useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import styles from "../../styles/dropdownMenuContent.module.css";
 import Link from "next/link";
 import { toast } from "react-toastify";
@@ -15,7 +15,7 @@ type Props = {
     id: string;
     displayName: string;
     bio?: string;
-    followerCount: number;
+    // followerCount: number;
     recipeCount: number;
     profileImageUrl?: string;
     links?: {
@@ -37,7 +37,9 @@ const onClickClipboardHandler = async (text: string) => {
 
 const MyPageHero: FC<Props> = ({ user, userId }) => {
   const router = useRouter();
-  // const { data: session } = useSession();
+  const { data: session } = useSession();
+
+  const isMyProfile = session?.user.userId == user.id ? true : false;
 
   return (
     <>
@@ -127,19 +129,20 @@ const MyPageHero: FC<Props> = ({ user, userId }) => {
           <p className="pt-[14.17px] text-[16px] leading-snug">
             <span className="font-bold">{user.recipeCount}</span> レシピ
           </p>
-          <p className="pt-[14.17px] text-[16px] leading-snug">
+          {/* <p className="pt-[14.17px] text-[16px] leading-snug">
             <span className="font-bold">{user.followerCount}</span> フォロワー
-          </p>
+          </p> */}
         </div>
-
-        <div className="mt-4 text-center">
-          <Link
-            href={`/mypage/${userId}/edit`}
-            className="block w-full py-[8px] px-[12px] rounded-[4px] text-[14px] leading-[17px] text-title border border-text"
-          >
-            プロフィールを編集
-          </Link>
-        </div>
+        {isMyProfile && (
+          <div className="mt-4 text-center">
+            <Link
+              href={`/mypage/${userId}/edit`}
+              className="block w-full py-[8px] px-[12px] rounded-[4px] text-[14px] leading-[17px] text-title border border-text"
+            >
+              プロフィールを編集
+            </Link>
+          </div>
+        )}
       </div>
     </>
   );
