@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useFormContext, useWatch } from "react-hook-form";
 import { ValidationError } from "./Parts/ValidationError";
+import { useState } from "react";
 
 export default function ImageInput() {
   const {
@@ -14,19 +15,23 @@ export default function ImageInput() {
     name: "image",
   });
 
+  const [previewImageData, setPreviewImageData] = useState<string>("");
+
   const uploadImageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    const file = files![0];
+
     const reader = new FileReader();
     reader.onload = () => {
-      setValue("image", reader.result as string);
+      setPreviewImageData(reader.result as string);
     };
-    reader.readAsDataURL(e.target.files![0]);
+    reader.readAsDataURL(file);
   };
 
   const deleteImageHandler = () => {
-    setValue("image", "");
+    setValue("image", null);
+    setPreviewImageData("");
   };
-
-  const { onBlur, name, ref } = register("image");
 
   return (
     <section className="pt-[8px] pb-[24px]  overflow-x-hidden">
@@ -36,9 +41,9 @@ export default function ImageInput() {
 
       <div className="px-[16px]">
         <div className="inline-block relative">
-          {image ? (
+          {previewImageData ? (
             <>
-              <Image src={image} alt="レシピの写真" width={128} height={128} />
+              <Image src={previewImageData} alt="レシピの写真" width={128} height={128} />
               <button
                 type="button"
                 className="bg-primary absolute rounded-full w-[20px] h-[20px] -top-[5px] -right-[5px]"
@@ -82,13 +87,9 @@ export default function ImageInput() {
                 id="file"
                 hidden
                 className="display-none"
-                onChange={uploadImageHandler}
                 accept="image/*"
                 multiple={false}
-                onBlur={onBlur} // assign onBlur event
-                name={name} // assign name prop
-                ref={ref} // assign ref prop
-                // {...register("image")}
+                {...register("image", { onChange: uploadImageHandler })}
               />
             </>
           )}

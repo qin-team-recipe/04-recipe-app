@@ -10,22 +10,24 @@ import StepsInput from "./StepsInput";
 import { CreateRecipeSchema, recipeSchema } from "./zodSchema";
 import { CreateRecipeHeader } from "./Header";
 import { usePathname } from "next/navigation";
+import { trpcClient } from "@/app/utils/trpc-client";
+import React from "react";
 
 export const RecipeForm = () => {
   const pathname = usePathname();
   const createDefaultValues = {
-    servings: 2,
+    yields: 2,
     ingredients: [
       {
         value: "",
       },
     ],
-    steps: [
+    processes: [
       {
         value: "",
       },
     ],
-    links: [
+    urls: [
       {
         value: "",
       },
@@ -34,18 +36,18 @@ export const RecipeForm = () => {
 
   const editDefaultValues = {
     // APIから取得したをデータへ変更予定
-    servings: 2,
+    yields: 2,
     ingredients: [
       {
         value: "",
       },
     ],
-    steps: [
+    processes: [
       {
         value: "",
       },
     ],
-    links: [
+    urls: [
       {
         value: "",
       },
@@ -61,14 +63,50 @@ export const RecipeForm = () => {
 
   const {
     handleSubmit,
+    getFieldState,
     formState: { errors },
   } = form;
 
-  const onSubmit: SubmitHandler<CreateRecipeSchema> = (data) => {
-    console.log(data);
+  const transformedServerScheme = async (input: CreateRecipeSchema) => {
+    let imageUrl = null;
+    const fileData = input.image;
+
+    if (typeof fileData !== "undefined") {
+      const readFile = new Promise<string | null>((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = function (event: ProgressEvent<FileReader>) {
+          if (event.target) {
+            const base64Url = event.target.result as string;
+            resolve(base64Url);
+          } else {
+            resolve(null);
+          }
+        };
+        reader.onerror = function () {
+          resolve(null);
+        };
+        reader.readAsDataURL(fileData);
+      });
+
+      imageUrl = await readFile;
+    }
+
+    const images = imageUrl ? [imageUrl] : [];
+
+    return {
+      ...input,
+      ingredients: input.ingredients.map((item) => item.value),
+      processes: input.processes.map((item) => item.value),
+      urls: input.urls && getFieldState("urls").isDirty ? input.urls.map((item) => item.value as string) : [],
+      images,
+    };
+  };
+
+  const onSubmit: SubmitHandler<CreateRecipeSchema> = async (data) => {
     const result = window.confirm("保存しますか？");
     if (result) {
-      window.alert(data);
+      const shapedData = await transformedServerScheme(data);
+      await trpcClient.regmyrecipe.mutate(shapedData);
     }
   };
 
@@ -80,7 +118,7 @@ export const RecipeForm = () => {
         {/* レシピ名 */}
         <NameInput />
 
-        {/* 材料*/}
+        {/* 材料 */}
         <IngredientInput />
 
         {/* 作り方*/}
@@ -118,7 +156,7 @@ export const RecipeForm = () => {
             />
           </section>
         ) : (
-          <></>
+          <React.Fragment></React.Fragment>
         )}
       </form>
     </FormProvider>

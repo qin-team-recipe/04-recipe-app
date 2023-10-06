@@ -1,1 +1,1 @@
-export type TMultiInputFieldType = "link" | "process" | "ingredient";
+export type TMultiInputFieldType = "url" | "process" | "ingredient";

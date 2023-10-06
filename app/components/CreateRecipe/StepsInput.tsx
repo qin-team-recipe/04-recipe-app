@@ -11,7 +11,7 @@ export default function StepsInput() {
     formState: { errors },
   } = useFormContext<CreateRecipeSchema>();
 
-  const fieldName = "steps";
+  const fieldName = "processes";
 
   const { fields, append, remove } = useFieldArray({
     name: fieldName,
@@ -27,7 +27,7 @@ export default function StepsInput() {
         {fields.map((step, index) => (
           <li className="relative" key={step.id}>
             <textarea
-              {...register(`steps.${index}.value` as const)}
+              {...register(`processes.${index}.value` as const)}
               placeholder="例：材料を適当な大きさに切ります。"
               className="block w-full text-title text-[14px] py-[13px] pl-[42px] pr-[50px] border-border border-b-[1px] bg-white leading-[18px]  min-h-[100px] focus:outline-text"
             ></textarea>
@@ -45,10 +45,10 @@ export default function StepsInput() {
 
       <AppendInputButton type="process" append={append} />
 
-      {errors.steps &&
-        (errors.steps as any).map((step: any, index: number) =>
-          step?.value?.message ? (
-            <ValidationError errorMessage={`作り方${index + 1}：${step?.value?.message}`} key={index} />
+      {errors.processes &&
+        (errors.processes as any).map((process: any, index: number) =>
+          process?.value?.message ? (
+            <ValidationError errorMessage={`作り方${index + 1}：${process?.value?.message}`} key={index} />
           ) : (
             <ValidationError errorMessage={`作り方${index + 1}：作り方を入力してください。`} key={index} />
           )
