@@ -2,7 +2,7 @@
 
 import { Plus } from "tabler-icons-react";
 import { getLabelAndDescription } from "./utils/helpers";
-import type { TMultiInputFieldType } from "./utils/types";
+import { TMultiInputFieldType } from "./utils/types";
 
 type Props = {
   type: TMultiInputFieldType;

@@ -1,11 +1,12 @@
 "use client";
 
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { AppendInputButton } from "./AppendInputButton";
+
 import type { Path, ArrayPath, FieldValues, FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
-import type { TMultiInputFieldType } from "./utils/types";
-import { getLabelAndDescription } from "./utils/helpers";
 import { Trash } from "tabler-icons-react";
+import { TMultiInputFieldType } from "./utils/types";
+import { getLabelAndDescription } from "./utils/helpers";
+import { AppendInputButton } from "./AppendInputButton";
 
 type Props<T extends FieldValues> = {
   type: TMultiInputFieldType;
